@@ -1,0 +1,2 @@
+# mira
+AWS infrastructure visualizer
