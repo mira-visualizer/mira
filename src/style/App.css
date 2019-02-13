@@ -1,0 +1,18 @@
+#main-container{
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+}
+#graph{
+  background-color: "yellow";
+  
+}
+
+#cytoscape{
+  background-color: "orange";
+}
+
+#app {
+  display:grid;
+  grid-template: 1fr;
+  background-color:"purple";
+}
