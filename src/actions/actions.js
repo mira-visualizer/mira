@@ -15,6 +15,7 @@ export const getEC2 = () =>{
 
   return (dispatch) => {
     return ec2.describeInstances(params, function(err, data) {
+
       if (err) {
         console.log("Error", err.stack);
       } else {
@@ -24,6 +25,7 @@ export const getEC2 = () =>{
         type: actionTypes.GET_EC2,
         payload: JSON.stringify(data.Reservations)
       })
+
     });
   }
 }

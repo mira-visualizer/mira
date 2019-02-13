@@ -16,7 +16,6 @@ function initializeWindow() {
   });
 };
 
-
 app.on('ready', initializeWindow);
 
 app.on('window-all-closed', () => {
