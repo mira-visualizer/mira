@@ -10,6 +10,7 @@ const graphReducer = (state = initialState, action) => {
     switch (action.type) {
       case actionTypes.GET_EC2: {
         console.log('this is the state: ',state);
+        console.log('action.payload', action.payload);
         return {
           ...state,
           // what we will be updating?

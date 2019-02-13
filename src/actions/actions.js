@@ -12,13 +12,20 @@ const ec2 = new AWS.EC2({});
 const params = {};
 
 export const getEC2 = () =>{
+
   return (dispatch) => {
-    ec2.describeInstances(params, function(err, data) {
+    return ec2.describeInstances(params, function(err, data) {
+
       if (err) {
         console.log("Error", err.stack);
       } else {
         console.log("Success", JSON.stringify(data.Reservations));
       }
+      dispatch({
+        type: actionTypes.GET_EC2,
+        payload: JSON.stringify(data.Reservations)
+      })
+
     });
   }
 }

@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "electron-devtools-installer": "^2.2.4",
+    "electron-redux-devtools": "^0.3.4",
     "webpack": "^4.29.3"
   },
   "resolutions": {
