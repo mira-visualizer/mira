@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions/actions.js';
+import Cyto from '../cyto/cyto';
 
 const mapStateToProps = store => ({
   everthing: store,
@@ -23,6 +24,7 @@ class graphContainer extends Component{
     return (
       <div id="graph">
       <button onClick={this.props.getEC2}>GET ALL</button>
+      <Cyto/>
         {/* {state.ec2} */}
       </div>
     )
