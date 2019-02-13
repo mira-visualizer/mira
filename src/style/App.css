@@ -10,7 +10,9 @@
 #cytoscape{
   background-color: "orange";
 }
-
+#root {
+  background-color:"pink";
+}
 #app {
   display:grid;
   grid-template: 1fr;

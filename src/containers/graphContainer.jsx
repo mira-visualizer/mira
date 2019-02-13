@@ -26,7 +26,7 @@ class graphContainer extends Component{
       <div id="main-container">
       
         <div id="graph">
-          <button onClick={this.props.getEC2}>GET ALL</button>
+          <button onClick={this.props.getEC2}>GET ALL EC2</button>
         </div>
         <div id="cytoscape">
           <Cyto/>
