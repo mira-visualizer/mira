@@ -4,7 +4,7 @@ class Side_Panel extends Component {
   render() {
     return(
       <div id="sidePanel">
-        <h1>Side Panel Biaches</h1>
+        {JSON.stringify(this.props.regionData)}
       </div>
     )
   }
