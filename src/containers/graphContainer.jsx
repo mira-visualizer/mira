@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../actions/actions.js';
 import Cyto from '../cyto/cyto';
-import '../style/App.css';
+import '../styles/App.scss';
 
 const mapStateToProps = store => ({
   everthing: store,
@@ -16,25 +16,17 @@ const mapDispatchToProps = dispatch => ({
     }
 })
 
-class graphContainer extends Component{
+class GraphContainer extends Component{
   constructor(props) {
     super(props);
   }
   render() {
-    console.log(this.props);
     return (
-      <div id="main-container">
-      
-        <div id="graph">
-          <button onClick={this.props.getEC2}>GET ALL EC2</button>
-        </div>
-        <div id="cytoscape">
+        <div id="graphContainer">
           <Cyto/>
         </div>
-
-      </div>
     )
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(graphContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(GraphContainer);

@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import cytoscape from 'cytoscape';
-import './cyto.css';
+import './cyto.scss';
 import EC2 from './EC2'
 import S3 from './S3'
 import VPC from './VPC'
@@ -15,13 +15,10 @@ class Cyto extends Component{
     this.renderElement = this.renderElement.bind(this);
     this.cy = null;
     this.nodes = {};
-    // console.log(data);
-
   }
   renderElement(){
     this.cy = cytoscape({
       container: document.getElementById('cy'),
-    
       boxSelectionEnabled: false,
       autounselectify: true,
       layout: {
@@ -29,21 +26,19 @@ class Cyto extends Component{
         flow: { axis: 'y', minSeparation: 40 },
         avoidOverlap: true
       },
-
       style: cytoscape.stylesheet()
         .selector('node')
           .css({
             'height': 80,
             'width': 80,
             'background-fit': 'cover',
+            'background-color': 'white',
             'border-color': '#000',
             'border-width': 3,
             'border-opacity': 0.5,
             'text-halign': 'center',
             'text-valign': 'center',
             'label': 'data(label)'
-
-
           })
         .selector(':parent')
           .css({
@@ -61,16 +56,13 @@ class Cyto extends Component{
             'target-arrow-color': '#ffaaaa',
             'opacity': 0.5
           })
-          
         });
-      
         /**
          *  VPCs just pass in the id
          *  Availability Zone pass in the ID and the VPC's ID
          *  EC2( data, parent, source)
          *  S3 ( data, parent, source )
          */
-
       this.cy.add(new VPC("vpc-d2681ab7").getVPCObject());
       this.cy.add(new AvailabilityZone("us-west-2b","vpc-d2681ab7").getAvailabilityZoneObject());
       this.cy.add(new EC2({id:0}, "us-west-2b" , null).getEC2Object());
@@ -87,18 +79,14 @@ class Cyto extends Component{
       componentDidMount(){
         this.renderElement();
         this.cy.layout({name: 'cola', flow: { axis: 'y', minSeparation: 40}, avoidOverlap: true}).run();
-
-        // 
       }
-
       render(){
         return(
             <div className="node_selected">
                 <div id="cy"></div>
             </div>
         )
-    }
-          
+    }        
 };
 
 export default Cyto;
