@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import cytoscape from 'cytoscape';
-import './cyto.css';
+import './cyto.scss';
 import EC2 from './EC2'
 import S3 from './S3'
 import VPC from './VPC'
@@ -19,13 +19,12 @@ class Cyto extends Component{
     super(props);
     this.renderElement = this.renderElement.bind(this);
     this.cy = null;
+    this.nodes = {};
     console.log(this.props);
-
   }
   renderElement(){
     this.cy = cytoscape({
       container: document.getElementById('cy'),
-    
       boxSelectionEnabled: false,
       autounselectify: true,
       layout: {
@@ -33,21 +32,19 @@ class Cyto extends Component{
         flow: { axis: 'y', minSeparation: 40 },
         avoidOverlap: true
       },
-
       style: cytoscape.stylesheet()
         .selector('node')
           .css({
             'height': 80,
             'width': 80,
             'background-fit': 'cover',
+            'background-color': 'white',
             'border-color': '#000',
             'border-width': 3,
             'border-opacity': 0.5,
             'text-halign': 'center',
             'text-valign': 'center',
             'label': 'data(label)'
-
-
           })
         .selector(':parent')
           .css({
@@ -75,7 +72,6 @@ class Cyto extends Component{
           })
           
         });
-      
         /**
          *  VPCs just pass in the id
          *  Availability Zone pass in the ID and the VPC's ID
@@ -97,7 +93,6 @@ class Cyto extends Component{
         this.renderElement();
         this.cy.layout({name: 'cola', flow: { axis: 'y', minSeparation: 40}, avoidOverlap: true}).run();
       }
-
       render(){
         
         for(let vpc in this.props.regionData){
@@ -123,8 +118,7 @@ class Cyto extends Component{
                 <div id="cy"></div>
             </div>
         )
-    }
-          
+    }        
 };
 
 export default Cyto;
