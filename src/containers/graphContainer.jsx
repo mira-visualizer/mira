@@ -6,8 +6,8 @@ import Cyto from '../cyto/cyto';
 import '../style/App.css';
 
 const mapStateToProps = store => ({
-  everthing: store,
-  ec2: store.graph.ec2Instances,
+  regionData: store.graph.regionData
+  // ec2: store.graph.ec2Instances,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -21,7 +21,6 @@ class graphContainer extends Component{
     super(props);
   }
   render() {
-    console.log(this.props);
     return (
       <div id="main-container">
       
@@ -29,7 +28,7 @@ class graphContainer extends Component{
           <button onClick={this.props.getEC2}>GET ALL EC2</button>
         </div>
         <div id="cytoscape">
-          <Cyto/>
+          <Cyto regionData={this.props.regionData}/>
         </div>
 
       </div>
