@@ -26,7 +26,7 @@ class MainContainer extends Component{
     return (
         <div id="mainContainer">
           <GraphContainer getEC2={this.props.getEC2} regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails} />
-          <Side_Panel regionData={this.props.regionData}/>
+          <Side_Panel regionData={this.props.regionData} activeNode={this.props.activeNode}/>
         </div>
     )
   }
