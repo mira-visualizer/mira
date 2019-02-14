@@ -1,0 +1,40 @@
+@import "theme";
+
+body{
+  margin: 0px;
+  font-family: $title-font;
+}
+// #cytoscape{
+//   background-color: orange;
+// }
+// #root{
+//   background-color:pink;
+// }
+#app{
+  display:grid;
+  grid-template: 1fr;
+  background-color:rgba(72, 100, 151, 0.863);
+}
+#Menu{
+  background-color: rgb(255, 255, 255);
+  height: 30px;
+}
+#mainContainer{
+  display: flex;
+  flex-direction: row;
+}
+#graphContainer{
+  background-color: $graph-container-bg-color;
+  width: calc(100vw - #{$side-bar-width});
+}
+#sidePanel{
+  padding:10px;
+  width: $side-bar-width;
+  background-color: darken($bg-color,10%);
+  border-style: solid;
+  border-color: darken($bg-color,20%);
+  border-width: 2px;
+}
+#refresh{
+  float: right;
+}

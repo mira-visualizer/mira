@@ -36,6 +36,9 @@
   "devDependencies": {
     "electron-devtools-installer": "^2.2.4",
     "electron-redux-devtools": "^0.3.4",
+    "electron-reload": "^1.4.0",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
     "webpack": "^4.29.3"
   },
   "resolutions": {

@@ -2,7 +2,7 @@ class RDS {
   constructor(data, parent, source){
     this.data = data;
     this.id = data.DbiResourceId;
-    this.name = data.DBName;
+    this.name = data.DBInstanceIdentifier;
     this.source = source;
     this.parent = parent;
   }

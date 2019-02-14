@@ -2,7 +2,8 @@ import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
     currentRegion: 'us-east-2',
-    regionData: {}
+    regionData: {},
+    activeNode: ''
 }
 
 const graphReducer = (state = initialState, action) => {
