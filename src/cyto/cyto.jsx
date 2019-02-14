@@ -27,11 +27,11 @@ class Cyto extends Component{
       container: document.getElementById('cy'),
       boxSelectionEnabled: false,
       autounselectify: true,
-      layout: {
-        name: 'cola',
-        flow: { axis: 'y', minSeparation: 40 },
-        avoidOverlap: true
-      },
+      // layout: {
+      //   name: 'cola',
+      //   flow: { axis: 'y', minSeparation: 40 },
+      //   avoidOverlap: true
+      // },
       style: cytoscape.stylesheet()
         .selector('node')
           .css({
@@ -78,13 +78,8 @@ class Cyto extends Component{
          *  EC2( data, parent, source)
          *  S3 ( data, parent, source )
          */
-     
-      // this.cy.add(new EC2({id:1}, "us-west-2b" , 0).getEC2Object());
-      // this.cy.add(new AvailabilityZone("us-west-1a","vpc-d2681ab7").getAvailabilityZoneObject());
-      // this.cy.add(new EC2({id:2}, "us-west-1a", 1).getEC2Object());
-      // this.cy.add(new S3({id: 3},"us-west-2b",1).getS3Object());
 
-        this.cy.on('tap', 'node', function (evt){
+         this.cy.on('tap', 'node', function (evt){
           console.log("The id of the node clicked is ", this.id());
           // instance id of each item (ec2 or rds, etc.)
           // we want to update state of side panel to be this active node
@@ -95,10 +90,12 @@ class Cyto extends Component{
 
       componentDidMount(){
         this.renderElement();
-        this.cy.layout({name: 'cola', flow: { axis: 'y', minSeparation: 40}, avoidOverlap: true}).run();
       }
       render(){
         
+        if(this.cy) {
+          this.cy.$('node').remove();
+        }
         for(let vpc in this.props.regionData){
           let vpcObj = this.props.regionData[vpc];
           this.cy.add(new VPC(vpc).getVPCObject());
@@ -117,6 +114,12 @@ class Cyto extends Component{
             //make edges for nodes
           }
         }
+        if(this.cy){
+
+          this.cy.layout({name: 'cola', flow: { axis: 'y', minSeparation: 40}, avoidOverlap: true}).run();
+        }
+
+        
         return(
             <div className="node_selected">
                 <div id="cy"></div>
