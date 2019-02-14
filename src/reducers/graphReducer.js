@@ -17,6 +17,11 @@ const graphReducer = (state = initialState, action) => {
         }
       }
 
+      case actionTypes.NODE_DETAILS: {
+        const newState = {...state,activeNode:action.payload}
+        return newState;
+      }
+
       default: return state;
     }
 }

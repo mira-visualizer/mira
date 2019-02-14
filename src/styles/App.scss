@@ -31,10 +31,14 @@ body{
   padding:10px;
   width: $side-bar-width;
   background-color: darken($bg-color,10%);
-  border-style: solid;
-  border-color: darken($bg-color,20%);
-  border-width: 2px;
+  word-wrap: break-word;
 }
+
+#sidePanel p{
+  font-size: 10px;
+  color:white;
+}
+
 #refresh{
   float: right;
 }

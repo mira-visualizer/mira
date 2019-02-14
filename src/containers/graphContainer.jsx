@@ -17,7 +17,7 @@ class GraphContainer extends Component{
           <button onClick={this.props.getEC2}>GET ALL EC2</button>
         </div>
         <div id="cytoscape">
-          <Cyto regionData={this.props.regionData}/>
+          <Cyto regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails}/>
         </div>
       </div>
     )
