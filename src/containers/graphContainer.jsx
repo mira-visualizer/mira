@@ -6,8 +6,8 @@ import Cyto from '../cyto/cyto';
 import '../styles/App.scss';
 
 const mapStateToProps = store => ({
-  everthing: store,
-  ec2: store.graph.ec2Instances,
+  regionData: store.graph.regionData
+  // ec2: store.graph.ec2Instances,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -22,9 +22,14 @@ class GraphContainer extends Component{
   }
   render() {
     return (
-        <div id="graphContainer">
-          <Cyto/>
+      <div id="graphContainer">
+        <div id="graph">
+          <button onClick={this.props.getEC2}>GET ALL EC2</button>
         </div>
+        <div id="cytoscape">
+          <Cyto regionData={this.props.regionData}/>
+        </div>
+      </div>
     )
   }
 }
