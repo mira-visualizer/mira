@@ -1,20 +1,18 @@
 import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
-    ec2Instances: [],
-    rdsInstances: [],
-    s3Instances: []
+    currentRegion: 'us-east-2',
+    regionData: {}
 }
 
 const graphReducer = (state = initialState, action) => {
     switch (action.type) {
       case actionTypes.GET_EC2: {
-        console.log('this is the state: ',state);
-        console.log('action.payload', action.payload);
+        // let regions = state.regionsData;
+        // regions[state.currentRegion] = action.payload;
         return {
           ...state,
-          // what we will be updating?
-          ec2Instances: action.payload,
+          regionData: JSON.parse(action.payload),
         }
       }
 
