@@ -58,7 +58,6 @@ export const getEC2 = () =>{
           
           resolve();
         }
-                    // successful response\
       })
     }))
     // get ec2 instances from API
@@ -74,11 +73,26 @@ export const getEC2 = () =>{
         for(let i = 0; i < data.Reservations.length; i ++){
           let instances = data.Reservations[i].Instances;
           for( let j = 0; j < instances.length; j++){
-            let {VpcId, Placement: {AvailabilityZone}, InstanceId} = instances[j];
+            let {VpcId, Placement: {AvailabilityZone}, InstanceId, SecurityGroups} = instances[j];
             if(!regionState.hasOwnProperty(VpcId))regionState[VpcId] = {};
             if(!regionState[VpcId].hasOwnProperty(AvailabilityZone))regionState[VpcId][AvailabilityZone] = {};
             if(!regionState[VpcId][AvailabilityZone].hasOwnProperty("EC2"))regionState[VpcId][AvailabilityZone].EC2 = {};
             regionState[VpcId][AvailabilityZone].EC2[InstanceId] = instances[j];
+
+            promise.push(new Promise(function(resolve,reject) {
+              const param = {
+                GroupIds:[]
+              };
+              for(let k = 0; k < SecurityGroups.length; k++){
+                param.GroupIds.push(SecurityGroups[k].GroupId); 
+                
+              }
+              ec2.describeSecurityGroups(param, function(err, data) {
+                if (err) console.log(err, err.stack);
+                else console.log(data);
+                resolve();
+              } )
+            }))
           }
       
         }
@@ -86,6 +100,7 @@ export const getEC2 = () =>{
       }
     )}))
 
+    
     Promise.all(promise).then(function() {
       dispatch({
         type: actionTypes.GET_EC2,
