@@ -7,3 +7,5 @@ export const ADD_NODE = 'ADD_NODE';
 export const DELETE_NODE = 'DELETE_NODE';
 
 export const SHOW_ALL_SECURITY_GROUPS = 'SHOW_ALL_SECURITY_GROUPS';
+
+export const NODE_DETAILS = 'NODE_DETAILS';

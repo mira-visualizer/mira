@@ -11,7 +11,7 @@ class Menu extends Component {
           <option value="us-west-2">us-west-2</option>
           <option value="us-west-1">us-west-1</option>
         </select>
-        <button id="refresh">Refresh</button>
+        {/* <button id="refresh">Refresh</button> */}
       </div>
     )
   }

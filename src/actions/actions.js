@@ -1,5 +1,3 @@
-// boilerplate template - needs to be updated with more suitable actions
-
 import * as actionTypes from '../constants/actionTypes.js';
 
 const AWS = require('aws-sdk');
@@ -40,7 +38,6 @@ export const getEC2 = () =>{
     //rds call store the result into regionState
     const promise = [];
     promise.push(new Promise(function(resolve,reject) {
-
       rds.describeDBInstances(params, function(err, data) {
         if (err) console.log(err, err.stack); // an error occurred
         else{
@@ -54,16 +51,13 @@ export const getEC2 = () =>{
             if(!regionState[VpcId].hasOwnProperty(AvailabilityZone))regionState[VpcId][AvailabilityZone] = {};
             if(!regionState[VpcId][AvailabilityZone].hasOwnProperty("RDS"))regionState[VpcId][AvailabilityZone].RDS ={};
             regionState[VpcId][AvailabilityZone].RDS[DbiResourceId] = DBinstances;        
-          }
-          
+          } 
           resolve();
         }
       })
     }))
     // get ec2 instances from API
-
     promise.push(new Promise(function(resolve,reject) {
-
       ec2.describeInstances(params, function(err, data) {
         if (err) {
           console.log("Error", err.stack);
@@ -94,7 +88,6 @@ export const getEC2 = () =>{
               } )
             }))
           }
-      
         }
       resolve();
       }
@@ -107,9 +100,17 @@ export const getEC2 = () =>{
         payload: JSON.stringify(regionState)
       })
     })
-      
-    }
   }
+}
+
+export const getNodeDetails = (id) => {
+  console.log('inside action creator with id:',id)
+  return {
+    type: actionTypes.NODE_DETAILS,
+    payload: id
+  }
+}
+
 // TODO set up more reducers
 // export const showAllSecurityGroups = (name) => {
 //   return {

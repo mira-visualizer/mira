@@ -23,6 +23,9 @@ class Cyto extends Component{
     console.log(this.props);
   }
   renderElement(){
+
+    let getNodeFunction = this.props.getNodeDetails;
+
     this.cy = cytoscape({
       container: document.getElementById('cy'),
       boxSelectionEnabled: false,
@@ -81,6 +84,8 @@ class Cyto extends Component{
 
          this.cy.on('tap', 'node', function (evt){
           console.log("The id of the node clicked is ", this.id());
+          console.log(getNodeFunction);
+          getNodeFunction(this.id());
           // instance id of each item (ec2 or rds, etc.)
           // we want to update state of side panel to be this active node
           // if there is an active state, we will change state to empty string

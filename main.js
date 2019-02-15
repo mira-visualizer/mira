@@ -10,8 +10,9 @@ let mainWindow;
 
 function initializeWindow() {
   mainWindow = new BrowserWindow({});
+  mainWindow.maximize();
   mainWindow.loadFile(path.join(__dirname, './dist/index.html'));
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
   mainWindow.on('closed', () => {
   mainWindow = null;
   });
