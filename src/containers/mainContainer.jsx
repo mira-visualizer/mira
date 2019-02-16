@@ -8,10 +8,10 @@ import { connect } from 'react-redux';
 const mapStateToProps = store => ({
   regionData: store.graph.regionData,
   activeNode: store.graph.activeNode
-  // ec2: store.graph.ec2Instances,
 })
 
 const mapDispatchToProps = dispatch => ({
+  // should rename getEC2 to get all instances
     getEC2: (ec2) => {
         dispatch(actions.getEC2(ec2));
     },

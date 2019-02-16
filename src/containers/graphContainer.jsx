@@ -5,7 +5,6 @@ import Cyto from '../cyto/cyto';
 import '../styles/App.scss';
 
 
-
 class GraphContainer extends Component{
   constructor(props) {
     super(props);
