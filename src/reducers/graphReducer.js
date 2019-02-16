@@ -16,8 +16,15 @@ const graphReducer = (state = initialState, action) => {
         }
       }
       case actionTypes.NODE_DETAILS: {
-        const newState = {...state, activeNode:action.payload}
-        return newState;
+        const VPC = action.payload[3];
+        const availabilityZone = action.payload[2];
+        const instanceType = action.payload[1];
+        const instanceId = action.payload[0];
+        const nodeData = state.regionData[state.currentRegion][VPC][availabilityZone][instanceType][instanceId];
+        return {
+          ...state,
+          activeNode: nodeData
+        }
       }
       default: return state;
     }

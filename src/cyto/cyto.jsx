@@ -15,11 +15,14 @@ class Cyto extends Component{
     this.cy = null;
     // this.nodes should hold each node's id and specific data - pro: constant lookup time for each node, con: takes up storage space
     // alternatively we could find a way to access specific data per node from state
-    this.nodes = {};
-    }
+    this.state = {
+      nodes:{}
+    };
+  }
   // function call to render a cytoscape object (entire graph)
   renderElement(){
     let getNodeFunction = this.props.getNodeDetails;
+    let getStateNodes = this.state.nodes;
     // creates new cytoscape object and sets format for graph
     this.cy = cytoscape({
       container: document.getElementById('cy'),
@@ -71,10 +74,10 @@ class Cyto extends Component{
          *  EC2( data, parent, source)
          *  S3 ( data, parent, source )
          */
-
          //check to see if you can access parent of the current node to pass into function
-         this.cy.on('tap', 'node', function (evt){
-          getNodeFunction(this.id());
+        this.cy.on('tap', 'node', function (evt){
+          console.log(getStateNodes[this.id()]);
+          getNodeFunction(getStateNodes[this.id()] );
         })
       }
       // invokes the function to create object
@@ -95,10 +98,12 @@ class Cyto extends Component{
             let ec2Instances = vpcObj[az].EC2;
             for(let ec2s in ec2Instances){
               this.cy.add(new EC2(ec2Instances[ec2s], az, null).getEC2Object());
+              this.state.nodes[ec2s] = [ec2s,"EC2",az,vpc];
             }
             let rdsInstances = vpcObj[az].RDS;
             for (let rds in rdsInstances) {
               this.cy.add(new RDS(rdsInstances[rds], az, null).getRDSObject());
+              this.state.nodes[rds] = [rds,"RDS",az,vpc];
             }
             //make edges for nodes
           }
