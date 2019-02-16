@@ -20,7 +20,8 @@ const graphReducer = (state = initialState, action) => {
         const availabilityZone = action.payload[2];
         const instanceType = action.payload[1];
         const instanceId = action.payload[0];
-        const nodeData = state.regionData[state.currentRegion][VPC][availabilityZone][instanceType][instanceId];
+        const nodeData = state.regionData[VPC][availabilityZone][instanceType][instanceId];
+        console.log("THE NODE DATA ", state.regionData);
         return {
           ...state,
           activeNode: nodeData

@@ -17,8 +17,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(actions.getAWSInstances(instances));
     },
 
-    getNodeDetails: (id) => {
-      dispatch(actions.getNodeDetails(id));
+    getNodeDetails: (data) => {
+      dispatch(actions.getNodeDetails(data));
     }
 })
 
