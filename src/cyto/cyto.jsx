@@ -1,40 +1,31 @@
 import React,{Component} from 'react';
-import { connect } from 'react-redux';
 import cytoscape from 'cytoscape';
 import './cyto.scss';
 import EC2 from './EC2'
-import S3 from './S3'
 import VPC from './VPC'
 import RDS from './RDS'
 import AvailabilityZone from './AvailabilityZone'
 import cola from 'cytoscape-cola';
 
 cytoscape.use( cola );
-// const mapStateToProps = store => ({
-//     regionData: store.regionData
-//     // ec2: store.graph.ec2Instances,
-//   })
 class Cyto extends Component{
   constructor(props){
     super(props);
     this.renderElement = this.renderElement.bind(this);
     this.cy = null;
+    // this.nodes should hold each node's id and specific data - pro: constant lookup time for each node, con: takes up storage space
+    // alternatively we could find a way to access specific data per node from state
     this.nodes = {};
-    console.log(this.props);
-  }
+    }
+  // function call to render a cytoscape object (entire graph)
   renderElement(){
-
     let getNodeFunction = this.props.getNodeDetails;
-
+    // creates new cytoscape object and sets format for graph
     this.cy = cytoscape({
       container: document.getElementById('cy'),
       boxSelectionEnabled: false,
       autounselectify: true,
-      // layout: {
-      //   name: 'cola',
-      //   flow: { axis: 'y', minSeparation: 40 },
-      //   avoidOverlap: true
-      // },
+      // styling format for each element of the object (nodes, edges, etc.)
       style: cytoscape.stylesheet()
         .selector('node')
           .css({
@@ -73,7 +64,6 @@ class Cyto extends Component{
           .css({
               'background-color':'orange'
           })
-          
         });
         /**
          *  VPCs just pass in the id
@@ -82,25 +72,21 @@ class Cyto extends Component{
          *  S3 ( data, parent, source )
          */
 
+         //check to see if you can access parent of the current node to pass into function
          this.cy.on('tap', 'node', function (evt){
-          console.log("The id of the node clicked is ", this.id());
-          console.log(getNodeFunction);
           getNodeFunction(this.id());
-          // instance id of each item (ec2 or rds, etc.)
-          // we want to update state of side panel to be this active node
-          // if there is an active state, we will change state to empty string
-            // if the active state is empty we will change state to show information
         })
       }
-
+      // invokes the function to create object
       componentDidMount(){
         this.renderElement();
       }
       render(){
-        
+        // clears old graph when new graph is invoked
         if(this.cy) {
           this.cy.$('node').remove();
         }
+        // iterate through everything in state to gather VPC, availability zone, EC2 and RDS instances and creating nodes for each
         for(let vpc in this.props.regionData){
           let vpcObj = this.props.regionData[vpc];
           this.cy.add(new VPC(vpc).getVPCObject());
@@ -110,21 +96,17 @@ class Cyto extends Component{
             for(let ec2s in ec2Instances){
               this.cy.add(new EC2(ec2Instances[ec2s], az, null).getEC2Object());
             }
-
             let rdsInstances = vpcObj[az].RDS;
             for (let rds in rdsInstances) {
               this.cy.add(new RDS(rdsInstances[rds], az, null).getRDSObject());
             }
-            //do the exact same thing for rds'
             //make edges for nodes
           }
         }
+        // ensures that the above collected information gets formatted in the cola layout, then run it
         if(this.cy){
-
           this.cy.layout({name: 'cola', flow: { axis: 'y', minSeparation: 40}, avoidOverlap: true}).run();
         }
-
-        
         return(
             <div className="node_selected">
                 <div id="cy"></div>

@@ -5,8 +5,7 @@ import Cyto from '../cyto/cyto';
 import '../styles/App.scss';
 
 
-
-class GraphContainer extends Component{
+class Graph extends Component{
   constructor(props) {
     super(props);
   }
@@ -14,7 +13,7 @@ class GraphContainer extends Component{
     return (
       <div id="graphContainer">
         <div id="graph">
-          <button onClick={this.props.getEC2}>GET ALL EC2</button>
+          <button onClick={this.props.getAWSInstances}>GET ALL EC2</button>
         </div>
         <div id="cytoscape">
           <Cyto regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails}/>
@@ -24,4 +23,4 @@ class GraphContainer extends Component{
   }
 }
 
-export default GraphContainer
+export default Graph

@@ -6,22 +6,19 @@ const initialState = {
     activeNode: ''
 }
 
+// should possibly rename this reducer
 const graphReducer = (state = initialState, action) => {
     switch (action.type) {
-      case actionTypes.GET_EC2: {
-        // let regions = state.regionsData;
-        // regions[state.currentRegion] = action.payload;
+      case actionTypes.GET_AWS_INSTANCES: {
         return {
           ...state,
           regionData: JSON.parse(action.payload),
         }
       }
-
       case actionTypes.NODE_DETAILS: {
-        const newState = {...state,activeNode:action.payload}
+        const newState = {...state, activeNode:action.payload}
         return newState;
       }
-
       default: return state;
     }
 }

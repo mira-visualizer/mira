@@ -10,10 +10,10 @@ const rds = new AWS.RDS({});
 
 const params = {};
 
-export const getEC2 = () =>{
+export const getAWSInstances = () =>{
 
   return (dispatch) => {
-    /**
+    /** HOW WE WANT THE DATA TO IDEALLY BE FORMATTED:
      * Data = {
     regionId: {
         VpcId: {
@@ -36,20 +36,24 @@ export const getEC2 = () =>{
     */
     let regionState = {};
     //rds call store the result into regionState
-    const promise = [];
-    promise.push(new Promise(function(resolve,reject) {
+    const apiPromiseArray = [];
+    //adding new promise to promise array 
+    apiPromiseArray.push(new Promise(function(resolve,reject) {
+      //make an api call to get information about RDS'
       rds.describeDBInstances(params, function(err, data) {
         if (err) console.log(err, err.stack); // an error occurred
         else{
-          console.log("rds suuccess",data);
-          
+          // console.log("rds suuccess",data);
+          //loop through the data returned from api call
           for(let i = 0; i < data.DBInstances.length; i ++){
             let DBinstances = data.DBInstances[i];
+            //destructure the data for relevant data
             let {DBInstanceIdentifier, DBName, DBSubnetGroup: {VpcId}, AvailabilityZone, DbiResourceId} = DBinstances;
-            //let {VpcId, Placement: {AvailabilityZone}, InstanceId} = DBinstances;
+            // if the property doesn't exist within the object, create an object to save all the data in
             if(!regionState.hasOwnProperty(VpcId))regionState[VpcId] = {};
             if(!regionState[VpcId].hasOwnProperty(AvailabilityZone))regionState[VpcId][AvailabilityZone] = {};
             if(!regionState[VpcId][AvailabilityZone].hasOwnProperty("RDS"))regionState[VpcId][AvailabilityZone].RDS ={};
+            //save the data into the regionState object
             regionState[VpcId][AvailabilityZone].RDS[DbiResourceId] = DBinstances;        
           } 
           resolve();
@@ -57,13 +61,15 @@ export const getEC2 = () =>{
       })
     }))
     // get ec2 instances from API
-    promise.push(new Promise(function(resolve,reject) {
+    apiPromiseArray.push(new Promise(function(resolve,reject) {
       ec2.describeInstances(params, function(err, data) {
         if (err) {
           console.log("Error", err.stack);
+          reject();
         } else {
           console.log("Success", data.Reservations);
         }
+        //data is formatted differently from RDS, needs an extra layer of iteration
         for(let i = 0; i < data.Reservations.length; i ++){
           let instances = data.Reservations[i].Instances;
           for( let j = 0; j < instances.length; j++){
@@ -73,7 +79,8 @@ export const getEC2 = () =>{
             if(!regionState[VpcId][AvailabilityZone].hasOwnProperty("EC2"))regionState[VpcId][AvailabilityZone].EC2 = {};
             regionState[VpcId][AvailabilityZone].EC2[InstanceId] = instances[j];
 
-            promise.push(new Promise(function(resolve,reject) {
+            //making a new promise to query for information about security group related to each EC2
+            apiPromiseArray.push(new Promise(function(resolve,reject) {
               const param = {
                 GroupIds:[]
               };
@@ -82,7 +89,10 @@ export const getEC2 = () =>{
                 
               }
               ec2.describeSecurityGroups(param, function(err, data) {
-                if (err) console.log(err, err.stack);
+                if (err) {
+                  console.log(err, err.stack);
+                  reject();
+                }
                 else console.log(data);
                 resolve();
               } )
@@ -93,45 +103,20 @@ export const getEC2 = () =>{
       }
     )}))
 
-    
-    Promise.all(promise).then(function() {
+    //once all the promise's are resolved, dispatch the data to the reducer
+    Promise.all(apiPromiseArray).then(function() {
       dispatch({
-        type: actionTypes.GET_EC2,
+        type: actionTypes.GET_AWS_INSTANCES,
         payload: JSON.stringify(regionState)
       })
     })
   }
 }
 
+//takes in an ID from cyto and dispatches the active id to the reducer to save in state
 export const getNodeDetails = (id) => {
-  console.log('inside action creator with id:',id)
   return {
     type: actionTypes.NODE_DETAILS,
     payload: id
   }
 }
-
-// TODO set up more reducers
-// export const showAllSecurityGroups = (name) => {
-//   return {
-//     type: actionTypes.SHOW_ALL_SECURITY_GROUPS,
-//     payload: name,
-//   };
-// };
- 
-
-// !! for stretch features
-// export const addNode = (name) => {
-//   return {
-//     type: actionTypes.ADD_NODE,
-//     payload: name,
-//   };
-// };
-
-// export const deleteNode = (name) => {
-//   return {
-//     type: actionTypes.DELETE_NODE,
-//     payload: name,
-  // };
-// };
-

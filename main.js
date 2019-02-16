@@ -1,6 +1,4 @@
-// require electron
 const { app, BrowserWindow } = require('electron');
-// require('electron-reload')(__dirname);
 const path = require('path');
 const AWS = require('aws-sdk');
 const ec2 = new AWS.EC2();
