@@ -114,9 +114,9 @@ export const getAWSInstances = () =>{
 }
 
 //takes in an ID from cyto and dispatches the active id to the reducer to save in state
-export const getNodeDetails = (id) => {
+export const getNodeDetails = (data) => {
   return {
     type: actionTypes.NODE_DETAILS,
-    payload: id
+    payload: data
   }
 }
