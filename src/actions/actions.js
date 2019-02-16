@@ -10,7 +10,7 @@ const rds = new AWS.RDS({});
 
 const params = {};
 
-export const getEC2 = () =>{
+export const getAWSInstances = () =>{
 
   return (dispatch) => {
     /** HOW WE WANT THE DATA TO IDEALLY BE FORMATTED:
@@ -106,7 +106,7 @@ export const getEC2 = () =>{
     //once all the promise's are resolved, dispatch the data to the reducer
     Promise.all(apiPromiseArray).then(function() {
       dispatch({
-        type: actionTypes.GET_EC2,
+        type: actionTypes.GET_AWS_INSTANCES,
         payload: JSON.stringify(regionState)
       })
     })

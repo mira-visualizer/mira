@@ -9,7 +9,7 @@ const initialState = {
 // should possibly rename this reducer
 const graphReducer = (state = initialState, action) => {
     switch (action.type) {
-      case actionTypes.GET_EC2: {
+      case actionTypes.GET_AWS_INSTANCES: {
         return {
           ...state,
           regionData: JSON.parse(action.payload),
