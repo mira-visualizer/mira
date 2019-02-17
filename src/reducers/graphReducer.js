@@ -3,12 +3,35 @@ import * as actionTypes from '../constants/actionTypes';
 const initialState = {
     currentRegion: '',
     regionData: {},
-    activeNode: ''
+    activeNode: '',
+    fetching: false,
+    fetched: false,
+
 }
 
 // should possibly rename this reducer
 const graphReducer = (state = initialState, action) => {
+    console.log(state);
     switch (action.type) {
+
+      case actionTypes.GET_AWS_INSTANCES_START:{
+        console.log('starting AWS fetch')
+        return {
+          ...state,
+          fetching:true,
+          fetched: false
+        }
+      }
+
+      case actionTypes.GET_AWS_INSTANCES_FINISHED:{
+        console.log('finishing AWS fetch');
+        return {
+          ...state,
+          fetching:false,
+          fetched: true
+        }
+      }
+
       case actionTypes.GET_AWS_INSTANCES: {
         return {
           ...state,

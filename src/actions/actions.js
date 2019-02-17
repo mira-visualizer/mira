@@ -1,16 +1,33 @@
 import * as actionTypes from '../constants/actionTypes.js';
 
 const AWS = require('aws-sdk');
-
 const params = {};
 
+
+export const getAWSInstancesStart = () => ({
+  type: actionTypes.GET_AWS_INSTANCES_START
+});
+
+export const getAWSInstancesFinished = resp => ({
+  type: actionTypes. GET_AWS_INSTANCES_FINISHED,
+  payload: resp
+});
+
+export const getAWSInstancesError = err => ({
+  type: actionTypes. GET_AWS_INSTANCES_ERROR,
+  payload: err
+});
+
 export const getAWSInstances = (region) =>{
+
+
   AWS.config.update({
     region:region
   });
   const ec2 = new AWS.EC2({});
   const rds = new AWS.RDS({});
   return (dispatch) => {
+    dispatch(getAWSInstancesStart());
     /** HOW WE WANT THE DATA TO IDEALLY BE FORMATTED:
      * Data = {
     regionId: {
@@ -41,7 +58,7 @@ export const getAWSInstances = (region) =>{
       rds.describeDBInstances(params, function(err, data) {
         if (err) console.log(err, err.stack); // an error occurred
         else{
-          // console.log("rds suuccess",data);
+          console.log("rds suuccess",data);
           //loop through the data returned from api call
           for(let i = 0; i < data.DBInstances.length; i ++){
             let DBinstances = data.DBInstances[i];
@@ -110,6 +127,7 @@ export const getAWSInstances = (region) =>{
           currentRegion: region
         } 
       })
+      dispatch(getAWSInstancesFinished());
     })
   }
 }

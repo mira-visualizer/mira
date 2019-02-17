@@ -9,7 +9,9 @@ import { connect } from 'react-redux';
 const mapStateToProps = store => ({
   regionData: store.graph.regionData,
   activeNode: store.graph.activeNode,
-  currentRegion: store.graph.currentRegion
+  currentRegion: store.graph.currentRegion,
+  fetchingFlag: store.graph.fetching,
+  finishedFlag: store.graph.fetched
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -27,7 +29,8 @@ class App extends Component{
     return(
       <div id="app">
         <Menu getAWSInstances={this.props.getAWSInstances} currentRegion={this.props.currentRegion} />
-        <MainContainer getAWSInstances={this.props.getAWSInstances} regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails} activeNode={this.props.activeNode}/>
+        <MainContainer getAWSInstances={this.props.getAWSInstances} regionData={this.props.regionData} 
+        getNodeDetails={this.props.getNodeDetails} activeNode={this.props.activeNode} fetchingFlag={this.props.fetchingFlag} finishedFlag={this.props.finishedFlag}/>
       </div>
     )
   }
