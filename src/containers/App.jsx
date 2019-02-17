@@ -8,11 +8,11 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = store => ({
   regionData: store.graph.regionData,
-  activeNode: store.graph.activeNode
+  activeNode: store.graph.activeNode,
+  currentRegion: store.graph.currentRegion
 })
 
 const mapDispatchToProps = dispatch => ({
-  // should rename getEC2 to get all instances
     getAWSInstances: (instances) => {
         dispatch(actions.getAWSInstances(instances));
     },
@@ -26,7 +26,7 @@ class App extends Component{
   render(){
     return(
       <div id="app">
-        <Menu getAWSInstances={this.props.getAWSInstances} />
+        <Menu getAWSInstances={this.props.getAWSInstances} currentRegion={this.props.currentRegion} />
         <MainContainer getAWSInstances={this.props.getAWSInstances} regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails} activeNode={this.props.activeNode}/>
       </div>
     )
