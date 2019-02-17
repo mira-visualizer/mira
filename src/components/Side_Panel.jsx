@@ -8,16 +8,13 @@ class Side_Panel extends Component {
     let NodeDetails
 
     if(this.props.activeNode) {
-      NodeDetails = JSON.stringify(this.props.regionData);
+      NodeDetails = JSON.stringify(this.props.activeNode);
     }
 
     return(
       <div id="sidePanel">
-        <h4>Selected Node</h4>
-        <p>{this.props.activeNode}</p>
-        <h4>Node Details</h4>
+        <h4>Information about node: {this.props.activeNode.InstanceId ? this.props.activeNode.InstanceId: this.props.activeNode.DBInstanceIdentifier }</h4>
         <p>{NodeDetails}</p>
-        {console.log(Object.values(this.props.regionData))}
       </div>
     )
   }
