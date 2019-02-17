@@ -1,17 +1,15 @@
 import * as actionTypes from '../constants/actionTypes.js';
 
 const AWS = require('aws-sdk');
-AWS.config.update({
-  region:'us-east-2'
-});
-
-const ec2 = new AWS.EC2({});
-const rds = new AWS.RDS({});
 
 const params = {};
 
-export const getAWSInstances = () =>{
-
+export const getAWSInstances = (region) =>{
+  AWS.config.update({
+    region:region
+  });
+  const ec2 = new AWS.EC2({});
+  const rds = new AWS.RDS({});
   return (dispatch) => {
     /** HOW WE WANT THE DATA TO IDEALLY BE FORMATTED:
      * Data = {
@@ -107,7 +105,10 @@ export const getAWSInstances = () =>{
     Promise.all(apiPromiseArray).then(function() {
       dispatch({
         type: actionTypes.GET_AWS_INSTANCES,
-        payload: JSON.stringify(regionState)
+        payload: {
+          regionState: JSON.stringify(regionState),
+          currentRegion: region
+        } 
       })
     })
   }

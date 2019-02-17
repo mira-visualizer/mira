@@ -13,7 +13,6 @@ class Graph extends Component{
     return (
       <div id="graphContainer">
         <div id="graph">
-          <button onClick={this.props.getAWSInstances}>GET ALL EC2</button>
         </div>
         <div id="cytoscape">
           <Cyto regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails}/>

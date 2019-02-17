@@ -13,6 +13,7 @@ body{
 #Menu{
   background-color: rgb(255, 255, 255);
   height: 30px;
+  width: 80%;
 }
 #mainContainer{
   display: flex;
@@ -36,6 +37,7 @@ body{
 
 #refresh{
   float: right;
+  padding: 0px;
 }
 
 h4{

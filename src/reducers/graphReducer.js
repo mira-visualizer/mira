@@ -1,7 +1,7 @@
 import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
-    currentRegion: 'us-east-2',
+    currentRegion: '',
     regionData: {},
     activeNode: ''
 }
@@ -12,7 +12,8 @@ const graphReducer = (state = initialState, action) => {
       case actionTypes.GET_AWS_INSTANCES: {
         return {
           ...state,
-          regionData: JSON.parse(action.payload),
+          regionData: JSON.parse(action.payload.regionState),
+          currentRegion: action.payload.currentRegion
         }
       }
       case actionTypes.NODE_DETAILS: {
