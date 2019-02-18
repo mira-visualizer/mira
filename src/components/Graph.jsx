@@ -13,7 +13,7 @@ class Graph extends Component{
 
     let fetching;
     if(this.props.fetchingFlag){
-      fetching = <div id="loading" ><img src="./assets/loading.svg" alt="Loading..."></img></div>
+      fetching = <div id="loading" ><img src="../src/assets/loading.svg" alt="Loading..."></img></div>
     }
 
     return (

@@ -13,7 +13,7 @@ body{
 #Menu{
   background-color: rgb(255, 255, 255);
   height: 30px;
-  width: 80%;
+  max-width: 100%;
 }
 #mainContainer{
   display: flex;
@@ -24,16 +24,21 @@ body{
   width: calc(100vw - #{$side-bar-width});
 }
 #sidePanel{
-  padding:10px;
   width: $side-bar-width;
   background-color: darken($bg-color,10%);
   word-wrap: break-word;
+}
+
+#sidePanel > *{
+  padding-left:10px;
+
 }
 
 #sidePanel p{
   font-size: 10px;
   color:white;
 }
+
 
 #refresh{
   float: right;
@@ -51,3 +56,33 @@ h4{
   color:white;
 }
 
+#nodeInfo{
+  max-width: 100%;
+  max-height:500px;
+  overflow-y: scroll;
+}
+
+.react-json-view{
+  overflow-y: scroll;
+  overflow-x: scroll;
+  max-width: 95%;
+  max-height: 500px;
+  border: 2px solid slategrey;
+  border-radius: 5px;
+}
+
+#details-header{
+  text-align: center;
+  background-color: dodgerblue;
+  margin-right: 10px;
+  border: 2px solid slategrey;
+  border-radius: 4px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 20px;
+}
+
+#details-header h4{
+  padding: 0px;
+  margin: 0px;
+}

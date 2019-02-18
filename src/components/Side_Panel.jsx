@@ -1,20 +1,32 @@
 import React, {Component} from "react";
+import ReactJson from 'react-json-view'
 
 class Side_Panel extends Component {
 
 
   render() {
 
-    let NodeDetails
+    let NodeDetails;
+
+    const reactJsonconfig = {
+      indentWidth:1,
+      name:this.props.activeNode.InstanceId,
+      theme: 'apathy',
+      
+    }
 
     if(this.props.activeNode) {
-      NodeDetails = JSON.stringify(this.props.activeNode);
-    }
+      NodeDetails = ( <div id ="details-wrapper">
+        <div id="details-header"><h4>Details</h4></div>
+        <div id="details-sub-header"><h6>{this.props.activeNode.InstanceId ? this.props.activeNode.InstanceId: this.props.activeNode.DBInstanceIdentifier }</h6></div>
+        <div id="node-info"><ReactJson src={this.props.activeNode} theme={reactJsonconfig.theme} indentWidth={reactJsonconfig.indentWidth}></ReactJson></div>)
+      </div>)
+        
+      }
 
     return(
       <div id="sidePanel">
-        <h4>Information about node: {this.props.activeNode.InstanceId ? this.props.activeNode.InstanceId: this.props.activeNode.DBInstanceIdentifier }</h4>
-        <p>{NodeDetails}</p>
+        {NodeDetails}
       </div>
     )
   }
