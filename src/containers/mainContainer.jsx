@@ -9,7 +9,7 @@ class MainContainer extends Component{
   render() {
     return (
         <div id="mainContainer">
-          <Graph getAWSInstances={this.props.getAWSInstances} regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails} />
+          <Graph getAWSInstances={this.props.getAWSInstances} regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails}  fetchingFlag={this.props.fetchingFlag} finishedFlag={this.props.finishedFlag}/>
           <Side_Panel regionData={this.props.regionData} activeNode={this.props.activeNode}/>
         </div>
     )

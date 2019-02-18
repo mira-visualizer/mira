@@ -10,12 +10,19 @@ class Graph extends Component{
     super(props);
   }
   render() {
+
+    let fetching;
+    if(this.props.fetchingFlag){
+      fetching = <div id="loading" ><img src="../src/assets/loading.svg" alt="Loading..."></img></div>
+    }
+
     return (
       <div id="graphContainer">
+        {fetching}
         <div id="graph">
         </div>
         <div id="cytoscape">
-          <Cyto regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails}/>
+          <Cyto regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails} fetchingFlag={this.props.fetchingFlag}/>
         </div>
       </div>
     )
