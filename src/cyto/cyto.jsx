@@ -77,7 +77,9 @@ class Cyto extends Component{
          */
          //check to see if you can access parent of the current node to pass into function
         this.cy.on('tap', 'node', function (evt){
-          console.log(getStateNodes[this.id()]);
+          console.log('this is the id:', this.id());
+          console.log('this is getStateNodes:',getStateNodes)
+          console.log('where r u',getStateNodes[this.id()]);
           getNodeFunction(getStateNodes[this.id()] );
         })
       }
@@ -98,17 +100,19 @@ class Cyto extends Component{
             this.cy.add(new AvailabilityZone(az,vpc).getAvailabilityZoneObject());
             let ec2Instances = vpcObj[az].EC2;
             for(let ec2s in ec2Instances){
-              this.cy.add(new EC2(ec2Instances[ec2s], az, null).getEC2Object());
+              this.cy.add(new EC2(ec2Instances[ec2s], vpc+'-'+az, null).getEC2Object());
               this.state.nodes[ec2s] = [ec2s,"EC2",az,vpc];
             }
             let rdsInstances = vpcObj[az].RDS;
             for (let rds in rdsInstances) {
-              this.cy.add(new RDS(rdsInstances[rds], az, null).getRDSObject());
+              this.cy.add(new RDS(rdsInstances[rds], vpc+'-'+az, null).getRDSObject());
               this.state.nodes[rds] = [rds,"RDS",az,vpc];
             }
             //make edges for nodes
           }
         }
+
+        console.log('heeeeeeeeeey',this.state.nodes);
         // ensures that the above collected information gets formatted in the cola layout, then run it
         if(this.cy){
           this.cy.layout({name: 'cola', flow: { axis: 'y', minSeparation: 40}, avoidOverlap: true}).run();
