@@ -87,7 +87,7 @@ export const getAWSInstances = (region) =>{
                 }
                 else{
                   console.log("THE SECURITY GROUP FOR RDS IS ", data.SecurityGroups)
-                  regionState[VpcId][AvailabilityZone].RDS[DbiResourceId].SecurityGroups = data.SecurityGroups;
+                  regionState[VpcId][AvailabilityZone].RDS[DbiResourceId].MySecurityGroups = data.SecurityGroups;
                   resolve();
                 }
               } )
