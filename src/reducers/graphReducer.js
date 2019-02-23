@@ -11,11 +11,10 @@ const initialState = {
 
 // should possibly rename this reducer
 const graphReducer = (state = initialState, action) => {
-    console.log(state);
+    // console.log(state);
     switch (action.type) {
 
       case actionTypes.GET_AWS_INSTANCES_START:{
-        console.log('starting AWS fetch')
         return {
           ...state,
           fetching:true,
@@ -24,7 +23,6 @@ const graphReducer = (state = initialState, action) => {
       }
 
       case actionTypes.GET_AWS_INSTANCES_FINISHED:{
-        console.log('finishing AWS fetch');
         return {
           ...state,
           fetching:false,
@@ -33,6 +31,7 @@ const graphReducer = (state = initialState, action) => {
       }
 
       case actionTypes.GET_AWS_INSTANCES: {
+        console.log("????????????????????????????", JSON.parse(action.payload.regionState));
         return {
           ...state,
           regionData: JSON.parse(action.payload.regionState),
@@ -40,12 +39,13 @@ const graphReducer = (state = initialState, action) => {
         }
       }
       case actionTypes.NODE_DETAILS: {
+        console.log('--------- in node details')
         const VPC = action.payload[3];
         const availabilityZone = action.payload[2];
         const instanceType = action.payload[1];
         const instanceId = action.payload[0];
         const nodeData = state.regionData[VPC][availabilityZone][instanceType][instanceId];
-        console.log("THE NODE DATA ", state.regionData);
+        console.log("NODE DETAILS REGION DATA " , state.regionData)
         return {
           ...state,
           activeNode: nodeData

@@ -41,6 +41,7 @@ class Cyto extends Component{
             'border-opacity': 0.5,
             'text-halign': 'center',
             'text-valign': 'center',
+            'font-size': 5,
             'label': 'data(label)'
           })
         .selector(':parent')

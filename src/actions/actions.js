@@ -63,13 +63,37 @@ export const getAWSInstances = (region) =>{
           for(let i = 0; i < data.DBInstances.length; i ++){
             let DBinstances = data.DBInstances[i];
             //destructure the data for relevant data
-            let {DBInstanceIdentifier, DBName, DBSubnetGroup: {VpcId}, AvailabilityZone, DbiResourceId} = DBinstances;
+            let {DBInstanceIdentifier, DBName, DBSubnetGroup: {VpcId}, AvailabilityZone, DbiResourceId, VpcSecurityGroups} = DBinstances;
             // if the property doesn't exist within the object, create an object to save all the data in
             if(!regionState.hasOwnProperty(VpcId))regionState[VpcId] = {};
             if(!regionState[VpcId].hasOwnProperty(AvailabilityZone))regionState[VpcId][AvailabilityZone] = {};
             if(!regionState[VpcId][AvailabilityZone].hasOwnProperty("RDS"))regionState[VpcId][AvailabilityZone].RDS ={};
             //save the data into the regionState object
-            regionState[VpcId][AvailabilityZone].RDS[DbiResourceId] = DBinstances;        
+            regionState[VpcId][AvailabilityZone].RDS[DbiResourceId] = DBinstances;
+
+            apiPromiseArray.push(new Promise(function(resolve,reject) {
+              const param = {
+                GroupIds:[]
+              };
+              for(let k = 0; k < VpcSecurityGroups.length; k++){
+                param.GroupIds.push(VpcSecurityGroups[k].VpcSecurityGroupId); 
+                
+              }
+              
+              ec2.describeSecurityGroups(param, function(err, data) {
+                if (err) {
+                  console.log(err, err.stack);
+                  reject();
+                }
+                else{
+                  console.log("THE SECURITY GROUP FOR RDS IS ", data.SecurityGroups)
+                  regionState[VpcId][AvailabilityZone].RDS[DbiResourceId].SecurityGroups = data.SecurityGroups;
+                  resolve();
+                }
+              } )
+            }))
+
+
           } 
           resolve();
         }
@@ -82,7 +106,7 @@ export const getAWSInstances = (region) =>{
           console.log("Error", err.stack);
           reject();
         } else {
-          console.log("Success", data.Reservations);
+          // console.log("Success EC2", data.Reservations);
         }
         //data is formatted differently from RDS, needs an extra layer of iteration
         for(let i = 0; i < data.Reservations.length; i ++){
@@ -108,18 +132,24 @@ export const getAWSInstances = (region) =>{
                   console.log(err, err.stack);
                   reject();
                 }
-                else console.log(data);
-                resolve();
+                else {
+                  console.log("THE SECURITY GROUP FOR EC2 IS ", data.SecurityGroups)
+
+                  regionState[VpcId][AvailabilityZone].EC2[InstanceId].MySecurityGroups = data.SecurityGroups;
+                  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",regionState[VpcId][AvailabilityZone].EC2[InstanceId].MySecurityGroups)
+                  resolve();
+                  }
               } )
             }))
           }
         }
-      resolve();
+        resolve();
       }
     )}))
 
     //once all the promise's are resolved, dispatch the data to the reducer
     Promise.all(apiPromiseArray).then(function() {
+      console.log("BEFORE DISPATCH", JSON.stringify(regionState));
       dispatch({
         type: actionTypes.GET_AWS_INSTANCES,
         payload: {

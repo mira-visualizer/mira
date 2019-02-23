@@ -38,6 +38,11 @@
     "electron-devtools-installer": "^2.2.4",
     "electron-redux-devtools": "^0.3.4",
     "electron-reload": "^1.4.0",
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "webpack": "^4.29.3"
