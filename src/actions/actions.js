@@ -19,8 +19,6 @@ export const getAWSInstancesError = err => ({
 });
 
 export const getAWSInstances = (region) =>{
-
-
   AWS.config.update({
     region:region
   });
