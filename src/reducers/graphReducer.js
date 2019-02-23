@@ -6,16 +6,14 @@ const initialState = {
     activeNode: '',
     fetching: false,
     fetched: false,
-
 }
 
 // should possibly rename this reducer
 const graphReducer = (state = initialState, action) => {
-    console.log(state);
     switch (action.type) {
 
       case actionTypes.GET_AWS_INSTANCES_START:{
-        console.log('starting AWS fetch')
+        // console.log('starting AWS fetch')
         return {
           ...state,
           fetching:true,
@@ -24,7 +22,7 @@ const graphReducer = (state = initialState, action) => {
       }
 
       case actionTypes.GET_AWS_INSTANCES_FINISHED:{
-        console.log('finishing AWS fetch');
+        // console.log('finishing AWS fetch');
         return {
           ...state,
           fetching:false,
@@ -45,7 +43,7 @@ const graphReducer = (state = initialState, action) => {
         const instanceType = action.payload[1];
         const instanceId = action.payload[0];
         const nodeData = state.regionData[VPC][availabilityZone][instanceType][instanceId];
-        console.log("THE NODE DATA ", state.regionData);
+        // console.log("THE NODE DATA ", state.regionData);
         return {
           ...state,
           activeNode: nodeData
