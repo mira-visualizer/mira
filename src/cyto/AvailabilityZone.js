@@ -5,6 +5,6 @@ export default class AvailabilityZone {
   }
 
   getAvailabilityZoneObject(){
-      return { data: { id: this.id, parent:this.parent, label: this.id}, classes: "availabilityZone"};
+      return { data: { id: this.parent+'-'+this.id, parent:this.parent, label: this.id}, classes: "availabilityZone"};
   }
 }
