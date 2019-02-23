@@ -34,7 +34,7 @@ const graphReducer = (state = initialState, action) => {
         console.log("????????????????????????????", JSON.parse(action.payload.regionState));
         return {
           ...state,
-          regionData: JSON.parse(action.payload.regionState),
+          regionData: action.payload.regionState,
           currentRegion: action.payload.currentRegion
         }
       }

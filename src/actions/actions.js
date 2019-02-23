@@ -153,7 +153,7 @@ export const getAWSInstances = (region) =>{
       dispatch({
         type: actionTypes.GET_AWS_INSTANCES,
         payload: {
-          regionState: JSON.stringify(regionState),
+          regionState: regionState,
           currentRegion: region
         } 
       })
