@@ -50,6 +50,7 @@ export const getAWSInstances = (region) =>{
     }
     */
     let regionState = {};
+    let sgRelationships = new Set(); //array of arrays where each inside looks like [ [inbound sg, outbound sg] ]
     //rds call store the result into regionState
     const apiPromiseArray = [];
     //adding new promise to promise array 
@@ -58,7 +59,7 @@ export const getAWSInstances = (region) =>{
       rds.describeDBInstances(params, function(err, data) {
         if (err) console.log(err, err.stack); // an error occurred
         else{
-          console.log("rds suuccess",data);
+          // console.log("rds suuccess",data);
           //loop through the data returned from api call
           for(let i = 0; i < data.DBInstances.length; i ++){
             let DBinstances = data.DBInstances[i];
@@ -87,7 +88,19 @@ export const getAWSInstances = (region) =>{
                 }
                 else{
                   console.log("THE SECURITY GROUP FOR RDS IS ", data.SecurityGroups)
+
                   regionState[VpcId][AvailabilityZone].RDS[DbiResourceId].MySecurityGroups = data.SecurityGroups;
+                  for(let h = 0; h < data.SecurityGroups.length; h++){
+                    if(data.SecurityGroups[h].IpPermissions.length > 0){
+                      for(let i = 0; i < data.SecurityGroups[h].IpPermissions[0].UserIdGroupPairs.length; i++ ){
+                        console.log(data.SecurityGroups[h].IpPermissions[0].UserIdGroupPairs[i].GroupId, data.SecurityGroups[h].GroupId, sgRelationships);
+                        sgRelationships.add([data.SecurityGroups[h].IpPermissions[0].UserIdGroupPairs[i].GroupId, data.SecurityGroups[h].GroupId])
+                        console.log("-------------------------",sgRelationships);
+
+                      }
+                    }
+                  }
+                  // console.log("++++++++++++++++++++++++++++",sgRelationships);
                   resolve();
                 }
               } )
@@ -136,7 +149,18 @@ export const getAWSInstances = (region) =>{
                   console.log("THE SECURITY GROUP FOR EC2 IS ", data.SecurityGroups)
 
                   regionState[VpcId][AvailabilityZone].EC2[InstanceId].MySecurityGroups = data.SecurityGroups;
-                  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",regionState[VpcId][AvailabilityZone].EC2[InstanceId].MySecurityGroups)
+                  // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",regionState[VpcId][AvailabilityZone].EC2[InstanceId].MySecurityGroups)
+                  for(let h = 0; h < data.SecurityGroups.length; h++){
+                    if(data.SecurityGroups[h].IpPermissions.length > 0){
+                      for(let i = 0; i < data.SecurityGroups[h].IpPermissions[0].UserIdGroupPairs.length; i++ ){
+                        console.log(data.SecurityGroups[h].IpPermissions[0].UserIdGroupPairs[i].GroupId, data.SecurityGroups[h].GroupId, sgRelationships);
+                        sgRelationships.add([data.SecurityGroups[h].IpPermissions[0].UserIdGroupPairs[i].GroupId, data.SecurityGroups[h].GroupId])
+                        console.log("-------------------------",sgRelationships);
+
+                      }
+                    }
+                  }
+
                   resolve();
                   }
               } )
@@ -149,7 +173,6 @@ export const getAWSInstances = (region) =>{
 
     //once all the promise's are resolved, dispatch the data to the reducer
     Promise.all(apiPromiseArray).then(function() {
-      console.log("BEFORE DISPATCH", JSON.stringify(regionState));
       dispatch({
         type: actionTypes.GET_AWS_INSTANCES,
         payload: {
