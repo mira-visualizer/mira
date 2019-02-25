@@ -6,13 +6,11 @@ class Menu extends Component {
     // want to setState to the active value
 
     const handleChange = event => {
-      console.log(event.target);
       if(event.target.value !== 'select-region'){
         this.props.getAWSInstances(event.target.value);
       }
     }
     const refresh = () => {
-      console.log('refreshing');
       this.props.getAWSInstances(this.props.currentRegion);
     }
 
