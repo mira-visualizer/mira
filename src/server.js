@@ -1,11 +1,25 @@
-// TODO: not using this because we are using .aws credentials file; can delete this file later
-const AWS = require('aws-sdk');
+// GraphQL query to retrieve all region data at once
 
-const rds = new AWS.RDS();
+import {GraphQLSchema, GraphQLObjectType} from 'graphql';
+import awsSDK from 'aws-sdk';
+import { awsApiParser } from 'graphql-compose-aws';
 
-const params = {};
+const awsApiParser = new AwsApiParser({
+  awsSDK,
+})
 
-rds.describeDBInstances(params, function(err, data) {
-  if (err) console.log(err, err.stack); // an error occurred
-  else     console.log(data);           // successful response
-});
+const schema = new GraphQLSchema({
+  query: new GraphQLObjectType({
+    name: 'Query',
+    fields: {
+      // Full API:
+      aws: awsApiParser.getFieldConfig(),
+      // Partial API with desired services:
+      // regions: awsApiParser.getService('regions').getFieldConfig(),
+      // ec2: awsApiParser.getService('ec2').getFieldConfig(),
+      // rds: awsApiParser.getService('rds').getFieldConfig(),
+    }
+  })
+})
+
+export default schema;
