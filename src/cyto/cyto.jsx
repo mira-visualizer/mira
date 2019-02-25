@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{PureComponent} from 'react';
 import cytoscape from 'cytoscape';
 import './cyto.scss';
 import EC2 from './EC2'
@@ -8,7 +8,7 @@ import AvailabilityZone from './AvailabilityZone'
 import cola from 'cytoscape-cola';
 
 cytoscape.use( cola );
-class Cyto extends Component{
+class Cyto extends PureComponent{
   constructor(props){
     super(props);
     this.renderElement = this.renderElement.bind(this);
@@ -17,7 +17,7 @@ class Cyto extends Component{
     // this.nodes should hold each node's id and specific data - pro: constant lookup time for each node, con: takes up storage space
     // alternatively we could find a way to access specific data per node from state
     this.state = {
-      nodes:{}
+      nodes:{},
     };
   }
   // function call to render a cytoscape object (entire graph)
@@ -102,7 +102,7 @@ class Cyto extends Component{
   
   render(){
     // clears old graph when new graph is invoked
-    if(this.cy) {
+    if(this.cy ) {
       this.cy.$('node').remove();
     }
     // iterate through everything in state to gather VPC, availability zone, EC2 and RDS instances and creating nodes for each
