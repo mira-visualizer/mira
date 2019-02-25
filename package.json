@@ -4,7 +4,8 @@
   "description": "mira-visualizer",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose",
+    "test:watch": "npm test -- --watch",
     "build": "webpack --mode production",
     "dev": "webpack --mode development",
     "start": "electron ."
@@ -35,6 +36,8 @@
     "webpack-dev-server": "^3.1.14"
   },
   "devDependencies": {
+    "aws-sdk-mock": "^4.3.1",
+    "babel-jest": "^24.1.0",
     "electron-devtools-installer": "^2.2.4",
     "electron-redux-devtools": "^0.3.4",
     "electron-reload": "^1.4.0",
@@ -43,6 +46,7 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
+    "jest": "^24.1.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "webpack": "^4.29.3"

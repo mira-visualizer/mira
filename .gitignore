@@ -3,3 +3,6 @@ node_modules/
 
 # Dist folder
 dist/
+
+# Any . files
+.*

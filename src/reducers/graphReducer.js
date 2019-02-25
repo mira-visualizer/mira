@@ -9,7 +9,6 @@ const initialState = {
     activeNode: '',
     fetching: false,
     fetched: false,
-
 }
 
 // should possibly rename this reducer
