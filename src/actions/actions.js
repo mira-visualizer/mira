@@ -55,16 +55,20 @@ export const getAWSInstances = (region) =>{
     const apiPromiseArray = [];
     //adding new promise to promise array 
     apiPromiseArray.push(new Promise(function(resolve,reject) {
+      const innerPromiseArray =[];
       //make an api call to get information about RDS'
       rds.describeDBInstances(params, function(err, data) {
-        if (err) console.log(err, err.stack); // an error occurred
+        if (err) {
+          console.log(err, err.stack)
+          reject()
+        } // an error occurred
         else{
           // console.log("rds suuccess",data);
           //loop through the data returned from api call
           for(let i = 0; i < data.DBInstances.length; i ++){
             let DBinstances = data.DBInstances[i];
             //destructure the data for relevant data
-            let {DBInstanceIdentifier, DBName, DBSubnetGroup: {VpcId}, AvailabilityZone, DbiResourceId, VpcSecurityGroups} = DBinstances;
+            let {DBSubnetGroup: {VpcId}, AvailabilityZone, DbiResourceId, VpcSecurityGroups} = DBinstances;
             // if the property doesn't exist within the object, create an object to save all the data in
             if(!regionState.hasOwnProperty(VpcId))regionState[VpcId] = {};
             if(!regionState[VpcId].hasOwnProperty(AvailabilityZone))regionState[VpcId][AvailabilityZone] = {};
@@ -72,7 +76,7 @@ export const getAWSInstances = (region) =>{
             //save the data into the regionState object
             regionState[VpcId][AvailabilityZone].RDS[DbiResourceId] = DBinstances;
 
-            apiPromiseArray.push(new Promise(function(resolve,reject) {
+            innerPromiseArray.push(new Promise(function(resolve,reject) {
               const param = {
                 GroupIds:[]
               };
@@ -102,27 +106,33 @@ export const getAWSInstances = (region) =>{
                       }
                     }
                   }
-                  // console.log("++++++++++++++++++++++++++++",sgRelationships);
+                  // const edgeTable = createEdges();
+                  // console.log("++++++++++++++ edge table", edgeTable);
+                  // resolve(edgeTable);
                   resolve();
+
                 }
               } )
             }))
 
 
           } 
-          resolve();
+          Promise.all(innerPromiseArray).then(function(){
+            resolve();
+          });
         }
       })
     }))
     // get ec2 instances from API
     apiPromiseArray.push(new Promise(function(resolve,reject) {
+      const innerPromiseArray = [];
       ec2.describeInstances(params, function(err, data) {
         if (err) {
           console.log("Error", err.stack);
           reject();
         } else {
           // console.log("Success EC2", data.Reservations);
-        }
+        
         //data is formatted differently from RDS, needs an extra layer of iteration
         for(let i = 0; i < data.Reservations.length; i ++){
           let instances = data.Reservations[i].Instances;
@@ -134,7 +144,7 @@ export const getAWSInstances = (region) =>{
             regionState[VpcId][AvailabilityZone].EC2[InstanceId] = instances[j];
 
             //making a new promise to query for information about security group related to each EC2
-            apiPromiseArray.push(new Promise(function(resolve,reject) {
+            innerPromiseArray.push(new Promise(function(resolve,reject) {
               const param = {
                 GroupIds:[]
               };
@@ -166,25 +176,54 @@ export const getAWSInstances = (region) =>{
                     }
                   }
 
+
+                  // const edgeTable = createEdges();
+                  // console.log("++++++++++++++ edge table", edgeTable);
+                  // resolve(edgeTable);
                   resolve();
                   }
               } )
             }))
           }
         }
-        resolve();
+        Promise.all(innerPromiseArray).then(function(){
+          resolve();
+        })
+      }
       }
     )}))
 
+  
+
     //once all the promise's are resolved, dispatch the data to the reducer
-    Promise.all(apiPromiseArray).then(function() {
-      console.log("!!!!!!!!!!!!----------sgRelationships", sgRelationships);
-      console.log("!!!!!!!!!!!!!!-------sgNodeCorrelations", sgNodeCorrelations);
+    Promise.all(apiPromiseArray).then(function(values) {
+    console.log("?????????????????????----------sgRelationships", sgRelationships);
+    console.log("?????????????????????-------sgNodeCorrelations", sgNodeCorrelations);
+    let edgeTable = {};
+    console.log("????????????????????? --- ", sgRelationships.length)
+
+    for(let i = 0; i < sgRelationships.length; i++){
+      console.log("sgNodeCorelations : " ,sgNodeCorrelations[sgRelationships[i][0]])
+      sgNodeCorrelations[sgRelationships[i][0]].forEach( function(val1, val2, set){
+        console.log("Node corelations #1 val1 ---- ", val1);
+        sgNodeCorrelations[sgRelationships[i][1]].forEach( function(value1, value2, set2){
+        console.log("Node corelations #2 value1 ---- ", value1);
+        if(!edgeTable.hasOwnProperty(val1)) edgeTable[val1]= new Set();
+          edgeTable[val1].add(value1);
+          console.log("the edge table in the for each: ", edgeTable);
+        })
+      })
+    }
+    console.log("????????????????????? ------- edgeTable", edgeTable);
+      //  
       dispatch({
         type: actionTypes.GET_AWS_INSTANCES,
         payload: {
           regionState: regionState,
-          currentRegion: region
+          currentRegion: region,
+          edgeTable: edgeTable
+          // sgNodeCorrelations: sgNodeCorrelations,
+          // sgRelationships: sgRelationships
         } 
       })
       dispatch(getAWSInstancesFinished());

@@ -3,6 +3,9 @@ import * as actionTypes from '../constants/actionTypes';
 const initialState = {
     currentRegion: '',
     regionData: {},
+    edgeTable:{},
+    // sgNodeCorrelations: {},
+    // sgRelationships: [],
     activeNode: '',
     fetching: false,
     fetched: false,
@@ -31,11 +34,14 @@ const graphReducer = (state = initialState, action) => {
       }
 
       case actionTypes.GET_AWS_INSTANCES: {
-        console.log("????????????????????????????", action.payload.regionState);
+        console.log("????????????????????????????", action.payload);
         return {
           ...state,
           regionData: action.payload.regionState,
-          currentRegion: action.payload.currentRegion
+          currentRegion: action.payload.currentRegion,
+          edgeTable: action.payload.edgeTable
+          // sgNodeCorrelations: action.payload.sgNodeCorrelations,
+          // sgRelationships: action.payload.sgRelationships
         }
       }
       case actionTypes.NODE_DETAILS: {

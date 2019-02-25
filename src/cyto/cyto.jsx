@@ -12,6 +12,7 @@ class Cyto extends Component{
   constructor(props){
     super(props);
     this.renderElement = this.renderElement.bind(this);
+    this.makeEdges = this.makeEdges.bind(this);
     this.cy = null;
     // this.nodes should hold each node's id and specific data - pro: constant lookup time for each node, con: takes up storage space
     // alternatively we could find a way to access specific data per node from state
@@ -76,53 +77,66 @@ class Cyto extends Component{
          *  S3 ( data, parent, source )
          */
          //check to see if you can access parent of the current node to pass into function
-        this.cy.on('tap', 'node', function (evt){
-          console.log('this is the id:', this.id());
-          console.log('this is getStateNodes:',getStateNodes)
-          console.log('where r u',getStateNodes[this.id()]);
-          getNodeFunction(getStateNodes[this.id()] );
-        })
-      }
+      this.cy.on('tap', 'node', function (evt){
+        console.log('this is the id:', this.id());
+        console.log('this is getStateNodes:',getStateNodes)
+        console.log('where r u',getStateNodes[this.id()]);
+        getNodeFunction(getStateNodes[this.id()] );
+      })
+  }
       // invokes the function to create object
-      componentDidMount(){
-        this.renderElement();
-      }
-      render(){
-        // clears old graph when new graph is invoked
-        if(this.cy) {
-          this.cy.$('node').remove();
-        }
-        // iterate through everything in state to gather VPC, availability zone, EC2 and RDS instances and creating nodes for each
-        for(let vpc in this.props.regionData){
-          let vpcObj = this.props.regionData[vpc];
-          this.cy.add(new VPC(vpc).getVPCObject());
-          for(let az in vpcObj){
-            this.cy.add(new AvailabilityZone(az,vpc).getAvailabilityZoneObject());
-            let ec2Instances = vpcObj[az].EC2;
-            for(let ec2s in ec2Instances){
-              this.cy.add(new EC2(ec2Instances[ec2s], vpc+'-'+az, null).getEC2Object());
-              this.state.nodes[ec2s] = [ec2s,"EC2",az,vpc];
-            }
-            let rdsInstances = vpcObj[az].RDS;
-            for (let rds in rdsInstances) {
-              this.cy.add(new RDS(rdsInstances[rds], vpc+'-'+az, null).getRDSObject());
-              this.state.nodes[rds] = [rds,"RDS",az,vpc];
-            }
-            //make edges for nodes
-          }
-        }
+  componentDidMount(){
+    this.renderElement();
+  }
 
-        console.log('heeeeeeeeeey',this.state.nodes);
-        // ensures that the above collected information gets formatted in the cola layout, then run it
-        if(this.cy){
-          this.cy.layout({name: 'cola', flow: { axis: 'y', minSeparation: 40}, avoidOverlap: true}).run();
+  makeEdges(cy){
+    console.log("hello my edges is ", this.props.edgeTable)
+    const outboundIds = Object.keys(this.props.edgeTable);
+    for(let i = 0; i < outboundIds.length; i++ ){
+      const inboundIdsSet = this.props.edgeTable[outboundIds[i]];
+      inboundIdsSet.forEach( function(val1, val2, set){
+        cy.add({ group: 'edges', data: { id: outboundIds[i]+val1, source: outboundIds[i], target: val1}});
+      });
+    }
+  }
+  
+  render(){
+    // clears old graph when new graph is invoked
+    if(this.cy) {
+      this.cy.$('node').remove();
+    }
+    // iterate through everything in state to gather VPC, availability zone, EC2 and RDS instances and creating nodes for each
+    for(let vpc in this.props.regionData){
+      let vpcObj = this.props.regionData[vpc];
+      this.cy.add(new VPC(vpc).getVPCObject());
+      for(let az in vpcObj){
+        this.cy.add(new AvailabilityZone(az,vpc).getAvailabilityZoneObject());
+        let ec2Instances = vpcObj[az].EC2;
+        for(let ec2s in ec2Instances){
+          this.cy.add(new EC2(ec2Instances[ec2s], vpc+'-'+az, null).getEC2Object());
+          this.state.nodes[ec2s] = [ec2s,"EC2",az,vpc];
         }
-        return(
-            <div className="node_selected">
-                <div id="cy"></div>
-            </div>
-        )
-    }        
+        let rdsInstances = vpcObj[az].RDS;
+        for (let rds in rdsInstances) {
+          this.cy.add(new RDS(rdsInstances[rds], vpc+'-'+az, null).getRDSObject());
+          this.state.nodes[rds] = [rds,"RDS",az,vpc];
+        }
+        //make edges for nodes
+      }
+    }
+    this.makeEdges(this.cy);
+    console.log('heeeeeeeeeey',this.state.nodes);
+
+    // ensures that the above collected information gets formatted in the cola layout, then run it
+    if(this.cy){
+      this.cy.layout({name: 'cola', flow: { axis: 'y', minSeparation: 40}, avoidOverlap: true}).run();
+    }
+    return(
+        <div className="node_selected">
+            <div id="cy"></div>
+        </div>
+    )
+  }        
 };
 
 export default Cyto;
