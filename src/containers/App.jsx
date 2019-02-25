@@ -29,7 +29,6 @@ const mapDispatchToProps = dispatch => ({
 
 class App extends Component{
   render(){
-    console.log("THE REGION DATA IN STATE IS ",this.props.regionData);
     return(
       <div id="app">
         <Menu getAWSInstances={this.props.getAWSInstances} currentRegion={this.props.currentRegion} />

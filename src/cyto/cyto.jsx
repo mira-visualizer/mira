@@ -69,6 +69,15 @@ class Cyto extends PureComponent{
           .css({
               'background-color':'orange'
           })
+          .selector('.stopped')
+          .css({
+            'border-color': 'red',
+          })
+          .selector('.running')
+          .css({
+            'border-color': 'green',
+          })
+
         });
         /**
          *  VPCs just pass in the id
@@ -78,9 +87,6 @@ class Cyto extends PureComponent{
          */
          //check to see if you can access parent of the current node to pass into function
       this.cy.on('tap', 'node', function (evt){
-        console.log('this is the id:', this.id());
-        console.log('this is getStateNodes:',getStateNodes)
-        console.log('where r u',getStateNodes[this.id()]);
         getNodeFunction(getStateNodes[this.id()] );
       })
   }
@@ -90,7 +96,6 @@ class Cyto extends PureComponent{
   }
 
   makeEdges(cy){
-    console.log("hello my edges is ", this.props.edgeTable)
     const outboundIds = Object.keys(this.props.edgeTable);
     for(let i = 0; i < outboundIds.length; i++ ){
       const inboundIdsSet = this.props.edgeTable[outboundIds[i]];
@@ -125,7 +130,6 @@ class Cyto extends PureComponent{
       }
     }
     this.makeEdges(this.cy);
-    console.log('heeeeeeeeeey',this.state.nodes);
 
     // ensures that the above collected information gets formatted in the cola layout, then run it
     if(this.cy){

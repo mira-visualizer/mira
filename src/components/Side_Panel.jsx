@@ -15,8 +15,6 @@ class Side_Panel extends Component {
       
     }
 
-    console.log(this.props.activeNode)
-
     if(this.props.activeNode) {
       NodeDetails = ( <div id ="details-wrapper">
         <div id="details-header"><h4>Details</h4></div>

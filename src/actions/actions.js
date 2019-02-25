@@ -63,7 +63,6 @@ export const getAWSInstances = (region) =>{
           reject()
         } // an error occurred
         else{
-          // console.log("rds suuccess",data);
           //loop through the data returned from api call
           for(let i = 0; i < data.DBInstances.length; i ++){
             let DBinstances = data.DBInstances[i];
@@ -91,7 +90,6 @@ export const getAWSInstances = (region) =>{
                   reject();
                 }
                 else{
-                  console.log("THE SECURITY GROUP FOR RDS IS ", data.SecurityGroups)
 
                   regionState[VpcId][AvailabilityZone].RDS[DbiResourceId].MySecurityGroups = data.SecurityGroups;
                   for(let h = 0; h < data.SecurityGroups.length; h++){
@@ -107,7 +105,6 @@ export const getAWSInstances = (region) =>{
                     }
                   }
                   // const edgeTable = createEdges();
-                  // console.log("++++++++++++++ edge table", edgeTable);
                   // resolve(edgeTable);
                   resolve();
 
@@ -131,7 +128,6 @@ export const getAWSInstances = (region) =>{
           console.log("Error", err.stack);
           reject();
         } else {
-          // console.log("Success EC2", data.Reservations);
         
         //data is formatted differently from RDS, needs an extra layer of iteration
         for(let i = 0; i < data.Reservations.length; i ++){
@@ -158,10 +154,8 @@ export const getAWSInstances = (region) =>{
                   reject();
                 }
                 else {
-                  console.log("THE SECURITY GROUP FOR EC2 IS ", data.SecurityGroups)
 
                   regionState[VpcId][AvailabilityZone].EC2[InstanceId].MySecurityGroups = data.SecurityGroups;
-                  // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",regionState[VpcId][AvailabilityZone].EC2[InstanceId].MySecurityGroups)
                   for(let h = 0; h < data.SecurityGroups.length; h++){
                    
                     if(!sgNodeCorrelations[data.SecurityGroups[h].GroupId]) sgNodeCorrelations[data.SecurityGroups[h].GroupId]  = new Set();
@@ -178,7 +172,6 @@ export const getAWSInstances = (region) =>{
 
 
                   // const edgeTable = createEdges();
-                  // console.log("++++++++++++++ edge table", edgeTable);
                   // resolve(edgeTable);
                   resolve();
                   }
@@ -197,24 +190,16 @@ export const getAWSInstances = (region) =>{
 
     //once all the promise's are resolved, dispatch the data to the reducer
     Promise.all(apiPromiseArray).then(function(values) {
-    console.log("?????????????????????----------sgRelationships", sgRelationships);
-    console.log("?????????????????????-------sgNodeCorrelations", sgNodeCorrelations);
     let edgeTable = {};
-    console.log("????????????????????? --- ", sgRelationships.length)
 
     for(let i = 0; i < sgRelationships.length; i++){
-      console.log("sgNodeCorelations : " ,sgNodeCorrelations[sgRelationships[i][0]])
       sgNodeCorrelations[sgRelationships[i][0]].forEach( function(val1, val2, set){
-        console.log("Node corelations #1 val1 ---- ", val1);
         sgNodeCorrelations[sgRelationships[i][1]].forEach( function(value1, value2, set2){
-        console.log("Node corelations #2 value1 ---- ", value1);
         if(!edgeTable.hasOwnProperty(val1)) edgeTable[val1]= new Set();
           edgeTable[val1].add(value1);
-          console.log("the edge table in the for each: ", edgeTable);
         })
       })
     }
-    console.log("????????????????????? ------- edgeTable", edgeTable);
       //  
       dispatch({
         type: actionTypes.GET_AWS_INSTANCES,
