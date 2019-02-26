@@ -1,5 +1,6 @@
 // TODO: not using this because we are using .aws credentials file; can delete this file later
 const AWS = require('aws-sdk');
+const express = require('express');
 
 const rds = new AWS.RDS();
 
