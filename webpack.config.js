@@ -3,7 +3,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: 'development',
-  entry: "./src/index.js",
+  entry: "./src/index.js",   
+  optimization:{
+    minimize: false, // <---- disables uglify.
+    // minimizer: [new UglifyJsPlugin()] if you want to customize it.
+  },
   output: {
     path: path.join(__dirname, "/dist"),
     filename: "index.bundle.js",
