@@ -22,7 +22,10 @@ class Graph extends Component{
         <div id="graph">
         </div>
         <div id="cytoscape">
-          <Cyto regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails} fetchingFlag={this.props.fetchingFlag}/>
+          <Cyto regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails} fetchingFlag={this.props.fetchingFlag}
+          edgeTable = {this.props.edgeTable} />
+          {/* sgRelationships={this.props.sgRelationships}
+          sgNodeCorrelations={this.props.sgNodeCorrelations}/> */}
         </div>
       </div>
     )
