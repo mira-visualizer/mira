@@ -1,26 +1,27 @@
 import * as actionTypes from '../constants/actionTypes.js';
 
 const AWS = require('aws-sdk');
+
 const params = {};
 
 
 export const getAWSInstancesStart = () => ({
-  type: actionTypes.GET_AWS_INSTANCES_START
+  type: actionTypes.GET_AWS_INSTANCES_START,
 });
 
 export const getAWSInstancesFinished = resp => ({
-  type: actionTypes. GET_AWS_INSTANCES_FINISHED,
-  payload: resp
+  type: actionTypes.GET_AWS_INSTANCES_FINISHED,
+  payload: resp,
 });
 
 export const getAWSInstancesError = err => ({
-  type: actionTypes. GET_AWS_INSTANCES_ERROR,
-  payload: err
+  type: actionTypes.GET_AWS_INSTANCES_ERROR,
+  payload: err,
 });
 
-export const getAWSInstances = (region) =>{
+export const getAWSInstances = (region) => {
   AWS.config.update({
-    region:region
+    region,
   });
   const ec2 = new AWS.EC2({});
   const rds = new AWS.RDS({});
@@ -47,20 +48,20 @@ export const getAWSInstances = (region) =>{
         }
     }
     */
-    let regionState = {};
-    let sgRelationships = []; //array of arrays where each inside looks like [ [inbound sg, outbound sg] ]
-    let sgNodeCorrelations = {};
+    const regionState = {};
+    const sgRelationships = []; // array of arrays where each inside looks like [ [inbound sg, outbound sg] ]
+    const sgNodeCorrelations = {};
     const apiPromiseArray = [];
-    //adding new promise to promise array 
-    apiPromiseArray.push(new Promise(function(resolve,reject) {
-      const innerPromiseArray =[];
-      //make an api call to get information about RDS'
-      rds.describeDBInstances(params, function(err, data) {
+    // adding new promise to promise array
+    apiPromiseArray.push(new Promise(((resolve, reject) => {
+      const innerPromiseArray = [];
+      // make an api call to get information about RDS'
+      rds.describeDBInstances(params, (err, data) => {
         if (err) {
-          console.log(err, err.stack)
-          reject()
-        } // an error occurred
-        else{
+          console.log(err, err.stack);
+          reject();
+        }; // an error occurred
+        else {
           //loop through the data returned from api call
           for(let i = 0; i < data.DBInstances.length; i ++){
             let DBinstances = data.DBInstances[i];
@@ -116,12 +117,12 @@ export const getAWSInstances = (region) =>{
             resolve();
           });
         }
-      })
-    }))
+      });
+    })));
     // get ec2 instances from API
-    apiPromiseArray.push(new Promise(function(resolve,reject) {
+    apiPromiseArray.push(new Promise(((resolve, reject) => {
       const innerPromiseArray = [];
-      ec2.describeInstances(params, function(err, data) {
+      ec2.describeInstances(params, (err, data) => {
         if (err) {
           console.log("Error", err.stack);
           reject();
@@ -181,43 +182,41 @@ export const getAWSInstances = (region) =>{
           resolve();
         })
       }
-      }
-    )}))
+      },)
+ ;})));
 
-  
 
-    //once all the promise's are resolved, dispatch the data to the reducer
-    Promise.all(apiPromiseArray).then(function(values) {
-    let edgeTable = {};
+    // once all the promise's are resolved, dispatch the data to the reducer
+    Promise.all(apiPromiseArray).then((values) => {
+      const edgeTable = {};
 
-    for(let i = 0; i < sgRelationships.length; i++){
-      sgNodeCorrelations[sgRelationships[i][0]].forEach( function(val1, val2, set){
+      for (let i = 0; i < sgRelationships.length; i++) {
+        sgNodeCorrelations[sgRelationships[i][0]].forEach((val1, val2, set) => {
         sgNodeCorrelations[sgRelationships[i][1]].forEach( function(value1, value2, set2){
         if(!edgeTable.hasOwnProperty(val1)) edgeTable[val1]= new Set();
           edgeTable[val1].add(value1);
         })
-      })
-    }
-      //  
+      });
+      }
+      //
       dispatch({
         type: actionTypes.GET_AWS_INSTANCES,
         payload: {
-          regionState: regionState,
+          regionState,
           currentRegion: region,
-          edgeTable: edgeTable
+          edgeTable,
           // sgNodeCorrelations: sgNodeCorrelations,
           // sgRelationships: sgRelationships
-        } 
-      })
+        },
+      });
       dispatch(getAWSInstancesFinished());
-    })
-  }
-}
+    });
+  };
+};
 
-//takes in an ID from cyto and dispatches the active id to the reducer to save in state
-export const getNodeDetails = (data) => {
-  return {
-    type: actionTypes.NODE_DETAILS,
-    payload: data
-  }
-}
+// takes in an ID from cyto and dispatches the active id to the reducer to save in state
+export const getNodeDetails = data => ({
+  type: actionTypes.NODE_DETAILS,
+  payload: data,
+});
+

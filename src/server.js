@@ -1,25 +1,22 @@
-// GraphQL query to retrieve all region data at once
+import express from 'express';
+import graphqlHTTP from 'express-graphql';
+import schema from './schema';
 
-import {GraphQLSchema, GraphQLObjectType} from 'graphql';
-import awsSDK from 'aws-sdk';
-import { awsApiParser } from 'graphql-compose-aws';
+const expressPort = process.env.port || process.env.PORT || 4000;
 
-const awsApiParser = new AwsApiParser({
-  awsSDK,
-})
+const server = express();
+server.use(
+  '/',
+  graphqlHTTP({
+    schema,
+    graphiql: true,
+    formatError: error => ({
+      message: error.message,
+      stack: error.stack.split('\n'),
+    }),
+  }),
+);
 
-const schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'Query',
-    fields: {
-      // Full API:
-      aws: awsApiParser.getFieldConfig(),
-      // Partial API with desired services:
-      // regions: awsApiParser.getService('regions').getFieldConfig(),
-      // ec2: awsApiParser.getService('ec2').getFieldConfig(),
-      // rds: awsApiParser.getService('rds').getFieldConfig(),
-    }
-  })
-})
-
-export default schema;
+server.listen(expressPort, () => {
+  console.log(`The server is running at http://localhost:${expressPort}/`);
+});
