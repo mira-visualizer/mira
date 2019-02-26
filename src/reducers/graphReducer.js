@@ -1,23 +1,57 @@
 import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
-    ec2Instances: [],
-    rdsInstances: [],
-    s3Instances: []
+  currentRegion: '',
+  regionData: {},
+  edgeTable:{},
+  // sgNodeCorrelations: {},
+  // sgRelationships: [],
+  activeNode: '',
+  fetching: false,
+  fetched: false,
 }
 
+// should possibly rename this reducer
 const graphReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case actionTypes.GET_EC2: {
-        console.log('this is the state: ',state);
-        console.log('action.payload', action.payload);
+  switch (action.type) {
+
+    case actionTypes.GET_AWS_INSTANCES_START:{
+      return {
+        ...state,
+        fetching:true,
+        fetched: false
+      }
+    }
+
+      case actionTypes.GET_AWS_INSTANCES_FINISHED:{
         return {
           ...state,
-          // what we will be updating?
-          ec2Instances: action.payload,
+          fetching:false,
+          fetched: true
         }
       }
 
+      case actionTypes.GET_AWS_INSTANCES: {
+        return {
+          ...state,
+          regionData: action.payload.regionState,
+          currentRegion: action.payload.currentRegion,
+          edgeTable: action.payload.edgeTable
+          // sgNodeCorrelations: action.payload.sgNodeCorrelations,
+          // sgRelationships: action.payload.sgRelationships
+        }
+      }
+      case actionTypes.NODE_DETAILS: {
+        const VPC = action.payload[3];
+        const availabilityZone = action.payload[2];
+        const instanceType = action.payload[1];
+        const instanceId = action.payload[0];
+        const nodeData = state.regionData[VPC][availabilityZone][instanceType][instanceId];
+        return {
+          ...state,
+          activeNode: nodeData
+        }
+      }
       default: return state;
     }
 }
