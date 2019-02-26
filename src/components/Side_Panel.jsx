@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import ReactJson from 'react-json-view'
+import {Switch, BrowserRouter as Router, Route, NavLink, withRouter } from 'react-router-dom';
+import SecGroupEdit from './Security_Group_Edit'
+
 
 class Side_Panel extends Component {
 
@@ -25,9 +28,27 @@ class Side_Panel extends Component {
       }
 
     return(
-      <div id="sidePanel">
-        {NodeDetails}
-      </div>
+
+      <Router>
+        <div id="sidePanel">
+          <a><NavLink to='/node-details'> Get Node Details</NavLink></a>
+          <a><NavLink to='/edit-security-group'> Edit Security Groups </NavLink></a>
+          
+          <Switch>
+            <Route
+              path='/node-details'
+              component={NodeDetails}
+            />
+            <Route
+              path='/edit-security-group'
+              render={(props) => <SecGroupEdit {...props} regionData={this.props.regionData} activeNode={this.props.activeNode}/>}
+            />
+          </Switch>
+          
+        </div>
+
+      </Router>
+      
     )
   }
 }
