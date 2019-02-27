@@ -78,7 +78,7 @@ class Side_Panel extends Component {
           contentLabel="Example Modal"
         >
         
-          <SecGroupEdit sgData={this.props.activeNode.MySecurityGroups}/>
+          <SecGroupEdit sgData={this.props.activeNode.MySecurityGroups} onRequestClose={this.closeModal} />
           <button onClick={this.closeModal}>close</button>
         </Modal>
       {NodeDetails}
