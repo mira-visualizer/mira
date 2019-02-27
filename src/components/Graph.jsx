@@ -12,9 +12,12 @@ class Graph extends Component{
   render() {
 
     let fetching;
+    if(!this.props.fetchingFlag && !this.props.finishedFlag) {
+      
+    }
     if(this.props.fetchingFlag){
       fetching = <div id="loading" ><img src="../src/assets/loading.svg" alt="Loading..."></img></div>
-    }
+    } 
 
     return (
       <div id="graphContainer">
