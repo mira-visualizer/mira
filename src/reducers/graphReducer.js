@@ -51,7 +51,6 @@ const graphReducer = (state = initialState, action) => {
         }
       }
       case actionTypes.GET_ALL_REGIONS: {
-        console.log('All regions data being saved', action.payload.result)
         return {
           ...state,
           allRegions: action.payload.result

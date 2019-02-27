@@ -1,5 +1,6 @@
 import * as actionTypes from '../constants/actionTypes.js';
 import axios from 'axios';
+import compileGraphData from '../assets/compileGraphData'
 
 const AWS = require('aws-sdk');
 
@@ -24,6 +25,7 @@ export const getAWSInstances = (region) => {
   AWS.config.update({
     region,
   });
+  console.log("THE AWS INSTANCE CONFIG IS ", AWS.config);
   const ec2 = new AWS.EC2({});
   const rds = new AWS.RDS({});
   return (dispatch) => {
@@ -220,7 +222,7 @@ export const getAllRegions = () => {
             accessKeyId: "AKIAI26YPTNPKHEMJUNA",
             secretAccessKey: "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"
           }) {
-            usEast2_ohio_ec2: ec2(config:{
+            us_east_2_ec2: ec2(config:{
               region: "us-east-2"
             }) {
               describeInstances {
@@ -238,7 +240,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            usEast1_nVirginia_ec2: ec2(config:{
+            usEast1_ec2: ec2(config:{
               region: "us-east-1"
             }) {
               describeInstances {
@@ -256,7 +258,7 @@ export const getAllRegions = () => {
                 }
               }
             } 
-            usWest1_nCalifornia_ec2: ec2(config:{
+            usWest1_ec2: ec2(config:{
               region: "us-west-1"
             }) {
               describeInstances {
@@ -274,7 +276,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            usWest2_oregon_ec2: ec2(config:{
+            usWest2_ec2: ec2(config:{
               region: "us-west-2"
             }) {
               describeInstances {
@@ -292,7 +294,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apSouth1_mumbai_ec2: ec2(config:{
+            apSouth1_ec2: ec2(config:{
               region: "ap-south-1"
             }) {
               describeInstances {
@@ -303,7 +305,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apNortheast2_seoul_ec2: ec2(config:{
+            apNortheast2_ec2: ec2(config:{
               region: "ap-northeast-2"
             }) {
               describeInstances {
@@ -321,7 +323,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apSoutheast1_singapore_ec2: ec2(config:{
+            apSoutheast1_ec2: ec2(config:{
               region: "ap-southeast-1"
             }) {
               describeInstances {
@@ -332,7 +334,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apSoutheast2_sydney_ec2: ec2(config:{
+            apSoutheast2_ec2: ec2(config:{
               region: "ap-southeast-2"
             }) {
               describeInstances {
@@ -350,7 +352,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apNortheast1_tokyo_ec2: ec2(config:{
+            apNortheast1_ec2: ec2(config:{
               region: "ap-northeast-1"
             }) {
               describeInstances {
@@ -368,7 +370,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            caCentral1_canada_ec2: ec2(config:{
+            caCentral1_ec2: ec2(config:{
               region: "ca-central-1"
             }) {
               describeInstances {
@@ -379,7 +381,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euCentral1_frankfurt_ec2: ec2(config:{
+            euCentral1_ec2: ec2(config:{
               region: "eu-central-1"
             }) {
               describeInstances {
@@ -397,7 +399,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euWest1_ireland_ec2: ec2(config:{
+            euWest1_ec2: ec2(config:{
               region: "eu-west-1"
             }) {
               describeInstances {
@@ -415,7 +417,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euWest2_london_ec2: ec2(config:{
+            euWest2_ec2: ec2(config:{
               region: "eu-west-2"
             }) {
               describeInstances {
@@ -433,7 +435,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euWest3_paris_ec2: ec2(config:{
+            euWest3_ec2: ec2(config:{
               region: "eu-west-3"
             }) {
               describeInstances {
@@ -451,7 +453,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euNorth1_stockholm_ec2: ec2(config:{
+            euNorth1_ec2: ec2(config:{
               region: "eu-north-1"
             }) {
               describeInstances {
@@ -469,7 +471,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            saEast1_saoPaulo_ec2: ec2(config:{
+            saEast1_ec2: ec2(config:{
               region: "sa-east-1"
             }) {
               describeInstances {
@@ -491,7 +493,7 @@ export const getAllRegions = () => {
             
             
             
-            usEast2_ohio_rds: rds(config:{
+            usEast2_rds: rds(config:{
               region: "us-east-2"
             }) {
               describeDBInstances {
@@ -507,7 +509,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            usEast1_nVirginia_rds: rds(config:{
+            usEast1_rds: rds(config:{
               region: "us-east-1"
             }) {
               describeDBInstances {
@@ -523,7 +525,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            usWest1_nCalifornia_rds: rds(config:{
+            usWest1_rds: rds(config:{
               region: "us-west-1"
             }) {
               describeDBInstances {
@@ -539,7 +541,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            usWest2_oregon_rds: rds(config:{
+            usWest2_rds: rds(config:{
               region: "us-west-2"
             }) {
               describeDBInstances {
@@ -555,7 +557,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apSouth1_mumbai_rds: rds(config:{
+            apSouth1_rds: rds(config:{
               region: "ap-south-1"
             }) {
               describeDBInstances {
@@ -571,7 +573,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apNortheast2_seoul_rds: rds(config:{
+            apNortheast2_rds: rds(config:{
               region: "ap-northeast-2"
             }) {
               describeDBInstances {
@@ -587,7 +589,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apSoutheast1_singapore_rds: rds(config:{
+            apSoutheast1_rds: rds(config:{
               region: "ap-southeast-1"
             }) {
               describeDBInstances {
@@ -603,7 +605,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apSoutheast2_sydney_rds: rds(config:{
+            apSoutheast2_rds: rds(config:{
               region: "ap-southeast-2"
             }) {
               describeDBInstances {
@@ -619,7 +621,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apNortheast1_tokyo_rds: rds(config:{
+            apNortheast1_rds: rds(config:{
               region: "ap-northeast-1"
             }) {
               describeDBInstances {
@@ -635,7 +637,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            caCentral1_canada_rds: rds(config:{
+            caCentral1_rds: rds(config:{
               region: "ca-central-1"
             }) {
               describeDBInstances {
@@ -651,7 +653,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euCentral1_frankfurt_rds: rds(config:{
+            euCentral1_rds: rds(config:{
               region: "eu-central-1"
             }) {
               describeDBInstances {
@@ -667,7 +669,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euWest1_ireland_rds: rds(config:{
+            euWest1_rds: rds(config:{
               region: "eu-west-1"
             }) {
               describeDBInstances {
@@ -683,7 +685,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euWest2_london_rds: rds(config:{
+            euWest2_rds: rds(config:{
               region: "eu-west-2"
             }) {
               describeDBInstances {
@@ -699,7 +701,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euWest3_paris_rds: rds(config:{
+            euWest3_rds: rds(config:{
               region: "eu-west-3"
             }) {
               describeDBInstances {
@@ -715,7 +717,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euNorth1_stockholm_rds: rds(config:{
+            euNorth1_rds: rds(config:{
               region: "eu-north-1"
             }) {
               describeDBInstances {
@@ -731,7 +733,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            saEast1_saoPaulo_rds: rds(config:{
+            saEast1_rds: rds(config:{
               region: "sa-east-1"
             }) {
               describeDBInstances {
@@ -753,6 +755,17 @@ export const getAllRegions = () => {
       }
     }).then((result) => {
       console.log('This is the result: ', result);
+      const aws = result.data.data.aws;
+      let graphData = new compileGraphData();
+      for (let regions in aws) {
+        const regionArray = regions.split("_")
+        const regionString = regionArray[0] + "-" + regionArray[1] + "-" + regionArray[2];
+        if (regionArray[3] === "ec2") {
+          console.log("the region string is ", regionString);
+          graphData.compileEC2Data(aws[regions].describeInstances, regionString);
+        }
+      }
+      console.log('Heres the graph data for regions: ', graphData.getRegionData())
       dispatch({
         type: actionTypes.GET_ALL_REGIONS,
         payload: {
