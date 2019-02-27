@@ -1,6 +1,7 @@
 import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
+<<<<<<< HEAD
   currentRegion: '',
   regionData: {},
   edgeTable:{},
@@ -9,10 +10,22 @@ const initialState = {
   activeNode: '',
   fetching: false,
   fetched: false,
+=======
+    currentRegion: '',
+    regionData: {},
+    edgeTable:{},
+    // sgNodeCorrelations: {},
+    // sgRelationships: [],
+    activeNode: '',
+    fetching: false,
+    fetched: false,
+    allRegions: {},
+>>>>>>> 354e3740e4e92ef37cb26074733633e98cd567e0
 }
 
 // should possibly rename this reducer
 const graphReducer = (state = initialState, action) => {
+<<<<<<< HEAD
   switch (action.type) {
 
     case actionTypes.GET_AWS_INSTANCES_START:{
@@ -23,6 +36,16 @@ const graphReducer = (state = initialState, action) => {
       }
     }
 
+=======
+    switch (action.type) {
+      case actionTypes.GET_AWS_INSTANCES_START:{
+        return {
+          ...state,
+          fetching:true,
+          fetched: false
+        }
+      }
+>>>>>>> 354e3740e4e92ef37cb26074733633e98cd567e0
       case actionTypes.GET_AWS_INSTANCES_FINISHED:{
         return {
           ...state,
@@ -30,7 +53,6 @@ const graphReducer = (state = initialState, action) => {
           fetched: true
         }
       }
-
       case actionTypes.GET_AWS_INSTANCES: {
         return {
           ...state,
@@ -50,6 +72,12 @@ const graphReducer = (state = initialState, action) => {
         return {
           ...state,
           activeNode: nodeData
+        }
+      }
+      case actionTypes.GET_ALL_REGIONS: {
+        return {
+          ...state,
+          allRegions: action.payload.result
         }
       }
       default: return state;
