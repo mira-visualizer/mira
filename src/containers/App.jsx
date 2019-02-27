@@ -21,9 +21,11 @@ const mapDispatchToProps = dispatch => ({
     getAWSInstances: (instances) => {
         dispatch(actions.getAWSInstances(instances));
     },
-
     getNodeDetails: (data) => {
       dispatch(actions.getNodeDetails(data));
+    },
+    getAllRegions: () => {
+      dispatch(actions.getAllRegions());
     }
 })
 
@@ -31,7 +33,7 @@ class App extends Component{
   render(){
     return(
       <div id="app">
-        <Menu getAWSInstances={this.props.getAWSInstances} currentRegion={this.props.currentRegion} />
+        <Menu getAWSInstances={this.props.getAWSInstances} currentRegion={this.props.currentRegion} getAllRegions={this.props.getAllRegions} />
         <MainContainer getAWSInstances={this.props.getAWSInstances} regionData={this.props.regionData} 
         getNodeDetails={this.props.getNodeDetails} activeNode={this.props.activeNode} fetchingFlag={this.props.fetchingFlag} finishedFlag={this.props.finishedFlag}
         edgeTable= {this.props.edgeTable}/>
