@@ -16,7 +16,7 @@ class Menu extends Component {
 
     return (
       <div id="Menu">
-        <select onChange={handleChange}>
+        <select className="custom-select" onChange={handleChange}>
           <option value="select-region">Select Region</option>
           <option value="us-east-2">us-east-2</option>
           <option value="us-east-1">us-east-1</option>
