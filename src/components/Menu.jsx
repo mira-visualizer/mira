@@ -1,5 +1,6 @@
-import React, {Component} from "react";
-import { getAWSInstances } from "../actions/actions";
+import React, { Component } from 'react';
+import axios from 'axios';
+import { getAWSInstances } from '../actions/actions';
 import Select from 'react-select';
 
 class Menu extends Component {
@@ -39,11 +40,10 @@ class Menu extends Component {
       if(selectedOption !== 'select-region'){
         this.props.getAWSInstances(selectedOption.value);
       }
-    }
+    };
     const refresh = () => {
       this.props.getAWSInstances(this.props.currentRegion);
-    }
-
+    };
     return (
       <div>
 
@@ -57,7 +57,7 @@ class Menu extends Component {
       </div>
        <button id="refresh" onClick={refresh}>Refresh</button>
       </div>
-    )
+    );
   }
 }
 
