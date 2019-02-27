@@ -87,20 +87,44 @@ class Security_Group_Edit extends Component{
         params.IpPermissions[0].UserIdGroupPairs = [{GroupId:this.source.value, Description:this.description.value}]
 
      }
-     if(this.state.inbound) {
-      ec2.authorizeSecurityGroupIngress(params, function(err, data) {
-        if (err) console.log('Data not inputted in correct format', err, err.stack); // an error occurred
-        else     console.log(data);           // successful response
-      });
-     } else if (this.state.outbound) {
-       ec2.authorizeSecurityGroupEgress(params, function(err, data) {
-        if (err) console.log('Data not inputted in correct format', err, err.stack); // an error occurred
-        else     console.log(data);           // successful response
-       }); 
-     } else {
-       alert('missing choices');
-     }
-     
+     const editSGPromises = new Promise((resolve,reject) => {
+       if(this.state.inbound) {
+        ec2.authorizeSecurityGroupIngress(params, function(err, data) {
+          if (err){
+            console.log('Data not inputted in correct format', err, err.stack); // an error occurred
+            reject(err);
+          } 
+          else {
+            console.log(data);           // successful response
+            resolve();
+          }
+        });
+       } else if (this.state.outbound) {
+         ec2.authorizeSecurityGroupEgress(params, function(err, data) {
+          if (err){
+            console.log('Data not inputted in correct format', err, err.stack); // an error occurred
+            reject(err);
+          } 
+          else{
+            console.log(data);           // successful response
+            resolve();
+          } 
+         }); 
+       } else {
+         alert('missing choices');
+       }
+     })
+     .then( (result) => {
+      this.props.onRequestClose()
+      console.log('Got the result: ' + result);
+    })
+    .catch(function(err) {
+      alert(err);
+    });
+
+    //  .then(this.props.onRequestClose() , reason => {
+    //    alert(reason);
+    //  });
     event.preventDefault();
   }
 
@@ -305,7 +329,7 @@ class Security_Group_Edit extends Component{
           <th> <input id="Description" type="text" ref={(input) => this.description = input} /></th>
         </tr>
       </table>
-      <input type="submit" value="Submit"/>
+      <input type="submit" value="Submit" />
     </form>
     </div>
     )
