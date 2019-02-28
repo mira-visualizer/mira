@@ -7,20 +7,14 @@ class compileGraphData {
     this.sgNodeCorrelations = {};
     this.edgeTable = {};
     this.ec2;
-  }
-
-  setRegion(region){
-    AWS.config.update({
-      region,
-    });
+    console.log(this.ec2);
   }
 
   compileRDSData(data,region){
     AWS.config.update({
       region,
     });
-    this.ec2 = new AWS.EC2({});
-    console.log("RDS DATA", data);
+    this.ec3  = new AWS.EC2({});
       const innerPromiseArray =[];
 
         for(let i = 0; i < data.DBInstances.length; i ++){
