@@ -214,8 +214,8 @@ export const getNodeDetails = data => ({
 });
 
 export const getAllRegions = (publicKey, privateKey) => {
-  //FIX THE QUERY STRING PLS ／人 ◕ ‿‿ ◕ 人＼
   return(dispatch) => {
+    dispatch(getAWSInstancesStart());
     axios({
       method: 'post',
       url: 'https://graphql-compose.herokuapp.com/aws/',
@@ -223,8 +223,8 @@ export const getAllRegions = (publicKey, privateKey) => {
         query: `
         query {
           aws(config: {
-            accessKeyId: "AKIAJAUMY7FM7ZYCTKEA",
-            secretAccessKey: "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"
+            accessKeyId: "${publicKey}",
+            secretAccessKey: "${privateKey}"
           }) {
             us_east_2_ec2: ec2(config:{
               region: "us-east-2"
@@ -873,6 +873,7 @@ export const getAllRegions = (publicKey, privateKey) => {
         const edgeTable = [];
       console.log('Heres the graph data for regions: ', edgeTable);
       const regionState = graphData.getRegionData();
+      dispatch(getAWSInstancesFinished());
       dispatch({
         type: actionTypes.GET_AWS_INSTANCES,
         payload: {

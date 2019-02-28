@@ -3,6 +3,7 @@ import ReactJson from 'react-json-view'
 import {Switch, BrowserRouter as Router, Route, NavLink, withRouter } from 'react-router-dom';
 import SecGroupEdit from './Security_Group_Edit'
 import Modal from 'react-modal';
+import Collapsible from 'react-collapsible';
 
 const customStyles = {
   content : {
@@ -50,16 +51,25 @@ class Side_Panel extends Component {
     const reactJsonconfig = {
       indentWidth:1,
       name:this.props.activeNode.InstanceId,
-      theme: 'apathy',
+      theme: 'bright:inverted',
       
     }
 
     if(this.props.activeNode) {
+      console.log('BRAHHH',this.props.activeNode);
       NodeDetails = ( <div id ="details-wrapper">
-        <div id="details-header"><h4>Details</h4></div>
-        <div id="details-sub-header"><h6>{this.props.activeNode.InstanceId ? this.props.activeNode.InstanceId: this.props.activeNode.DBInstanceIdentifier }</h6></div>
-        <div id="main-info" className="node-info"><ReactJson src={this.props.activeNode} theme={reactJsonconfig.theme} indentWidth={reactJsonconfig.indentWidth}></ReactJson></div>
-        <div id="sg-info" className="node-info"><ReactJson src={this.props.activeNode.MySecurityGroups} theme={reactJsonconfig.theme} indentWidth={reactJsonconfig.indentWidth}></ReactJson></div>        
+        <Collapsible trigger="Node Summary" open="true">
+          <p><span className="sidebar-title">Instance Type: </span><span>{this.props.activeNode.InstanceId ? 'EC2': 'RDS'}</span></p>
+          <p><span className="sidebar-title">Instance ID: </span><span>{this.props.activeNode.InstanceId ? this.props.activeNode.InstanceId: this.props.activeNode.DBInstanceIdentifier}</span></p>
+          <p><span className="sidebar-title">Instance Status: </span><span>{this.props.activeNode.InstanceId ? this.props.activeNode.State.Name : this.props.activeNode.DBInstanceStatus}</span></p>
+
+        </Collapsible>
+        <Collapsible trigger="Node Details" open="true">
+          <div id="main-info" className="node-info"><ReactJson src={this.props.activeNode} theme={reactJsonconfig.theme} indentWidth={reactJsonconfig.indentWidth}></ReactJson></div>
+        </Collapsible>
+        <Collapsible trigger="Security Group Details" open="true">
+          <div id="sg-info" className="node-info"><ReactJson src={this.props.activeNode.MySecurityGroups} theme={reactJsonconfig.theme} indentWidth={reactJsonconfig.indentWidth}></ReactJson></div>        
+        </Collapsible>
       </div>);
       sgmodal = (
         <button id="modal-pop-up" onClick={this.openModal}>Edit Security Groups</button>
