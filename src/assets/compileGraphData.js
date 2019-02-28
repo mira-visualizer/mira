@@ -17,7 +17,7 @@ class compileGraphData {
     this.ec3  = new AWS.EC2({});
       const innerPromiseArray =[];
 
-    for(let i = 0; i < data.DBInstances.length; i ++){
+        for(let i = 0; i < data.DBInstances.length; i ++){
             let DBinstances = data.DBInstances[i];
             //destructure the data for relevant data
             let {DBSubnetGroup: {VpcId}, AvailabilityZone, DbiResourceId, VpcSecurityGroups} = DBinstances;
@@ -36,7 +36,7 @@ class compileGraphData {
                 param.GroupIds.push(VpcSecurityGroups[k].VpcSecurityGroupId); 
                 
               }
-              this.ec2.describeSecurityGroups(param, function(err, data) {
+              this.ec2.describeSecurityGroups(param, (err, data) => {
                 if (err) {
                   console.log(err, err.stack);
                   reject();
@@ -62,12 +62,24 @@ class compileGraphData {
               } )
             }))
 
+            
+
 
           }
+
+          Promise.all(innerPromiseArray).then(() => {
+            console.log("inner promise array ", innerPromiseArray);
+
+            // console.log("sgnodre correlations", this.sgNodeCorrelations);
+    // console.log("sgRelationshisps ", this.sgRelationships)
+          });
   }
 
   compileEC2Data(data, region){
-    console.log("the region in compile data is ", region)
+    AWS.config.update({
+      region,
+    });
+    this.ec2 = new AWS.EC2({});
     const innerPromiseArray =[];
     for(let i = 0; i < data.Reservations.length; i ++){
       let instances = data.Reservations[i].Instances;
@@ -86,17 +98,12 @@ class compileGraphData {
           for(let k = 0; k < SecurityGroups.length; k++){
             param.GroupIds.push(SecurityGroups[k].GroupId); 
           }
-                        AWS.config.update({
-                          region,
-                        });
-          console.log("aws config? ", AWS.config);
-              this.ec2.describeSecurityGroups(param, function(err, data) {
-                if (err) {
-                  console.log(err, err.stack);
-                  reject();
-                }
-                else {
-                  console.log('whatever sometiing unique')
+          this.ec2.describeSecurityGroups(param, (err, data) => {
+            if (err) {
+              console.log(err, err.stack);
+              reject();
+            }
+            else {
                   this.regionState[VpcId][AvailabilityZone].EC2[InstanceId].MySecurityGroups = data.SecurityGroups;
                   for(let h = 0; h < data.SecurityGroups.length; h++){
                    
@@ -111,14 +118,24 @@ class compileGraphData {
                       }
                     }
                   }
+                  console.log("Node relations ", this.sgNodeCorrelations)
                   resolve();
-                  }
-              } )
-            }))
-          }
-        }
+            }
+          })
+        }));
+        
+      }
+    }
+
+    Promise.all(innerPromiseArray).then(() => {
+      console.log("inner promise array ", innerPromiseArray);
+      // console.log("sgnodre correlations", this.sgNodeCorrelations);
+    // console.log("sgRelationshisps ", this.sgRelationships)
+    });
   }
   createEdges(){
+    console.log("sgnodre correlations", this.sgNodeCorrelations);
+    console.log("sgRelationshisps ", this.sgRelationships)
      for(let i = 0; i < this.sgRelationships.length; i++){
       this.sgNodeCorrelations[this.sgRelationships[i][0]].forEach( function(val1, val2, set){
         this.sgNodeCorrelations[this.sgRelationships[i][1]].forEach( function(value1, value2, set2){
@@ -126,7 +143,10 @@ class compileGraphData {
           this.edgeTable[val1].add(value1);
         })
       })
-    } 
+    }
+
+    console.log("the edge tables",this.edgeTable) 
+    return this.edgeTable;
   }
 
   getRegionData(){
