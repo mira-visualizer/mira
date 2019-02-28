@@ -57,7 +57,6 @@ class Side_Panel extends Component {
         theme: 'bright:inverted',
         
       }
-      console.log('BRAHHH',this.props.activeNode);
       NodeDetails = ( <div id ="details-wrapper">
         <Collapsible trigger="Node Summary" open="true">
           <p><span className="sidebar-title">Instance Type: </span><span>{this.props.activeNode.InstanceId ? 'EC2': 'RDS'}</span></p>
