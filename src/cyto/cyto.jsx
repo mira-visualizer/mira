@@ -18,6 +18,7 @@ class Cyto extends PureComponent{
     // this.nodes should hold each node's id and specific data - pro: constant lookup time for each node, con: takes up storage space
     // alternatively we could find a way to access specific data per node from state
     this.state = {
+      regions: new Set(),
       nodes:{},
     };
   }
@@ -36,14 +37,14 @@ class Cyto extends PureComponent{
           .css({
             'height': 80,
             'width': 80,
-            'background-fit': 'cover',
-            'background-color': 'white',
+            // 'background-fit': 'cover',
+            // 'background-color': 'white',
             'border-color': '#000',
             'border-width': 3,
             'border-opacity': 0.5,
             'text-halign': 'center',
-            'text-valign': 'center',
-            'font-size': 5,
+            'text-valign': 'top',
+            'font-size': 6,
             'label': 'data(label)'
           })
         .selector(':parent')
@@ -58,17 +59,31 @@ class Cyto extends PureComponent{
             'curve-style': 'bezier',
             'width': 6,
             'target-arrow-shape': 'triangle',
-            'line-color': '#ffaaaa',
-            'target-arrow-color': '#ffaaaa',
+            'line-color': 'black',
+            'target-arrow-color': 'black',
             'opacity': 0.5
           })
           .selector('.EC2')
           .css({
-              'background-color':'pink'
+              'background-image': 'https://cdn.freebiesupply.com/logos/large/2x/aws-ec2-logo-png-transparent.png',
+              'background-width-relative-to': 'inner',
+              'background-height-relative-to': 'inner',
+              'background-width': '50px',
+            'text-valign': 'bottom',
+            'background-opacity': 0,
+            'text-margin-y':5,
+            'background-height': '50px'
           })
           .selector('.RDS')
           .css({
-              'background-color':'orange'
+            'background-opacity': 0,
+            'background-image': 'https://cloudmonix.com/wp-content/uploads/2018/03/AWS_Simple_Icons_Database_AmazonRDS.svg_-20160325070440.png',
+            'background-width-relative-to': 'inner',
+            'background-height-relative-to': 'inner',
+            'text-valign': 'bottom',
+            'background-width': '50px',
+            'text-margin-y':5,
+            'background-height': '50px'
           })
           .selector('.stopped')
           .css({
@@ -77,6 +92,10 @@ class Cyto extends PureComponent{
           .selector('.running')
           .css({
             'border-color': 'green',
+          })
+          .selector('.Region')
+          .css({
+            'border-style': 'dotted'
           })
 
         });
@@ -110,23 +129,29 @@ class Cyto extends PureComponent{
     // clears old graph when new graph is invoked
     if(this.cy ) {
       this.cy.$('node').remove();
+      this.state.regions.clear();
     }
     // iterate through everything in state to gather VPC, availability zone, EC2 and RDS instances and creating nodes for each
-    console.log("My Props",this.props)
-    console.log("THE REGION DATA ", this.props.regionData)
     for(let vpc in this.props.regionData){
+
       let vpcObj = this.props.regionData[vpc];
-      this.cy.add(new VPC(vpc).getVPCObject());
+      if(vpcObj.hasOwnProperty("region") &&!this.state.regions.has(vpcObj.region)){
+        this.cy.add(new Region(vpcObj.region).getRegionObject());
+        this.state.regions.add(vpcObj.region);
+        
+      }
+      this.cy.add(new VPC(vpc,vpcObj.region).getVPCObject());
+
       for(let az in vpcObj){
-        this.cy.add(new AvailabilityZone(az,vpc).getAvailabilityZoneObject());
+        if(az !== "region")this.cy.add(new AvailabilityZone(az,vpcObj.region+"-"+vpc).getAvailabilityZoneObject());
         let ec2Instances = vpcObj[az].EC2;
         for(let ec2s in ec2Instances){
-          this.cy.add(new EC2(ec2Instances[ec2s], vpc+'-'+az, null).getEC2Object());
+          this.cy.add(new EC2(ec2Instances[ec2s], vpcObj.region+"-"+vpc+"-"+az, null).getEC2Object());
           this.state.nodes[ec2s] = [ec2s,"EC2",az,vpc];
         }
         let rdsInstances = vpcObj[az].RDS;
         for (let rds in rdsInstances) {
-          this.cy.add(new RDS(rdsInstances[rds], vpc+'-'+az, null).getRDSObject());
+          this.cy.add(new RDS(rdsInstances[rds], vpcObj.region+"-"+vpc+"-"+az, null).getRDSObject());
           this.state.nodes[rds] = [rds,"RDS",az,vpc];
         }
         //make edges for nodes

@@ -29,7 +29,6 @@ export const getAWSInstances = (region) => {
   AWS.config.update({
     region,
   });
-  console.log("THE AWS INSTANCE CONFIG IS ", AWS.config);
   const ec2 = new AWS.EC2({});
   const rds = new AWS.RDS({});
   return (dispatch) => {
@@ -215,7 +214,6 @@ export const getNodeDetails = data => ({
 });
 
 export const getAllRegions = (publicKey, privateKey) => {
-  console.log('EMILAAA', publicKey,privateKey);
   //FIX THE QUERY STRING PLS ／人 ◕ ‿‿ ◕ 人＼
   return(dispatch) => {
     axios({
@@ -225,8 +223,8 @@ export const getAllRegions = (publicKey, privateKey) => {
         query: `
         query {
           aws(config: {
-            accessKeyId: "",
-            secretAccessKey: ""
+            accessKeyId: "AKIAJAUMY7FM7ZYCTKEA",
+            secretAccessKey: "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"
           }) {
             us_east_2_ec2: ec2(config:{
               region: "us-east-2"
@@ -869,9 +867,10 @@ export const getAllRegions = (publicKey, privateKey) => {
       }
       Promise.all(allRegionsPromisesArray).then( () => {
         console.log(allRegionsPromisesArray);
-        graphData.createEdges();
+        // graphData.createEdges();
 
-        const edgeTable = graphData.getEdgesData();
+        // const edgeTable = graphData.getEdgesData();
+        const edgeTable = [];
       console.log('Heres the graph data for regions: ', edgeTable);
       const regionState = graphData.getRegionData();
       dispatch({

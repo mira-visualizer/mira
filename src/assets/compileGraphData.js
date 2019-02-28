@@ -1,5 +1,27 @@
 const AWS = require('aws-sdk');
 
+const options = {
+  'us-east-1': 'US East (N. Virginia)',
+  'us-east-2': 'US East (Ohio)',
+  'us-west-2': 'US West (N. California)',
+  'us-west-1': 'US West (Oregon)',
+  'ap-south-1': 'Asia Pacific (Mumbai)',
+  'ap-northeast-3': 'Asia Pacific (Osaka-Local)',
+  'ap-northeast-2': 'Asia Pacific (Seoul)',
+  'ap-southeast-1': 'Asia Pacific (Singapore)',
+  'ap-southeast-2': 'Asia Pacific (Sydney)',
+  'ap-northeast-1': 'Asia Pacific (Tokyo)',
+  'ca-central-1': 'Canada (Central)',
+  'cn-north-1': 'China (Beijing)',
+  'cn-northwest-1': 'China (Beijing)',
+  'eu-central-1': 'EU (Frankfurt)',
+  'eu-west-1': 'EU (Ireland)',
+  'eu-west-2': 'EU (London)',
+  'eu-west-3': 'EU (Paris)',
+  'eu-north-1': 'EU (Stockholm)',
+  'sa-east-1': 'South America (São Paulo)'
+};
+
 class compileGraphData {
   constructor(){
     this.regionState = {};
@@ -7,7 +29,7 @@ class compileGraphData {
     this.sgNodeCorrelations = {};
     this.edgeTable = {};
     this.ec2;
-    console.log(this.ec2);
+    
   }
 
   compileRDSData(data,region){
@@ -26,6 +48,7 @@ class compileGraphData {
             if(!this.regionState[VpcId].hasOwnProperty(AvailabilityZone))this.regionState[VpcId][AvailabilityZone] = {};
             if(!this.regionState[VpcId][AvailabilityZone].hasOwnProperty("RDS"))this.regionState[VpcId][AvailabilityZone].RDS ={};
             //save the data into the this.regionState object
+            this.regionState[VpcId].region = options[region];
             this.regionState[VpcId][AvailabilityZone].RDS[DbiResourceId] = DBinstances;
 
             innerPromiseArray.push(new Promise((resolve,reject) => {
@@ -68,7 +91,6 @@ class compileGraphData {
           }
 
           Promise.all(innerPromiseArray).then(() => {
-            console.log("inner promise array ", innerPromiseArray);
 
             // console.log("sgnodre correlations", this.sgNodeCorrelations);
     // console.log("sgRelationshisps ", this.sgRelationships)
@@ -88,6 +110,7 @@ class compileGraphData {
         if(!this.regionState.hasOwnProperty(VpcId))this.regionState[VpcId] = {};
         if(!this.regionState[VpcId].hasOwnProperty(AvailabilityZone))this.regionState[VpcId][AvailabilityZone] = {};
         if(!this.regionState[VpcId][AvailabilityZone].hasOwnProperty("EC2"))this.regionState[VpcId][AvailabilityZone].EC2 = {};
+        this.regionState[VpcId].region = options[region];
         this.regionState[VpcId][AvailabilityZone].EC2[InstanceId] = instances[j];
         
         //making a new promise to query for information about security group related to each EC2
@@ -118,7 +141,7 @@ class compileGraphData {
                       }
                     }
                   }
-                  console.log("Node relations ", this.sgNodeCorrelations)
+                  // console.log("Node relations ", this.sgNodeCorrelations)
                   resolve();
             }
           })
@@ -128,7 +151,7 @@ class compileGraphData {
     }
 
     Promise.all(innerPromiseArray).then(() => {
-      console.log("inner promise array ", innerPromiseArray);
+      // console.log("inner promise array ", innerPromiseArray);
       // console.log("sgnodre correlations", this.sgNodeCorrelations);
     // console.log("sgRelationshisps ", this.sgRelationships)
     });

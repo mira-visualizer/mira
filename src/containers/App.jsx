@@ -44,7 +44,6 @@ class App extends Component{
 
 
   render(){
-    console.log('FLAAAA',this.props.publicKey);
     return(
       <div id="app">
         <Menu publicKey={this.props.publicKey} privateKey={this.props.privateKey} getAWSInstances={this.props.getAWSInstances} currentRegion={this.props.currentRegion} getAllRegions={this.props.getAllRegions} />
