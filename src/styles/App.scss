@@ -10,6 +10,7 @@ body{
   background-color: $bg-color;
   border: 3px outset $border-color;
   border-radius: 5px;
+  font: $light-font-color
 }
 #Menu{
   border-bottom: 1px outset $border-color;
@@ -24,6 +25,7 @@ body{
 #graphContainer{
   background-color: $graph-container-bg-color;
   width: calc(100vw - #{$side-bar-width});
+  font:
 }
 #sidePanel{
   width: $side-bar-width;

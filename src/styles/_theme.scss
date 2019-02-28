@@ -1,9 +1,19 @@
-// APP SASS:
+/* ------ OVERALL APP ------ */
+// @font-face {
+// 	font-family: "Hack";
+// 	src: url("fonts/Hack.ttf") format("woff2"),
+//     url("fonts/Hack.woff") format("woff"),
+// }
+$font-family: "Lucida Console", Monaco, monospace;
 $bg-color: rgb(27, 27, 27);
 $graph-container-bg-color: lighten($bg-color, 3%);
 $border-color: darken($bg-color, 5%);
 
+/* ------ MENU ------ */
+
+/* ------ SIDE PANEL ------ */
 $side-bar-width: 300px;
 
+/* ------ GRAPH ------ */
 $light-font-color:rgba(235, 228, 228, 0.932);
-$title-font: "Arial", sans-serif;
+$title-font: "Hack";
