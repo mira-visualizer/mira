@@ -1,5 +1,6 @@
-import React, {Component} from "react";
-import { getAWSInstances } from "../actions/actions";
+import React, { Component } from 'react';
+import axios from 'axios';
+import { getAWSInstances } from '../actions/actions';
 import Select from 'react-select';
 
 class Menu extends Component {
@@ -13,6 +14,7 @@ class Menu extends Component {
     // want to setState to the active value
     const options = [
           { value:'select-region', label: 'Select Region' },
+          { value:'all', label: 'All Regions'},
           { value:'us-east-2', label: 'US East (Ohio)' },
           { value:'us-east-1', label: 'US East (N. Virginia)' },
           { value:'us-west-2', label: 'US West (N. California)' },
@@ -36,17 +38,19 @@ class Menu extends Component {
 
     const handleChange = (selectedOption) => {
       this.setState({ selectedOption })
-      if(selectedOption !== 'select-region'){
-        this.props.getAWSInstances(selectedOption.value);
+      if(selectedOption.value !== 'select-region'){
+        
+        if(selectedOption.value === 'all'){
+          this.props.getAllRegions(this.props.publicKey, this.props.privateKey);
+        } else{
+          this.props.getAWSInstances(selectedOption.value);
+        }
       }
-    }
+    };
     const refresh = () => {
       this.props.getAWSInstances(this.props.currentRegion);
-    }
-
+    };
     return (
-      <div>
-
       <div id="Menu">
         <Select
           id='select-menu' 
@@ -54,10 +58,9 @@ class Menu extends Component {
           onChange={handleChange}
           options={options}
           />
-      </div>
        <button id="refresh" onClick={refresh}>Refresh</button>
       </div>
-    )
+    );
   }
 }
 
