@@ -51,8 +51,6 @@ class Menu extends Component {
       this.props.getAWSInstances(this.props.currentRegion);
     };
     return (
-      <div>
-
       <div id="Menu">
         <Select
           id='select-menu' 
@@ -60,7 +58,6 @@ class Menu extends Component {
           onChange={handleChange}
           options={options}
           />
-      </div>
        <button id="refresh" onClick={refresh}>Refresh</button>
       </div>
     );
