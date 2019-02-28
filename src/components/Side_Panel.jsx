@@ -47,10 +47,10 @@ class Side_Panel extends Component {
     let ids = [];
     let names =[];
 
-    for(let i=0; i<securityGroup.length; i++) {
-      names.push(securityGroup[i].GroupName)
-      ids.push(securityGroup[i].GroupId);
-    }
+    // for(let i=0; i<securityGroup.length; i++) {
+    //   names.push(securityGroup[i].GroupName)
+    //   ids.push(securityGroup[i].GroupId);
+    // }
 
     return {'names':names, 'ids':ids};
 
@@ -74,7 +74,10 @@ class Side_Panel extends Component {
 
     if(this.props.activeNode) {
   
-      let securityGroupNames = this.analyzeSecurityGroups(this.props.activeNode.MySecurityGroups); 
+      let securityGroupNames;
+      if(this.props.activeNode.MySecurityGroups){
+         securityGroupNames = this.analyzeSecurityGroups(this.props.activeNode.MySecurityGroups); 
+      }
       let nodeData = {'Node Details': this.props.activeNode, 'Security Group Details': this.props.activeNode.MySecurityGroups};
       console.log('fdsjfdhsjk',securityGroupNames); 
       sgmodal = (
@@ -88,9 +91,8 @@ class Side_Panel extends Component {
           {sgmodal}
           <p><span className="sidebar-title">Instance Type: </span><span>{this.props.activeNode.InstanceId ? 'EC2': 'RDS'}</span></p>
           <p><span className="sidebar-title">Instance ID: </span><span>{this.props.activeNode.InstanceId ? this.props.activeNode.InstanceId: this.props.activeNode.DBInstanceIdentifier}</span></p>
-          <p><span className="sidebar-title">VPC ID: </span><span>{this.props.activeNode.InstanceId ? 'ec2' : 'rds'}</span></p>
           <p><span className="sidebar-title">Instance Status: </span><span>{this.props.activeNode.InstanceId ? (this.props.activeNode.State.Name) : this.props.activeNode.DBInstanceStatus}</span></p>
-          <p><span className="sidebar-title">Security Groups: </span><span>{securityGroupNames.ids.join(", ")}</span></p>
+          <p><span className="sidebar-title">Security Groups: </span><span>{securityGroupNames.names.join(", ")}{securityGroupNames.ids.join(", ")}</span></p>
           <p><span className="sidebar-title">Inbounds: </span><span>{securityGroupNames.ids.join(", ")}</span></p>
           <p><span className="sidebar-title">Outbounds: </span><span>{securityGroupNames.ids.join(", ")}</span></p>        
         </Collapsible>
