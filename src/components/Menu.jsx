@@ -14,6 +14,7 @@ class Menu extends Component {
     // want to setState to the active value
     const options = [
           { value:'select-region', label: 'Select Region' },
+          { value:'all', label: 'All Regions'},
           { value:'us-east-2', label: 'US East (Ohio)' },
           { value:'us-east-1', label: 'US East (N. Virginia)' },
           { value:'us-west-2', label: 'US West (N. California)' },
@@ -37,8 +38,13 @@ class Menu extends Component {
 
     const handleChange = (selectedOption) => {
       this.setState({ selectedOption })
-      if(selectedOption !== 'select-region'){
-        this.props.getAWSInstances(selectedOption.value);
+      if(selectedOption.value !== 'select-region'){
+        
+        if(selectedOption.value === 'all'){
+          this.props.getAllRegions(this.props.publicKey, this.props.privateKey);
+        } else{
+          this.props.getAWSInstances(selectedOption.value);
+        }
       }
     };
     const refresh = () => {
