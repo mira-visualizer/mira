@@ -4,7 +4,7 @@
 // 	src: url("fonts/Hack.ttf") format("woff2"),
 //     url("fonts/Hack.woff") format("woff"),
 // }
-$font-family: "Lucida Console", Monaco, monospace;
+$font-family: "Trebuchet MS", Helvetica, sans-serif;
 $bg-color: rgb(27, 27, 27);
 $graph-container-bg-color: lighten($bg-color, 3%);
 $border-color: darken($bg-color, 5%);
@@ -16,4 +16,4 @@ $side-bar-width: 300px;
 
 /* ------ GRAPH ------ */
 $light-font-color:rgba(235, 228, 228, 0.932);
-$title-font: "Hack";
+$title-font: $font-family;

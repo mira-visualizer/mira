@@ -10,7 +10,6 @@ body{
   background-color: $bg-color;
   border: 3px outset $border-color;
   border-radius: 5px;
-  font: $light-font-color
 }
 #Menu{
   border-bottom: 1px outset $border-color;
@@ -25,7 +24,6 @@ body{
 #graphContainer{
   background-color: $graph-container-bg-color;
   width: calc(100vw - #{$side-bar-width});
-  font:
 }
 #sidePanel{
   width: $side-bar-width;
@@ -41,11 +39,11 @@ body{
   color: $light-font-color;
 }
 #refresh{
-  float: right;
   padding: 2px;
   margin-right: 20px;
   margin-top: 5px;
   box-shadow: 6px 5px 24px #666666;
+  position: relative;
 }
 #loading img{
   margin-top: 45vh;
@@ -53,7 +51,7 @@ body{
   margin-right: 50%;
   margin-bottom:30%;
 }
-h4{
+h4, h1{
   color: $light-font-color;
 }
 .nodeInfo{
@@ -82,8 +80,18 @@ h4{
   margin: 0px;
 }
 
-#select-menu {
+#select-menu{
   width:300px;
+}
+
+#welcome{
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+
+  position: relative;
+  top: 50%;
+  left: 50%;
 }
 
 .Collapsible{
