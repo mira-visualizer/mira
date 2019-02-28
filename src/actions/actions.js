@@ -860,9 +860,10 @@ export const getAllRegions = (publicKey, privateKey) => {
       }
       Promise.all(allRegionsPromisesArray).then( () => {
         console.log(allRegionsPromisesArray);
-        graphData.createEdges();
+        // graphData.createEdges();
 
-        const edgeTable = graphData.getEdgesData();
+        // const edgeTable = graphData.getEdgesData();
+        const edgeTable = [];
       console.log('Heres the graph data for regions: ', edgeTable);
       const regionState = graphData.getRegionData();
       dispatch(getAWSInstancesFinished());
