@@ -4,14 +4,16 @@ body{
   margin: 0px;
   font-family: $title-font;
 }
-
 #app{
   display:grid;
   grid-template: 1fr;
-  background-color:rgba(72, 100, 151, 0.863);
+  background-color: $bg-color;
+  border: 3px outset $border-color;
+  border-radius: 5px;
 }
 #Menu{
-  background-color: rgb(255, 255, 255);
+  border-bottom: 1px outset $border-color;
+  border-radius: 5px;
   height: 30px;
   max-width: 100%;
 }
@@ -25,43 +27,38 @@ body{
 }
 #sidePanel{
   width: $side-bar-width;
-  background-color: darken($bg-color,10%);
   word-wrap: break-word;
+  border-left: 1px outset $border-color;
+  border-radius: 5px;
 }
-
 #sidePanel > *{
   padding-left:10px;
-
 }
-
 #sidePanel p{
   font-size: 10px;
-  color:white;
+  color: $light-font-color;
 }
-
-
 #refresh{
   float: right;
-  padding: 0px;
+  padding: 2px;
+  margin-right: 20px;
+  margin-top: 5px;
+  box-shadow: 6px 5px 24px #666666;
 }
-
 #loading img{
   margin-top: 45vh;
   margin-left: 50%;
   margin-right: 50%;
   margin-bottom:30%;
 }
-
 h4{
-  color:white;
+  color: $light-font-color;
 }
-
 .nodeInfo{
   max-width: 100%;
   max-height:500px;
   overflow-y: scroll;
 }
-
 .react-json-view{
   overflow-y: scroll;
   overflow-x: scroll;
@@ -70,7 +67,6 @@ h4{
   border: 2px solid slategrey;
   border-radius: 5px;
 }
-
 #details-header{
   text-align: center;
   background-color: dodgerblue;
@@ -81,7 +77,6 @@ h4{
   padding-bottom: 5px;
   margin-top: 20px;
 }
-
 #details-header h4{
   padding: 0px;
   margin: 0px;

@@ -219,8 +219,8 @@ export const getAllRegions = () => {
         query: `
         query {
           aws(config: {
-            accessKeyId: "AKIAI26YPTNPKHEMJUNA",
-            secretAccessKey: "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"
+            accessKeyId: " -- ENTER ACCESS KEY ID -- ",
+            secretAccessKey: " -- ENTER SECRET ACCESS KEY -- "
           }) {
             us_east_2_ec2: ec2(config:{
               region: "us-east-2"
