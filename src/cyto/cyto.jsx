@@ -4,6 +4,7 @@ import './cyto.scss';
 import EC2 from './EC2'
 import VPC from './VPC'
 import RDS from './RDS'
+import Region from './Region'
 import AvailabilityZone from './AvailabilityZone'
 import cola from 'cytoscape-cola';
 
@@ -111,6 +112,8 @@ class Cyto extends PureComponent{
       this.cy.$('node').remove();
     }
     // iterate through everything in state to gather VPC, availability zone, EC2 and RDS instances and creating nodes for each
+    console.log("My Props",this.props)
+    console.log("THE REGION DATA ", this.props.regionData)
     for(let vpc in this.props.regionData){
       let vpcObj = this.props.regionData[vpc];
       this.cy.add(new VPC(vpc).getVPCObject());
