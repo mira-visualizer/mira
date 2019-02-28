@@ -39,11 +39,15 @@ body{
   color: $light-font-color;
 }
 #refresh{
+<<<<<<< HEAD
   float: right;
   padding: 2px;
   margin-right: 20px;
   margin-top: 5px;
   box-shadow: 6px 5px 24px #666666;
+=======
+  position: relative
+>>>>>>> bd42963c571ad28d9f066b6cde3a3a8ae731beca
 }
 #loading img{
   margin-top: 45vh;
@@ -80,4 +84,8 @@ h4{
 #details-header h4{
   padding: 0px;
   margin: 0px;
+}
+
+#select-menu {
+  width:300px;
 }

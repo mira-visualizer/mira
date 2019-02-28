@@ -6,6 +6,10 @@ const AWS = require('aws-sdk');
 
 const params = {};
 
+export const getAWSKeys = (keys) => ({
+  type: actionTypes.GET_AWS_KEYS,
+  payload: keys
+})
 
 export const getAWSInstancesStart = () => ({
   type: actionTypes.GET_AWS_INSTANCES_START,
@@ -210,7 +214,9 @@ export const getNodeDetails = data => ({
   payload: data,
 });
 
-export const getAllRegions = () => {
+export const getAllRegions = (publicKey, privateKey) => {
+  console.log('EMILAAA', publicKey,privateKey);
+  //FIX THE QUERY STRING PLS ／人 ◕ ‿‿ ◕ 人＼
   return(dispatch) => {
     axios({
       method: 'post',
@@ -219,8 +225,13 @@ export const getAllRegions = () => {
         query: `
         query {
           aws(config: {
+<<<<<<< HEAD
             accessKeyId: " -- ENTER ACCESS KEY ID -- ",
             secretAccessKey: " -- ENTER SECRET ACCESS KEY -- "
+=======
+            accessKeyId: "",
+            secretAccessKey: ""
+>>>>>>> bd42963c571ad28d9f066b6cde3a3a8ae731beca
           }) {
             us_east_2_ec2: ec2(config:{
               region: "us-east-2"

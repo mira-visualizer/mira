@@ -6,7 +6,7 @@ class compileGraphData {
     this.sgRelationships = []; //array of arrays where each inside looks like [ [inbound sg, outbound sg] ]
     this.sgNodeCorrelations = {};
     this.edgeTable = {};
-    this.ec2 = new AWS.EC2({});
+    this.ec2;
     console.log(this.ec2);
   }
 
@@ -14,6 +14,7 @@ class compileGraphData {
     AWS.config.update({
       region,
     });
+    this.ec3  = new AWS.EC2({});
       const innerPromiseArray =[];
 
     for(let i = 0; i < data.DBInstances.length; i ++){
