@@ -3,6 +3,7 @@ import ReactJson from 'react-json-view'
 import {Switch, BrowserRouter as Router, Route, NavLink, withRouter } from 'react-router-dom';
 import SecGroupEdit from './Security_Group_Edit'
 import Modal from 'react-modal';
+import Collapsible from 'react-collapsible';
 
 const customStyles = {
   content : {
@@ -56,6 +57,10 @@ class Side_Panel extends Component {
 
     if(this.props.activeNode) {
       NodeDetails = ( <div id ="details-wrapper">
+        <Collapsible trigger="Start here">
+        <p>This is the collapsible content. It can be any element or React component you like.</p>
+        <p>It can even be another Collapsible component. Check out the next section!</p>
+        </Collapsible>
         <div id="details-header"><h4>Details</h4></div>
         <div id="details-sub-header"><h6>{this.props.activeNode.InstanceId ? this.props.activeNode.InstanceId: this.props.activeNode.DBInstanceIdentifier }</h6></div>
         <div id="main-info" className="node-info"><ReactJson src={this.props.activeNode} theme={reactJsonconfig.theme} indentWidth={reactJsonconfig.indentWidth}></ReactJson></div>

@@ -31,13 +31,13 @@ body{
 }
 
 #sidePanel > *{
-  padding-left:10px;
+  // padding-left:10px;
 
 }
 
 #sidePanel p{
   font-size: 10px;
-  color:white;
+  color: rgb(106, 105, 105);
 }
 
 
@@ -166,4 +166,16 @@ h4{
 }
 #select-menu {
   width:300px;
+}
+
+.Collapsible{
+  background-color: turquoise;
+}
+
+.Collapsible__contentOuter{
+  background-color: white;
+}
+
+.Collapsible p{
+  color: black;
 }
