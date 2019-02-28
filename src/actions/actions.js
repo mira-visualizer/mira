@@ -29,7 +29,6 @@ export const getAWSInstances = (region) => {
   AWS.config.update({
     region,
   });
-  console.log("THE AWS INSTANCE CONFIG IS ", AWS.config);
   const ec2 = new AWS.EC2({});
   const rds = new AWS.RDS({});
   return (dispatch) => {
@@ -82,7 +81,6 @@ export const getAWSInstances = (region) => {
             if (!regionState[VpcId][AvailabilityZone].hasOwnProperty('RDS'))regionState[VpcId][AvailabilityZone].RDS = {};
             // save the data into the regionState object
             regionState[VpcId][AvailabilityZone].RDS[DbiResourceId] = DBinstances;
-
             innerPromiseArray.push(new Promise(((resolve, reject) => {
               const param = {
                 GroupIds: [],
@@ -90,7 +88,6 @@ export const getAWSInstances = (region) => {
               for (let k = 0; k < VpcSecurityGroups.length; k++) {
                 param.GroupIds.push(VpcSecurityGroups[k].VpcSecurityGroupId);
               }
-
               ec2.describeSecurityGroups(param, (err, data) => {
                 if (err) {
                   console.log(err, err.stack);
@@ -162,8 +159,6 @@ export const getAWSInstances = (region) => {
                         }
                       }
                     }
-
-
                     // const edgeTable = createEdges();
                     // resolve(edgeTable);
                     resolve();
@@ -178,12 +173,9 @@ export const getAWSInstances = (region) => {
         }
       });
     })));
-
-
     // once all the promise's are resolved, dispatch the data to the reducer
     Promise.all(apiPromiseArray).then((values) => {
       const edgeTable = {};
-
       for (let i = 0; i < sgRelationships.length; i++) {
         sgNodeCorrelations[sgRelationships[i][0]].forEach((val1, val2, set) => {
           sgNodeCorrelations[sgRelationships[i][1]].forEach((value1, value2, set2) => {
@@ -215,7 +207,6 @@ export const getNodeDetails = data => ({
 });
 
 export const getAllRegions = (publicKey, privateKey) => {
-  console.log('EMILAAA', publicKey,privateKey);
   //FIX THE QUERY STRING PLS ／人 ◕ ‿‿ ◕ 人＼
   return(dispatch) => {
     axios({
@@ -225,13 +216,8 @@ export const getAllRegions = (publicKey, privateKey) => {
         query: `
         query {
           aws(config: {
-<<<<<<< HEAD
-            accessKeyId: " -- ENTER ACCESS KEY ID -- ",
-            secretAccessKey: " -- ENTER SECRET ACCESS KEY -- "
-=======
             accessKeyId: "",
             secretAccessKey: ""
->>>>>>> bd42963c571ad28d9f066b6cde3a3a8ae731beca
           }) {
             us_east_2_ec2: ec2(config:{
               region: "us-east-2"
@@ -772,11 +758,9 @@ export const getAllRegions = (publicKey, privateKey) => {
         const regionArray = regions.split("_")
         const regionString = regionArray[0] + "-" + regionArray[1] + "-" + regionArray[2];
         if (regionArray[3] === "ec2") {
-          console.log("the region string is ", regionString);
           graphData.compileEC2Data(aws[regions].describeInstances, regionString);
         }
       }
-      console.log('Heres the graph data for regions: ', graphData.getRegionData())
       dispatch({
         type: actionTypes.GET_ALL_REGIONS,
         payload: {
