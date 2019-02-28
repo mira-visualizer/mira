@@ -25,13 +25,10 @@
     "cytoscape-cola": "^2.3.0",
     "electron": "^4.0.4",
     "express": "^4.16.4",
-<<<<<<< HEAD
-=======
     "express-graphql": "^0.7.1",
     "graphql": "^14.1.1",
     "graphql-compose": "^5.10.4",
     "graphql-compose-aws": "^2.0.0",
->>>>>>> 354e3740e4e92ef37cb26074733633e98cd567e0
     "html-webpack-plugin": "^3.2.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",

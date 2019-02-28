@@ -1,16 +1,6 @@
 import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
-<<<<<<< HEAD
-  currentRegion: '',
-  regionData: {},
-  edgeTable:{},
-  // sgNodeCorrelations: {},
-  // sgRelationships: [],
-  activeNode: '',
-  fetching: false,
-  fetched: false,
-=======
     currentRegion: '',
     regionData: {},
     edgeTable:{},
@@ -20,23 +10,10 @@ const initialState = {
     fetching: false,
     fetched: false,
     allRegions: {},
->>>>>>> 354e3740e4e92ef37cb26074733633e98cd567e0
 }
 
 // should possibly rename this reducer
 const graphReducer = (state = initialState, action) => {
-<<<<<<< HEAD
-  switch (action.type) {
-
-    case actionTypes.GET_AWS_INSTANCES_START:{
-      return {
-        ...state,
-        fetching:true,
-        fetched: false
-      }
-    }
-
-=======
     switch (action.type) {
       case actionTypes.GET_AWS_INSTANCES_START:{
         return {
@@ -45,7 +22,6 @@ const graphReducer = (state = initialState, action) => {
           fetched: false
         }
       }
->>>>>>> 354e3740e4e92ef37cb26074733633e98cd567e0
       case actionTypes.GET_AWS_INSTANCES_FINISHED:{
         return {
           ...state,

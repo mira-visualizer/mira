@@ -219,8 +219,8 @@ export const getAllRegions = () => {
         query: `
         query {
           aws(config: {
-            accessKeyId: "AKIAI26YPTNPKHEMJUNA",
-            secretAccessKey: "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"
+            accessKeyId: "AKIAJAUMY7FM7ZYCTKEA",
+            secretAccessKey: "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"
           }) {
             us_east_2_ec2: ec2(config:{
               region: "us-east-2"
@@ -232,6 +232,9 @@ export const getAllRegions = () => {
                     Placement {
                       AvailabilityZone
                     }
+                    State {
+                      Name
+                    }
                     InstanceId
                     SecurityGroups {
                       GroupId
@@ -240,7 +243,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            usEast1_ec2: ec2(config:{
+            us_east_1_ec2: ec2(config:{
               region: "us-east-1"
             }) {
               describeInstances {
@@ -249,6 +252,9 @@ export const getAllRegions = () => {
                     VpcId
                     Placement {
                       AvailabilityZone
+                    }
+                    State {
+                      Name
                     }
                     InstanceId
                     SecurityGroups {
@@ -258,7 +264,7 @@ export const getAllRegions = () => {
                 }
               }
             } 
-            usWest1_ec2: ec2(config:{
+            us_west_1_ec2: ec2(config:{
               region: "us-west-1"
             }) {
               describeInstances {
@@ -268,6 +274,9 @@ export const getAllRegions = () => {
                     Placement {
                       AvailabilityZone
                     }
+                    State {
+                      Name
+                    }
                     InstanceId
                     SecurityGroups {
                       GroupId
@@ -276,7 +285,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            usWest2_ec2: ec2(config:{
+            us_west_2_ec2: ec2(config:{
               region: "us-west-2"
             }) {
               describeInstances {
@@ -286,6 +295,9 @@ export const getAllRegions = () => {
                     Placement {
                       AvailabilityZone
                     }
+                    State {
+                      Name
+                    }
                     InstanceId
                     SecurityGroups {
                       GroupId
@@ -294,18 +306,28 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apSouth1_ec2: ec2(config:{
+            ap_south_1_ec2: ec2(config:{
               region: "ap-south-1"
             }) {
               describeInstances {
                 Reservations {
                   Instances {
+                    VpcId
+                    Placement {
+                      AvailabilityZone
+                    }
+                    State {
+                      Name
+                    }
                     InstanceId
+                    SecurityGroups {
+                      GroupId
+                    }
                   }
                 }
               }
             }
-            apNortheast2_ec2: ec2(config:{
+            ap_northeast_2_ec2: ec2(config:{
               region: "ap-northeast-2"
             }) {
               describeInstances {
@@ -315,6 +337,9 @@ export const getAllRegions = () => {
                     Placement {
                       AvailabilityZone
                     }
+                    State {
+                      Name
+                    }
                     InstanceId
                     SecurityGroups {
                       GroupId
@@ -323,18 +348,28 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apSoutheast1_ec2: ec2(config:{
+            ap_southeast_1_ec2: ec2(config:{
               region: "ap-southeast-1"
             }) {
               describeInstances {
                 Reservations {
                   Instances {
+                    VpcId
+                    Placement {
+                      AvailabilityZone
+                    }
+                    State {
+                      Name
+                    }
                     InstanceId
+                    SecurityGroups {
+                      GroupId
+                    }
                   }
                 }
               }
             }
-            apSoutheast2_ec2: ec2(config:{
+            ap_southeast_2_ec2: ec2(config:{
               region: "ap-southeast-2"
             }) {
               describeInstances {
@@ -344,6 +379,9 @@ export const getAllRegions = () => {
                     Placement {
                       AvailabilityZone
                     }
+                    State {
+                      Name
+                    }
                     InstanceId
                     SecurityGroups {
                       GroupId
@@ -352,7 +390,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            apNortheast1_ec2: ec2(config:{
+            ap_northeast_1_ec2: ec2(config:{
               region: "ap-northeast-1"
             }) {
               describeInstances {
@@ -362,6 +400,9 @@ export const getAllRegions = () => {
                     Placement {
                       AvailabilityZone
                     }
+                    State {
+                      Name
+                    }
                     InstanceId
                     SecurityGroups {
                       GroupId
@@ -370,18 +411,28 @@ export const getAllRegions = () => {
                 }
               }
             }
-            caCentral1_ec2: ec2(config:{
+            ca_central_1_ec2: ec2(config:{
               region: "ca-central-1"
             }) {
               describeInstances {
                 Reservations {
                   Instances {
+                    VpcId
+                    Placement {
+                      AvailabilityZone
+                    }
+                    State {
+                      Name
+                    }
                     InstanceId
+                    SecurityGroups {
+                      GroupId
+                    }
                   }
                 }
               }
             }
-            euCentral1_ec2: ec2(config:{
+            eu_central_1_ec2: ec2(config:{
               region: "eu-central-1"
             }) {
               describeInstances {
@@ -391,6 +442,9 @@ export const getAllRegions = () => {
                     Placement {
                       AvailabilityZone
                     }
+                    State {
+                      Name
+                    }
                     InstanceId
                     SecurityGroups {
                       GroupId
@@ -399,7 +453,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euWest1_ec2: ec2(config:{
+            eu_west_1_ec2: ec2(config:{
               region: "eu-west-1"
             }) {
               describeInstances {
@@ -409,6 +463,9 @@ export const getAllRegions = () => {
                     Placement {
                       AvailabilityZone
                     }
+                    State {
+                      Name
+                    }
                     InstanceId
                     SecurityGroups {
                       GroupId
@@ -417,7 +474,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euWest2_ec2: ec2(config:{
+            eu_west_2_ec2: ec2(config:{
               region: "eu-west-2"
             }) {
               describeInstances {
@@ -427,6 +484,9 @@ export const getAllRegions = () => {
                     Placement {
                       AvailabilityZone
                     }
+                    State {
+                      Name
+                    }
                     InstanceId
                     SecurityGroups {
                       GroupId
@@ -435,7 +495,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euWest3_ec2: ec2(config:{
+            eu_west_3_ec2: ec2(config:{
               region: "eu-west-3"
             }) {
               describeInstances {
@@ -445,6 +505,9 @@ export const getAllRegions = () => {
                     Placement {
                       AvailabilityZone
                     }
+                    State {
+                      Name
+                    }
                     InstanceId
                     SecurityGroups {
                       GroupId
@@ -453,7 +516,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            euNorth1_ec2: ec2(config:{
+            eu_north_1_ec2: ec2(config:{
               region: "eu-north-1"
             }) {
               describeInstances {
@@ -463,6 +526,9 @@ export const getAllRegions = () => {
                     Placement {
                       AvailabilityZone
                     }
+                    State {
+                      Name
+                    }
                     InstanceId
                     SecurityGroups {
                       GroupId
@@ -471,7 +537,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            saEast1_ec2: ec2(config:{
+            sa_east_1_ec2: ec2(config:{
               region: "sa-east-1"
             }) {
               describeInstances {
@@ -481,6 +547,9 @@ export const getAllRegions = () => {
                     Placement {
                       AvailabilityZone
                     }
+                    State {
+                      Name
+                    }
                     InstanceId
                     SecurityGroups {
                       GroupId
@@ -493,11 +562,12 @@ export const getAllRegions = () => {
             
             
             
-            usEast2_rds: rds(config:{
+            us_east_2_rds: rds(config:{
               region: "us-east-2"
             }) {
               describeDBInstances {
                 DBInstances {
+                  DBInstanceStatus
                   DBSubnetGroup {
                     VpcId
                   }
@@ -509,11 +579,12 @@ export const getAllRegions = () => {
                 }
               }
             }
-            usEast1_rds: rds(config:{
+            us_east_1_rds: rds(config:{
               region: "us-east-1"
             }) {
               describeDBInstances {
                 DBInstances {
+                  DBInstanceStatus
                   DBSubnetGroup {
                     VpcId
                   }
@@ -525,11 +596,12 @@ export const getAllRegions = () => {
                 }
               }
             }
-            usWest1_rds: rds(config:{
+            us_west_1_rds: rds(config:{
               region: "us-west-1"
             }) {
               describeDBInstances {
                 DBInstances {
+                  DBInstanceStatus
                   DBSubnetGroup {
                     VpcId
                   }
@@ -541,7 +613,7 @@ export const getAllRegions = () => {
                 }
               }
             }
-            usWest2_rds: rds(config:{
+            us_west_2_rds: rds(config:{
               region: "us-west-2"
             }) {
               describeDBInstances {
@@ -554,10 +626,11 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
-            apSouth1_rds: rds(config:{
+            ap_south_1_rds: rds(config:{
               region: "ap-south-1"
             }) {
               describeDBInstances {
@@ -570,10 +643,11 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
-            apNortheast2_rds: rds(config:{
+            ap_northeast_2_rds: rds(config:{
               region: "ap-northeast-2"
             }) {
               describeDBInstances {
@@ -586,10 +660,11 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
-            apSoutheast1_rds: rds(config:{
+            ap_southeast_1_rds: rds(config:{
               region: "ap-southeast-1"
             }) {
               describeDBInstances {
@@ -602,10 +677,11 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
-            apSoutheast2_rds: rds(config:{
+            ap_southeast_2_rds: rds(config:{
               region: "ap-southeast-2"
             }) {
               describeDBInstances {
@@ -618,10 +694,11 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
-            apNortheast1_rds: rds(config:{
+            ap_northeast_1_rds: rds(config:{
               region: "ap-northeast-1"
             }) {
               describeDBInstances {
@@ -634,10 +711,11 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
-            caCentral1_rds: rds(config:{
+            ca_central_1_rds: rds(config:{
               region: "ca-central-1"
             }) {
               describeDBInstances {
@@ -650,10 +728,11 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
-            euCentral1_rds: rds(config:{
+            eu_central_1_rds: rds(config:{
               region: "eu-central-1"
             }) {
               describeDBInstances {
@@ -666,10 +745,11 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
-            euWest1_rds: rds(config:{
+            eu_west_1_rds: rds(config:{
               region: "eu-west-1"
             }) {
               describeDBInstances {
@@ -682,10 +762,11 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
-            euWest2_rds: rds(config:{
+            eu_west_2_rds: rds(config:{
               region: "eu-west-2"
             }) {
               describeDBInstances {
@@ -698,10 +779,11 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
-            euWest3_rds: rds(config:{
+            eu_west_3_rds: rds(config:{
               region: "eu-west-3"
             }) {
               describeDBInstances {
@@ -714,10 +796,11 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
-            euNorth1_rds: rds(config:{
+            eu_north_1_rds: rds(config:{
               region: "eu-north-1"
             }) {
               describeDBInstances {
@@ -730,10 +813,11 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
-            saEast1_rds: rds(config:{
+            sa_east_1_rds: rds(config:{
               region: "sa-east-1"
             }) {
               describeDBInstances {
@@ -746,6 +830,7 @@ export const getAllRegions = () => {
                   VpcSecurityGroups {
                     VpcSecurityGroupId
                   }
+                  DBInstanceStatus
                 }
               }
             }
@@ -757,21 +842,41 @@ export const getAllRegions = () => {
       console.log('This is the result: ', result);
       const aws = result.data.data.aws;
       let graphData = new compileGraphData();
+      let allRegionsPromisesArray = []
       for (let regions in aws) {
         const regionArray = regions.split("_")
         const regionString = regionArray[0] + "-" + regionArray[1] + "-" + regionArray[2];
         if (regionArray[3] === "ec2") {
-          console.log("the region string is ", regionString);
-          graphData.compileEC2Data(aws[regions].describeInstances, regionString);
+          allRegionsPromisesArray.push(new Promise( (resolve, reject )=> {
+            graphData.compileEC2Data(aws[regions].describeInstances, regionString)
+            resolve();
+          }));
+          
+        }
+        else if( regionArray[3] === "rds"){
+          allRegionsPromisesArray.push(new Promise( (resolve, reject )=> {
+            graphData.compileRDSData(aws[regions].describeDBInstances, regionString)
+            resolve();
+          }));
+
         }
       }
-      console.log('Heres the graph data for regions: ', graphData.getRegionData())
+      Promise.all(allRegionsPromisesArray).then( () => {
+        console.log(allRegionsPromisesArray);
+        graphData.createEdges();
+
+        const edgeTable = graphData.getEdgesData();
+      console.log('Heres the graph data for regions: ', edgeTable);
+      const regionState = graphData.getRegionData();
       dispatch({
-        type: actionTypes.GET_ALL_REGIONS,
+        type: actionTypes.GET_AWS_INSTANCES,
         payload: {
-          result,
+          regionState,
+          edgeTable,
+          currentRegion: 'all',
         },
       });
+      })
     })
   }
 }
