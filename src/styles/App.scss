@@ -64,8 +64,6 @@ h4{
   overflow-x: scroll;
   max-width: 95%;
   max-height: 500px;
-  border: 2px solid slategrey;
-  border-radius: 5px;
 }
 #details-header{
   text-align: center;
@@ -84,4 +82,20 @@ h4{
 
 #select-menu {
   width:300px;
+}
+
+.Collapsible{
+  background-color: turquoise;
+}
+
+.Collapsible__contentOuter{
+  background-color: white;
+}
+
+.Collapsible p{
+  color: black;
+}
+
+.sidebar-title{
+  font-weight:bold;
 }

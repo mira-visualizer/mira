@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Graph from "../components/Graph";
 import Side_Panel from "../components/Side_Panel";
-import * as actions from "../actions/actions.js";
-import { connect } from 'react-redux';
 
 
 class MainContainer extends Component{
