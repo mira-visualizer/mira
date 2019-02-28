@@ -32,7 +32,6 @@ const graphReducer = (state = initialState, action) => {
         }
       }
       case actionTypes.GET_AWS_KEYS: {
-        console.log('HARMONNNN',action.payload[0],action.payload[1]);
         return {
           ...state,
           awsPublicKey: action.payload[0],
@@ -44,7 +43,8 @@ const graphReducer = (state = initialState, action) => {
           ...state,
           regionData: action.payload.regionState,
           currentRegion: action.payload.currentRegion,
-          edgeTable: action.payload.edgeTable
+          edgeTable: action.payload.edgeTable,
+          activeNode: {}
           // sgNodeCorrelations: action.payload.sgNodeCorrelations,
           // sgRelationships: action.payload.sgRelationships
         }

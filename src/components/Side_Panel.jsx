@@ -48,14 +48,15 @@ class Side_Panel extends Component {
     let NodeDetails;
     let sgmodal;
 
-    const reactJsonconfig = {
-      indentWidth:1,
-      name:this.props.activeNode.InstanceId,
-      theme: 'bright:inverted',
-      
-    }
+    
 
-    if(this.props.activeNode) {
+    if(Object.entries(this.props.activeNode).length > 0) {
+      const reactJsonconfig = {
+        indentWidth:1,
+        name:this.props.activeNode.InstanceId,
+        theme: 'bright:inverted',
+        
+      }
       console.log('BRAHHH',this.props.activeNode);
       NodeDetails = ( <div id ="details-wrapper">
         <Collapsible trigger="Node Summary" open="true">
@@ -74,7 +75,7 @@ class Side_Panel extends Component {
       sgmodal = (
         <button id="modal-pop-up" onClick={this.openModal}>Edit Security Groups</button>
       )
-      }
+    }
     
 
     return(
