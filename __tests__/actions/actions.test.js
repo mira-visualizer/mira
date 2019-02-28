@@ -49,7 +49,6 @@ describe('actions', () => {
 // Test for async API call to AWS SDK to retrieve all data for nodes
 // test('retrieve all instance data for displayed nodes', () => {
 //   AWS_SDK_MOCK.mock('EC2', 'describeInstances', (params, callback) => {
-//     console.log(params, callback);
 //     callback(null, 'Successfully retrieved instance data')
 //   })
 // })
