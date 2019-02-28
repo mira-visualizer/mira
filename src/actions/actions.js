@@ -29,7 +29,6 @@ export const getAWSInstances = (region) => {
   AWS.config.update({
     region,
   });
-  console.log("THE AWS INSTANCE CONFIG IS ", AWS.config);
   const ec2 = new AWS.EC2({});
   const rds = new AWS.RDS({});
   return (dispatch) => {
@@ -868,9 +867,10 @@ export const getAllRegions = (publicKey, privateKey) => {
       }
       Promise.all(allRegionsPromisesArray).then( () => {
         console.log(allRegionsPromisesArray);
-        graphData.createEdges();
+        // graphData.createEdges();
 
-        const edgeTable = graphData.getEdgesData();
+        // const edgeTable = graphData.getEdgesData();
+        const edgeTable = [];
       console.log('Heres the graph data for regions: ', edgeTable);
       const regionState = graphData.getRegionData();
       dispatch(getAWSInstancesFinished());
