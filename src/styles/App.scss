@@ -38,11 +38,13 @@ body{
   word-wrap: break-word;
   border-left: 1px outset $border-color;
   border-radius: 5px;
+  margin-top:-40px;
 }
 #sidePanel > *{
-  padding-left:10px;
+
 }
 #sidePanel p{
+  padding-left:10px;
   font-size: 10px;
   color: $light-font-color;
 }
@@ -72,7 +74,7 @@ h4, h1{
 .react-json-view{
   overflow-y: scroll;
   overflow-x: scroll;
-  max-width: 95%;
+  max-width: 100%;
   max-height: 80vh;
 }
 #details-header{
@@ -117,6 +119,12 @@ h4, h1{
 
 .Collapsible p{
   color: $light-font-color;
+}
+
+.Collapsible__trigger {
+  padding-left: 10px;
+  padding-top:5px;
+  padding-bottom:5px;
 }
 
 .sidebar-title{
