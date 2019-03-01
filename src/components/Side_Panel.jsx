@@ -59,6 +59,15 @@ class Side_Panel extends Component {
 
   render() {
 
+    const reactJsonconfig = {
+      indentWidth:1,
+      name:this.props.activeNode.InstanceId,
+      theme: 'bright',
+      iconStyle:"square",
+      displayObjectSize:false,
+      displayDataTypes:false,
+    }
+
 
     let NodeDetails;
     let sgmodal;
