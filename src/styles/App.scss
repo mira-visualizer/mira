@@ -18,7 +18,7 @@ body{
   max-width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  // justify-content: space-between;
   
 }
 #mainContainer{
@@ -44,9 +44,12 @@ body{
 }
 #refresh{
   position: relative;
-  margin-right: #{$side-bar-width};
+  background-color: white;
+  // margin-right: #{$side-bar-width};
+  margin-left:20px;
   height:36px;
   width:100px;
+  border-radius: 5px;
 }
 #loading img{
   margin-top: 45vh;
@@ -98,15 +101,15 @@ h4, h1{
 }
 
 .Collapsible{
-  background-color: turquoise;
+  background-color: $light-font-color;
 }
 
 .Collapsible__contentOuter{
-  background-color: white;
+  background-color: $graph-container-bg-color;
 }
 
 .Collapsible p{
-  color: black;
+  color: $light-font-color;
 }
 
 .sidebar-title{

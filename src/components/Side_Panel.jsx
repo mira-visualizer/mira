@@ -62,7 +62,7 @@ class Side_Panel extends Component {
     const reactJsonconfig = {
       indentWidth:1,
       name:this.props.activeNode.InstanceId,
-      theme: 'bright:inverted',
+      theme: 'bright',
       iconStyle:"square",
       displayObjectSize:false,
       displayDataTypes:false,
