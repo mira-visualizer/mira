@@ -71,6 +71,7 @@ class Side_Panel extends Component {
 
     let NodeDetails;
     let sgmodal;
+    let sidePanelWelcome;
 
     if(this.props.activeNode) {
   
@@ -103,10 +104,14 @@ class Side_Panel extends Component {
       </div>);
 
       }
+      else if () {
+        sidePanelWelcome = (<div id='side-panel-welcome'> Click on a node to get more info</div>)
+      }
     
 
     return(
       <div id="sidePanel">
+      {sidePanelWelcome}
       <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
