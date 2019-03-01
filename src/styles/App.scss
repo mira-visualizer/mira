@@ -8,17 +8,18 @@ body{
   display:grid;
   grid-template: 1fr;
   background-color: $bg-color;
-  border: 3px outset $border-color;
-  border-radius: 5px;
+  // background-image: $bg-image;
+  // border: 3px outset $border-color;
+  // border-radius: 5px;
 }
 #Menu{
-  border-bottom: 1px outset $border-color;
-  border-radius: 5px;
-  height: 36px;
+  // border-bottom: 1px outset $border-color;
+  // border-radius: 5px;
+  height: 40px;
   max-width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  // justify-content: space-between;
   
 }
 #mainContainer{
@@ -26,7 +27,10 @@ body{
   flex-direction: row;
 }
 #graphContainer{
+  // opacity: 0;
   background-color: $graph-container-bg-color;
+  // background-color: none;
+  
   width: calc(100vw - #{$side-bar-width});
 }
 #sidePanel{
@@ -44,9 +48,12 @@ body{
 }
 #refresh{
   position: relative;
-  margin-right: #{$side-bar-width};
+  background-color: white;
+  // margin-right: #{$side-bar-width};
+  margin-left:20px;
   height:36px;
   width:100px;
+  border-radius: 5px;
 }
 #loading img{
   margin-top: 45vh;
@@ -98,15 +105,15 @@ h4, h1{
 }
 
 .Collapsible{
-  background-color: turquoise;
+  background-color: $light-font-color;
 }
 
 .Collapsible__contentOuter{
-  background-color: white;
+  background-color: $graph-container-bg-color;
 }
 
 .Collapsible p{
-  color: black;
+  color: $light-font-color;
 }
 
 .sidebar-title{

@@ -48,7 +48,12 @@ class Menu extends Component {
       }
     };
     const refresh = () => {
-      this.props.getAWSInstances(this.props.currentRegion);
+      if(this.props.currentRegion !== ''){
+        if(this.props.currentRegion === 'all'){
+          this.props.getAllRegions(this.props.publicKey, this.props.privateKey);
+        }
+        else this.props.getAWSInstances(this.props.currentRegion);
+      }
     };
     return (
       <div id="Menu">

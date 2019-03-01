@@ -62,7 +62,7 @@ class Side_Panel extends Component {
     const reactJsonconfig = {
       indentWidth:1,
       name:this.props.activeNode.InstanceId,
-      theme: 'bright:inverted',
+      theme: 'bright',
       iconStyle:"square",
       displayObjectSize:false,
       displayDataTypes:false,
@@ -73,8 +73,15 @@ class Side_Panel extends Component {
     let sgmodal;
     let sidePanelWelcome;
 
-    if(this.props.activeNode) {
-  
+    if(Object.keys(this.props.activeNode).length > 0) {
+      const reactJsonconfig = {
+        indentWidth:1,
+        name:this.props.activeNode.InstanceId,
+        theme: 'bright:inverted',
+        iconStyle:"square",
+        displayObjectSize:false,
+        displayDataTypes:false,
+      }
       let securityGroupNames;
       if(this.props.activeNode.MySecurityGroups){
          securityGroupNames = this.analyzeSecurityGroups(this.props.activeNode.MySecurityGroups); 

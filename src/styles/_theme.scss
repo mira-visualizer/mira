@@ -6,12 +6,14 @@
 // }
 $font-family: "Trebuchet MS", Helvetica, sans-serif;
 $bg-color: rgb(27, 27, 27);
+$bg-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
 $graph-container-bg-color: lighten($bg-color, 3%);
 $border-color: darken($bg-color, 5%);
 
 /* ------ MENU ------ */
-
+// background-image: 
 /* ------ SIDE PANEL ------ */
+
 $side-bar-width: 350px;
 
 /* ------ GRAPH ------ */
