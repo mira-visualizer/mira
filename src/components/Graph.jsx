@@ -10,15 +10,13 @@ class Graph extends Component{
     super(props);
   }
   render() {
-
     let fetching;
     if(!this.props.fetchingFlag && !this.props.finishedFlag) {
-      fetching = <div id="welcome"> <h1>Welcome to Mira</h1><p>An AWS visaluzer to help visualize your web instances</p></div>
+      fetching = <div id="welcome"><input type="image" src="https://assets.ubuntu.com/v1/29985a98-ubuntu-logo32.png" alt="Mira Logo"></input><h1>Welcome to Mira</h1><h1>Select a region to get started</h1></div>
     }
     if(this.props.fetchingFlag){
       fetching = <div id="loading" ><img src="../src/assets/loading.svg" alt="Loading..."></img></div>
     } 
-
     return (
       <div id="graphContainer">
         <div id="graph">

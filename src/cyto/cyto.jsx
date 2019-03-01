@@ -39,18 +39,20 @@ class Cyto extends PureComponent{
             'width': 80,
             // 'background-fit': 'cover',
             // 'background-color': 'white',
-            'border-color': '#000',
-            'border-width': 3,
+            'border-color': 'white',
+            'border-width': 2,
             'border-opacity': 0.5,
             'text-halign': 'center',
             'text-valign': 'top',
             'font-size': 6,
+            'color': 'white',
             'label': 'data(label)'
           })
         .selector(':parent')
           .css({
             'font-weight': 'bold',
-            'background-opacity': 0.075,
+            // 'background-color': 'white',
+            'background-opacity': 0,
             'content': 'data(label)',
             'text-valign': 'top',
           })
@@ -59,16 +61,16 @@ class Cyto extends PureComponent{
             'curve-style': 'bezier',
             'width': 6,
             'target-arrow-shape': 'triangle',
-            'line-color': 'black',
-            'target-arrow-color': 'black',
-            'opacity': 0.5
+            'line-color': 'white',
+            'target-arrow-color': 'white',
+            'opacity': 0.3
           })
           .selector('.EC2')
           .css({
-              'background-image': 'https://cdn.freebiesupply.com/logos/large/2x/aws-ec2-logo-png-transparent.png',
-              'background-width-relative-to': 'inner',
-              'background-height-relative-to': 'inner',
-              'background-width': '50px',
+            'background-image': 'https://cdn.freebiesupply.com/logos/large/2x/aws-ec2-logo-png-transparent.png',
+            'background-width-relative-to': 'inner',
+            'background-height-relative-to': 'inner',
+            'background-width': '50px',
             'text-valign': 'bottom',
             'background-opacity': 0,
             'text-margin-y':5,
@@ -87,11 +89,11 @@ class Cyto extends PureComponent{
           })
           .selector('.stopped')
           .css({
-            'border-color': 'red',
+            'border-color': '#f77171',
           })
           .selector('.running')
           .css({
-            'border-color': 'green',
+            'border-color': '#8bf771',
           })
           .selector('.Region')
           .css({
