@@ -12,22 +12,20 @@ class Graph extends Component{
   render() {
     let fetching;
     if(!this.props.fetchingFlag && !this.props.finishedFlag) {
-      fetching = <div id="welcome"><input type="image" src="https://assets.ubuntu.com/v1/29985a98-ubuntu-logo32.png" alt="Mira Logo"></input><h1>Welcome to Mira</h1><h1>Select a region to get started</h1></div>
+      fetching = <div id="welcome"><input type="image" src="../src/assets/logo.png" alt="Mira Logo"></input><br/><br/><h2>Welcome to Mira</h2><h2>Select a region to get started</h2></div>
     }
     if(this.props.fetchingFlag){
       fetching = <div id="loading" ><img src="../src/assets/loading.svg" alt="Loading..."></img></div>
     } 
     return (
       <div id="graphContainer">
-        <div id="graph">
-        </div>
-        <div id="cytoscape">
-        {fetching}
-          <Cyto regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails} fetchingFlag={this.props.fetchingFlag}
-          edgeTable = {this.props.edgeTable} />
-          {/* sgRelationships={this.props.sgRelationships}
-          sgNodeCorrelations={this.props.sgNodeCorrelations}/> */}
-        </div>
+          <div id="cytoscape">
+          {fetching}
+            <Cyto regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails} fetchingFlag={this.props.fetchingFlag}
+            edgeTable = {this.props.edgeTable} />
+            {/* sgRelationships={this.props.sgRelationships}
+            sgNodeCorrelations={this.props.sgNodeCorrelations}/> */}
+          </div>
       </div>
     )
   }
