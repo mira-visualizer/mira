@@ -71,6 +71,7 @@ class Side_Panel extends Component {
 
     let NodeDetails;
     let sgmodal;
+    let sidePanelWelcome;
 
     if(Object.keys(this.props.activeNode).length > 0) {
       const reactJsonconfig = {
@@ -90,8 +91,6 @@ class Side_Panel extends Component {
       sgmodal = (
         <button id="modal-pop-up" onClick={this.openModal}>Edit Security Groups</button>
       )
-
-
       console.log(this.props.activeNode);
       NodeDetails = ( <div id ="details-wrapper">
         <Collapsible trigger="Node Summary" open="true">
@@ -110,10 +109,17 @@ class Side_Panel extends Component {
       </div>);
 
       }
+      else if (typeof this.props.activeNode !== 'string') {
+        sidePanelWelcome = (<div id='side-panel-welcome'> Click on a node to get more information.</div>)
+      }
+      else {
+
+      }
     
 
     return(
       <div id="sidePanel">
+      {sidePanelWelcome}
       <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
