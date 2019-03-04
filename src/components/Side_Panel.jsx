@@ -47,6 +47,7 @@ class Side_Panel extends Component {
 
     let NodeDetails;
     let sgmodal;
+    let sidePanelWelcome;
 
     const reactJsonconfig = {
       indentWidth:1,
@@ -75,11 +76,18 @@ class Side_Panel extends Component {
         <button id="modal-pop-up" onClick={this.openModal}>Edit Security Groups</button>
       )
       }
+      // Displaying the 
+      else{
+        sidePanelWelcome = ( <div id="side-panel-welcome"> Click on a node to get more infogroups 
+        </div>
+        )
+      }
     
 
     return(
       <div id="sidePanel">
       {sgmodal}
+      {sidePanelWelcome}
       <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
