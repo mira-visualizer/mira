@@ -115,12 +115,6 @@ class Side_Panel extends Component {
       else {
 
       }
-      // Displaying the 
-      else{
-        sidePanelWelcome = ( <div id="side-panel-welcome"> Click on a node to get more infogroups 
-        </div>
-        )
-      }
     
 
     return(
