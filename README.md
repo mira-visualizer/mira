@@ -1,5 +1,5 @@
 # Mira
-Mira is an organizational tool for AWS' most used services. // infrastructure visualizer
+Mira is an organizational tool for AWS' most used services.
 
 *** INSERT GIF HERE ****
 
