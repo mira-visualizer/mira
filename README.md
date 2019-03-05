@@ -3,12 +3,12 @@
 # Mira
 Mira is an organizational tool for AWS' frequently used services.
 
-<div style="margin: 0 auto; width: 250px;"><img src ="./src/assets/MiraOneRegion.gif" /></div>
+<div style="margin: 0 auto; width: 720px;"><img src ="./src/assets/MiraOneRegion.gif" /></div>
 
 ## Visualize instances and security groups
 Mira accesses AWS's SDK to easily display all of the user's instances in a visually appealing UI. Connections between instances through security groups is clear within Mira and will allow for an easier understanding of a user's AWS infrasture. Note: New services instances <strong>must</strong> be created in AWS and then accessed through Mira.
 
-<div style="margin: 0 auto; width: 250px;"><img src ="./src/assets/MiraAllRegions.gif" /></div>
+<div style="margin: 0 auto; width: 720px;"><img src ="./src/assets/MiraAllRegions.gif" /></div>
 
 ## Edit security groups
 Editing security groups through AWS is unclear for many users that do not regularly use the AWS dashboard. With the navigatable UI provided by Mira, the user can click on a particular instance to get all data associated with it. In addition to viewing this data, inbound and outbound rules for security groups can be effortlessly changed and these changes will be immediately seen by the user. 
@@ -43,7 +43,7 @@ Fill in your aws_access_key_id and aws_secret_access_key
 Use the default region and default data output(JSON)
 
 ## Configure security groups
-<div style="margin: 0 auto; width: 250px;"><img src ="./src/assets/MiraEditSecurityGroups.png" /></div>
+<div style="margin: 0 auto; width: 720px;"><img src ="./src/assets/MiraEditSecurityGroups.png" /></div>
 
 ## Contributors
 [Emilia Brizuela-Nothaft](https://github.com/emiliacarmel) | [Melody Chai](https://github.com/melodychai) | [Byron Inocencio](https://github.com/jaybyron) | [Jonathan Mavandi](https://github.com/jmavandi)
