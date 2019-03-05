@@ -1,4 +1,4 @@
-![Alt text](/src/assets/logo.png?raw=true "Title")
+![Alt text | 250x250, 50%](/src/assets/logo.png?raw=true "Title")
 
 # Mira
 Mira is an organizational tool for AWS' most used services.
