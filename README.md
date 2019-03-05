@@ -1,4 +1,4 @@
-![Alt text | 250x250, 50%](/src/assets/logo.png?raw=true "Title")
+![Alt text](/src/assets/logosmall.png?raw=true)
 
 # Mira
 Mira is an organizational tool for AWS' most used services.
@@ -8,7 +8,8 @@ Mira is an organizational tool for AWS' most used services.
 ## Visualize instances and security groups
 Mira accesses AWS's SDK to easily display all of the user's instances in a visually appealing UI. Connections between instances through security groups is clear within Mira and will allow for an easier understanding of your AWS infrasture. 
 
-//Mira utilized graphQL querying to be able to display all instances across all regions to allow an easier big picture view for the user.
+## Display all instances across all regions
+Mira utilized graphQL querying to be able to display all instances across all regions to allow an easier big picture view for the user.
 
 //Add something about using electron
 
