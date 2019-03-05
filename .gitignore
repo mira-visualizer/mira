@@ -9,3 +9,6 @@ dist/
 
 #my mira app
 my-mira-app
+
+#release builds
+release-builds/
