@@ -8,9 +8,10 @@ Mira accesses AWS's SDK to easily display all of the user's instances in a visua
 
 //Mira utilized graphQL querying to be able to display all instances across all regions to allow an easier big picture view for the user.
 
+//Add something about using electron
+
 ## Edit security groups
 Editing security groups through AWS is unclear for many users that do not regularly use the AWS dashboard. With the navigatable UI provided by Mira, the user can click on a particular instance to get all data associated with it. In addition to viewing this data, inbound and outbound rules for security groups can be effortlessly changed and these changes will be immediately seen by the user. 
-
 
 
 ## Setup :
@@ -29,8 +30,6 @@ For viewing only : give permissions to
 		AmazonEC2ReadOnlyAccess
 		AmazonRDSReadOnlyAccess
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 3. Set up your configurations:
 We recommend installing the AWS CLI within your terminal using:
@@ -52,6 +51,6 @@ Use the default region and default data output(JSON)
 
 ## Contributors
 
-[Emilia Brizuela-Nothaft](https://github.com/emiliacarmel)[Melody Chai](https://github.com/melodychai) | [Byron Inocencio](https://github.com/jaybyron) |[Jonathan Mavandi](https://github.com/jmavandi)
+[Emilia Brizuela-Nothaft](https://github.com/emiliacarmel) | [Melody Chai](https://github.com/melodychai) | [Byron Inocencio](https://github.com/jaybyron) |[Jonathan Mavandi](https://github.com/jmavandi)
 
 
