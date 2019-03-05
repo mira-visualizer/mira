@@ -23,8 +23,6 @@ class Graph extends Component{
           {fetching}
             <Cyto regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails} fetchingFlag={this.props.fetchingFlag}
             edgeTable = {this.props.edgeTable} />
-            {/* sgRelationships={this.props.sgRelationships}
-            sgNodeCorrelations={this.props.sgNodeCorrelations}/> */}
           </div>
       </div>
     )
