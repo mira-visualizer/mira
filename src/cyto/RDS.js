@@ -15,7 +15,10 @@ class RDS {
       ]
     }
     else{
-      return {group: 'nodes', data: { id: this.id, parent:this.parent,label: "RDS-"+this.name}, classes: 'RDS'}
+      if(this.data.DBInstanceStatus === "available")
+      return {group: 'nodes', data: { id: this.id, parent:this.parent,label: "RDS: "+this.id}, classes: 'RDS running'}
+      else
+      return {group: 'nodes', data: { id: this.id, parent:this.parent,label: "RDS: "+this.id}, classes: 'RDS stopped'}
     }
   }
 

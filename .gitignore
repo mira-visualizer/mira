@@ -3,3 +3,12 @@ node_modules/
 
 # Dist folder
 dist/
+
+# Any . files
+.*
+
+#my mira app
+my-mira-app
+
+#release builds
+release-builds/

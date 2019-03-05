@@ -4,15 +4,19 @@ body{
   margin: 0px;
   font-family: $title-font;
 }
-
 #app{
   display:grid;
   grid-template: 1fr;
-  background-color:rgba(72, 100, 151, 0.863);
+  background-color: $bg-color;
 }
 #Menu{
-  background-color: rgb(255, 255, 255);
-  height: 30px;
+  // border-bottom: 1px outset $border-color;
+  // border-radius: 5px;
+  height: 40px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-between;
 }
 #mainContainer{
   display: flex;
@@ -23,21 +27,90 @@ body{
   width: calc(100vw - #{$side-bar-width});
 }
 #sidePanel{
-  padding:10px;
   width: $side-bar-width;
-  background-color: darken($bg-color,10%);
   word-wrap: break-word;
+  border-left: 1px outset $border-color;
+  border-radius: 5px;
+  margin-top:-40px;
 }
-
 #sidePanel p{
+  padding-left:10px;
   font-size: 10px;
-  color:white;
+  color: $light-font-color;
 }
-
 #refresh{
-  float: right;
+  position: relative;
+  background-color: white;
+  // margin-right: #{$side-bar-width};
+  margin-left:20px;
+  height:36px;
+  width:100px;
+  border-radius: 5px;
+}
+#loading img{
+  margin-top: 45vh;
+  margin-left: 50%;
+  margin-right: 50%;
+  margin-bottom:30%;
+}
+h1, h2, h3, h4{
+  color: $light-font-color;
+}
+.nodeInfo{
+  max-width: 100%;
+  max-height:500px;
+  overflow-y: scroll;
+}
+.react-json-view{
+  overflow-y: scroll;
+  overflow-x: scroll;
+  max-width: 100%;
+  max-height: 80vh;
+}
+#details-header{
+  text-align: center;
+  background-color: dodgerblue;
+  margin-right: 10px;
+  border: 2px solid slategrey;
+  border-radius: 4px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 20px;
+}
+#details-header h4{
+  padding: 0px;
+  margin: 0px;
+}
+#select-menu{
+  width:300px;
+}
+#welcome{
+  text-align: center;
+  padding-top: 12%;
+}
+#side-panel-welcome{
+  color: $light-font-color;
+  text-align: center;
+  margin-top: 50%;
+}
+.Collapsible{
+  background-color: $light-font-color;
 }
 
-h4{
-  color:white;
+.Collapsible__contentOuter{
+  background-color: $graph-container-bg-color;
+}
+
+.Collapsible p{
+  color: $light-font-color;
+}
+
+.Collapsible__trigger {
+  padding-left: 10px;
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+.sidebar-title{
+  font-weight:bold;
 }

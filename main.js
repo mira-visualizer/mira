@@ -1,8 +1,16 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
-const AWS = require('aws-sdk');
-const ec2 = new AWS.EC2();
 
+const fs = require('fs');
+
+
+ipcMain.on('getCredentials', (event, arg) => {
+  const homedir = require('os').homedir() +'/.aws/credentials';
+  let file = fs.readFileSync(homedir,"utf8");
+  file = file.match(/\=(.*)/g);
+  file = [file[0].slice(2),file[1].slice(2)];
+  event.returnValue = file;
+})
 
 let mainWindow;
 

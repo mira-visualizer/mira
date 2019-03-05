@@ -14,7 +14,11 @@ class EC2 {
       ]
     }
     else{
-      return {group: 'nodes', data: { id: this.id, parent:this.parent,label: "EC2-"+this.id}, classes: 'EC2'}
+      if(this.data.State.Name === "running")
+        return {group: 'nodes', data: { id: this.id, parent:this.parent,label: this.id}, classes: 'EC2 running'}
+      else
+        return {group: 'nodes', data: { id: this.id, parent:this.parent,label: "EC2: "+this.id}, classes: 'EC2 stopped'}
+
     }
   }
 

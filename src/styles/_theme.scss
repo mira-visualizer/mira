@@ -1,7 +1,21 @@
-$bg-color: rgb(72, 100, 151);
-$side-bar-width: 300px;
+/* ------ OVERALL APP ------ */
+// @font-face {
+// 	font-family: "Hack";
+// 	src: url("fonts/Hack.ttf") format("woff2"),
+//     url("fonts/Hack.woff") format("woff"),
+// }
+$font-family: "Trebuchet MS", Helvetica, sans-serif;
+$bg-color: rgb(27, 27, 27);
+$bg-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+$graph-container-bg-color: lighten($bg-color, 3%);
+$border-color: darken($bg-color, 5%);
 
-$light-font-color:rgba(238, 238, 238, 0.932);
-$title-font: "Arial", sans-serif;
+/* ------ MENU ------ */
+// background-image: 
+/* ------ SIDE PANEL ------ */
 
-$graph-container-bg-color: rgb(245, 245, 245);
+$side-bar-width: 350px;
+
+/* ------ GRAPH ------ */
+$light-font-color:rgba(235, 228, 228, 0.932);
+$title-font: $font-family;
