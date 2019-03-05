@@ -13,7 +13,7 @@ Mira accesses AWS's SDK to easily display all of the user's instances in a visua
 ## Edit security groups
 Editing security groups through AWS is unclear for many users that do not regularly use the AWS dashboard. With the navigatable UI provided by Mira, the user can click on a particular instance to get all data associated with it. In addition to viewing this data, inbound and outbound rules for security groups can be effortlessly changed and these changes will be immediately seen by the user. 
 
-## Setup :
+## Setup
 1. Set up a new IAM user on your AWS console: 
 Make sure you keep your aws_access_key_id and aws_secret_access_key by downloading the .csv file
 
