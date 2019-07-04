@@ -1,14 +1,14 @@
-// wrapper container for entire project
-
-import React, { Component } from "react";
+//wrapper container for the entire react
+import React, {Component} from "react";
 import ReactDOM from "react-dom";
 // import store from "../store";
 import MainContainer from "./mainContainer";
-import Menu from "../components/Menu.jsx";
+import Menu from "../components/Menu.jsx"
 import * as actions from "../actions/actions.js";
-import { connect } from "react-redux";
-const { ipcRenderer } = require("electron");
+import { connect } from 'react-redux';
+const {ipcRenderer} = require('electron');
 
+// mainprocess.test() // was testing for credentials
 const mapStateToProps = store => ({
   regionData: store.graph.regionData,
   activeNode: store.graph.activeNode,
@@ -19,68 +19,50 @@ const mapStateToProps = store => ({
   fetchingFlag: store.graph.fetching,
   finishedFlag: store.graph.fetched,
   publicKey: store.graph.awsPublicKey,
-  privateKey: store.graph.awsPrivateKey,
-  // create login
-  loginStatus: store.login
-});
+  privateKey: store.graph.awsPrivateKey
+})
 
-//
 const mapDispatchToProps = dispatch => ({
-  // get aws instances
-  getAWSInstances: instances => {
-    dispatch(actions.getAWSInstances(instances));
-  },
-  // when you click one of those nodes, that you want to display on the right hand
-  getNodeDetails: data => {
-    dispatch(actions.getNodeDetails(data));
-  },
-  // get all regions
-  getAllRegions: (publicKey, privateKey) => {
-    dispatch(actions.getAllRegions(publicKey, privateKey));
-  },
-  // get AWS keys
-  getAWSKeys: keys => {
-    dispatch(actions.getAWSKeys(keys));
-  }
-});
+  //get data on one single region
+    getAWSInstances: (instances) => {
+        dispatch(actions.getAWSInstances(instances));
+    },
+    //show details on specific nodes on click
+    getNodeDetails: (data) => {
+      dispatch(actions.getNodeDetails(data));
+    },
+    getAllRegions: (publicKey, privateKey) => {
+      dispatch(actions.getAllRegions(publicKey,privateKey));
+    },
+    //get credentials from folder on computer
+    getAWSKeys: (keys) => {
+      dispatch(actions.getAWSKeys(keys));
+    }
+})
 
-class App extends Component {
+class App extends Component{
+
   componentDidMount() {
-    // asynchronously; send event to main process
-    let reply = ipcRenderer.sendSync("getCredentials");
-    this.props.getAWSKeys(reply);
+    //emits event to the back-end
+    let reply = ipcRenderer.sendSync('getCredentials'); // render process sends info to electron via ipcRendered
+    this.props.getAWSKeys(reply); // getAWSkeys is takes payload from action which is login and password
+  // add login reducer just for login operations
+}
 
-    // if login
-  }
 
-  render() {
-    return (
+  render(){
+    return(
       <div id="app">
-        <Menu
-          publicKey={this.props.publicKey}
-          privateKey={this.props.privateKey}
-          getAWSInstances={this.props.getAWSInstances}
-          currentRegion={this.props.currentRegion}
-          getAllRegions={this.props.getAllRegions}
-        />
-        <MainContainer
-          getAWSInstances={this.props.getAWSInstances}
-          regionData={this.props.regionData}
-          getNodeDetails={this.props.getNodeDetails}
-          activeNode={this.props.activeNode}
-          fetchingFlag={this.props.fetchingFlag}
-          finishedFlag={this.props.finishedFlag}
-          edgeTable={this.props.edgeTable}
-        />
-        {/* 
+        <Menu publicKey={this.props.publicKey} privateKey={this.props.privateKey} getAWSInstances={this.props.getAWSInstances} currentRegion={this.props.currentRegion} getAllRegions={this.props.getAllRegions} />
+        <MainContainer getAWSInstances={this.props.getAWSInstances} regionData={this.props.regionData} 
+        getNodeDetails={this.props.getNodeDetails} activeNode={this.props.activeNode} fetchingFlag={this.props.fetchingFlag} finishedFlag={this.props.finishedFlag}
+        edgeTable= {this.props.edgeTable}/>
+{/* 
         sgRelationships={this.props.sgRelationships}
         sgNodeCorrelations={this.props.sgNodeCorrelations}/> */}
       </div>
-    );
+    )
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

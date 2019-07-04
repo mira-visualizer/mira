@@ -4,6 +4,7 @@ import Side_Panel from "../components/Side_Panel";
 
 
 class MainContainer extends Component{
+  //SIDE PANEL RENDERS CONDITIONALLY
   render() {
     return (
         <div id="mainContainer">
