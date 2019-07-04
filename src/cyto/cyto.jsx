@@ -1,11 +1,13 @@
 import React,{PureComponent} from 'react';
 import cytoscape from 'cytoscape';
 import './cyto.scss';
+// create a node for whatever we're trying to render; theyre not react just js files
 import EC2 from './EC2'
 import VPC from './VPC'
 import RDS from './RDS'
 import Region from './Region'
 import AvailabilityZone from './AvailabilityZone'
+// gives look/feel; type of graph
 import cola from 'cytoscape-cola';
 
 cytoscape.use( cola );

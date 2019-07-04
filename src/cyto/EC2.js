@@ -9,7 +9,8 @@ class EC2 {
   getEC2Object(){
     if(this.source !== null){
       return [
-        {group: 'nodes', data: { id: this.id, parent:this.parent, label: "EC2-"+this.id}, classes: 'EC2'},
+        // set of nodes and edges for cytoscape
+        { group: 'nodes', data: { id: this.id, parent:this.parent, label: "EC2-"+this.id}, classes: 'EC2'},
         { group: 'edges', data: { id: this.id+this.source, source: this.source, target: this.id}}
       ]
     }
