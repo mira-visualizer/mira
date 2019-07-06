@@ -3,6 +3,7 @@ import axios from 'axios';
 import { getAWSInstances } from '../actions/actions';
 import Select from 'react-select';
 
+
 class Menu extends Component {
   constructor(props){
     super(props)

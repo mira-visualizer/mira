@@ -6,7 +6,6 @@ import MainContainer from "./mainContainer";
 import Menu from "../components/Menu.jsx"
 import * as actions from "../actions/actions.js";
 import { connect } from 'react-redux';
-const {ipcRenderer} = require('electron');
 
 // mainprocess.test() // was testing for credentials
 const mapStateToProps = store => ({
@@ -42,19 +41,11 @@ const mapDispatchToProps = dispatch => ({
 
 class App extends Component{
 
-  componentDidMount() {
-    //emits event to the back-end
-    let reply = ipcRenderer.sendSync('getCredentials'); // render process sends info to electron via ipcRendered
-    this.props.getAWSKeys(reply); // getAWSkeys is takes payload from action which is login and password
-  // add login reducer just for login operations
-}
-
-
   render(){
     return(
       <div id="app">
         <Menu publicKey={this.props.publicKey} privateKey={this.props.privateKey} getAWSInstances={this.props.getAWSInstances} currentRegion={this.props.currentRegion} getAllRegions={this.props.getAllRegions} />
-        <MainContainer getAWSInstances={this.props.getAWSInstances} regionData={this.props.regionData} 
+        <MainContainer getAWSKeys={this.props.getAWSKeys} getAWSInstances={this.props.getAWSInstances} regionData={this.props.regionData} 
         getNodeDetails={this.props.getNodeDetails} activeNode={this.props.activeNode} fetchingFlag={this.props.fetchingFlag} finishedFlag={this.props.finishedFlag}
         edgeTable= {this.props.edgeTable}/>
 {/* 
