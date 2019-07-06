@@ -216,14 +216,8 @@
       type: actionTypes.NODE_DETAILS,
       payload: data,
     });
-  };
-};
 
-// takes in an ID from cyto and dispatches the active id to the reducer to save in state
-export const getNodeDetails = data => ({
-  type: actionTypes.NODE_DETAILS,
-  payload: data,
-});
+
 
 export const getAllRegions = (publicKey, privateKey) => {
   return(dispatch) => {
@@ -405,21 +399,24 @@ export const getAllRegions = (publicKey, privateKey) => {
               } 
                }
              }
-            fragment DescribeInstanceData on AwsEC2DescribeInstancesOutput {
-            
-                Reservations {
-                  Instances {
-                    VpcId
-                    Placement {
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                    }
+             fragment DescribeInstanceData on AwsEC2DescribeInstancesOutput {
+
+              Reservations {
+                Instances {
+                  VpcId
+                  Placement {
+                    AvailabilityZone
                   }
-                }            
-            }  
+                  State {
+                    Name
+                  }
+                  InstanceId
+                  SecurityGroups {
+                    GroupId
+                  }
+                }
+              }            
+          }  
             
             
             fragment DbInstanceData on AwsRDSDescribeDBInstancesOutput {
