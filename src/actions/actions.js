@@ -216,677 +216,279 @@
       type: actionTypes.NODE_DETAILS,
       payload: data,
     });
-    
-    export const getAllRegions = (publicKey, privateKey) => {
-      return(dispatch) => {
-        dispatch(getAWSInstancesStart());
-        axios({
-          method: 'post',
-          url: 'https://graphql-compose.herokuapp.com/aws/',
-          data: {
-            query: `
-            query {
-              aws(config: {
-                accessKeyId: "${publicKey}",
-                secretAccessKey: "${privateKey}"
+  };
+};
+
+// takes in an ID from cyto and dispatches the active id to the reducer to save in state
+export const getNodeDetails = data => ({
+  type: actionTypes.NODE_DETAILS,
+  payload: data,
+});
+
+export const getAllRegions = (publicKey, privateKey) => {
+  return(dispatch) => {
+    dispatch(getAWSInstancesStart());
+    axios({
+      method: 'post',
+      url: 'https://graphql-compose.herokuapp.com/aws/',
+      data: {
+        query: `
+        query {
+          aws(config: {
+            accessKeyId: "${publicKey}",
+            secretAccessKey: "${privateKey}"
+          }) {
+            ec2{
+              us_east_2_ec2: describeInstances(config:{
+                region: "us-east-2"
               }) {
-                us_east_2_ec2: ec2(config:{
-                  region: "us-east-2"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                us_east_1_ec2: ec2(config:{
-                  region: "us-east-1"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                } 
-                us_west_1_ec2: ec2(config:{
-                  region: "us-west-1"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                us_west_2_ec2: ec2(config:{
-                  region: "us-west-2"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                ap_south_1_ec2: ec2(config:{
-                  region: "ap-south-1"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                ap_northeast_2_ec2: ec2(config:{
-                  region: "ap-northeast-2"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                ap_southeast_1_ec2: ec2(config:{
-                  region: "ap-southeast-1"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                ap_southeast_2_ec2: ec2(config:{
-                  region: "ap-southeast-2"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                ap_northeast_1_ec2: ec2(config:{
-                  region: "ap-northeast-1"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                ca_central_1_ec2: ec2(config:{
-                  region: "ca-central-1"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                eu_central_1_ec2: ec2(config:{
-                  region: "eu-central-1"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                eu_west_1_ec2: ec2(config:{
-                  region: "eu-west-1"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                eu_west_2_ec2: ec2(config:{
-                  region: "eu-west-2"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                eu_west_3_ec2: ec2(config:{
-                  region: "eu-west-3"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                eu_north_1_ec2: ec2(config:{
-                  region: "eu-north-1"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                sa_east_1_ec2: ec2(config:{
-                  region: "sa-east-1"
-                }) {
-                  describeInstances {
-                    Reservations {
-                      Instances {
-                        VpcId
-                        Placement {
-                          AvailabilityZone
-                        }
-                        State {
-                          Name
-                        }
-                        InstanceId
-                        SecurityGroups {
-                          GroupId
-                        }
-                      }
-                    }
-                  }
-                }
-                
-                
-                
-                
-                us_east_2_rds: rds(config:{
-                  region: "us-east-2"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBInstanceStatus
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                    }
-                  }
-                }
-                us_east_1_rds: rds(config:{
-                  region: "us-east-1"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBInstanceStatus
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                    }
-                  }
-                }
-                us_west_1_rds: rds(config:{
-                  region: "us-west-1"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBInstanceStatus
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                    }
-                  }
-                }
-                us_west_2_rds: rds(config:{
-                  region: "us-west-2"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
-                ap_south_1_rds: rds(config:{
-                  region: "ap-south-1"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
-                ap_northeast_2_rds: rds(config:{
-                  region: "ap-northeast-2"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
-                ap_southeast_1_rds: rds(config:{
-                  region: "ap-southeast-1"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
-                ap_southeast_2_rds: rds(config:{
-                  region: "ap-southeast-2"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
-                ap_northeast_1_rds: rds(config:{
-                  region: "ap-northeast-1"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
-                ca_central_1_rds: rds(config:{
-                  region: "ca-central-1"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
-                eu_central_1_rds: rds(config:{
-                  region: "eu-central-1"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
-                eu_west_1_rds: rds(config:{
-                  region: "eu-west-1"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
-                eu_west_2_rds: rds(config:{
-                  region: "eu-west-2"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
-                eu_west_3_rds: rds(config:{
-                  region: "eu-west-3"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
-                eu_north_1_rds: rds(config:{
-                  region: "eu-north-1"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
-                sa_east_1_rds: rds(config:{
-                  region: "sa-east-1"
-                }) {
-                  describeDBInstances {
-                    DBInstances {
-                      DBSubnetGroup {
-                        VpcId
-                      }
-                      AvailabilityZone
-                      DbiResourceId
-                      VpcSecurityGroups {
-                        VpcSecurityGroupId
-                      }
-                      DBInstanceStatus
-                    }
-                  }
-                }
+                ...DescribeInstanceData
+              }
+              us_east_1_ec2:  describeInstances(config:{
+                region: "us-east-1"
+              }) {
+                ...DescribeInstanceData
+              } 
+              us_west_1_ec2:  describeInstances(config:{
+                region: "us-west-1"
+              }) {
+                ...DescribeInstanceData
+              }
+              us_west_2_ec2:  describeInstances(config:{
+                region: "us-west-2"
+              }) {
+                ...DescribeInstanceData
+              }
+              ap_south_1_ec2:  describeInstances(config:{
+                region: "ap-south-1"
+              }) {
+                ...DescribeInstanceData
+              }
+              ap_northeast_2_ec2:  describeInstances(config:{
+                region: "ap-northeast-2"
+              }) {
+                ...DescribeInstanceData
+              }
+              ap_southeast_1_ec2:  describeInstances(config:{
+                region: "ap-southeast-1"
+              }) {
+                ...DescribeInstanceData
+              }
+              ap_southeast_2_ec2:  describeInstances(config:{
+                region: "ap-southeast-2"
+              }) {
+                ...DescribeInstanceData
+              }
+              ap_northeast_1_ec2:  describeInstances(config:{
+                region: "ap-northeast-1"
+              }) {
+                ...DescribeInstanceData
+              }
+              ca_central_1_ec2:  describeInstances(config:{
+                region: "ca-central-1"
+              }) {
+                ...DescribeInstanceData
+              }
+              eu_central_1_ec2:  describeInstances(config:{
+                region: "eu-central-1"
+              }) {
+                ...DescribeInstanceData
+              }
+              eu_west_1_ec2:  describeInstances(config:{
+                region: "eu-west-1"
+              }) {
+                ...DescribeInstanceData
+              }
+              eu_west_2_ec2:  describeInstances(config:{
+                region: "eu-west-2"
+              }) {
+                ...DescribeInstanceData
+              }
+              eu_west_3_ec2: describeInstances(config:{
+                region: "eu-west-3"
+              }) {
+                ...DescribeInstanceData
+              }
+              eu_north_1_ec2:  describeInstances(config:{
+                region: "eu-north-1"
+              }) {
+                ...DescribeInstanceData
+              }
+              sa_east_1_ec2:  describeInstances(config:{
+                region: "sa-east-1"
+              }) {
+                ...DescribeInstanceData
               }
             }
-            `
-          }
-        }).then((result) => {
-          console.log('This is the result: ', result);
-          const aws = result.data.data.aws;
-          let graphData = new compileGraphData();
-          let allRegionsPromisesArray = []
-          for (let regions in aws) {
-            const regionArray = regions.split("_")
-            const regionString = regionArray[0] + "-" + regionArray[1] + "-" + regionArray[2];
-            if (regionArray[3] === "ec2") {
-              allRegionsPromisesArray.push(new Promise( (resolve, reject )=> {
-                graphData.compileEC2Data(aws[regions].describeInstances, regionString)
-                resolve();
-              }));
-              
+            rds {
+            
+                us_east_2_rds: describeDBInstances(config:{
+                  region: "us-east-2"
+                }) {
+                  ...DbInstanceData
+                }
+                us_east_1_rds: describeDBInstances(config:{
+                  region: "us-east-1"
+                }) {
+                  ...DbInstanceData                  
+                }
+                us_west_1_rds: describeDBInstances(config:{
+                  region: "us-west-1"
+                }) {
+                  ...DbInstanceData
+                }
+                us_west_2_rds: describeDBInstances(config:{
+                  region: "us-west-2"
+                }) {
+                 ...DbInstanceData
+                }
+                ap_south_1_rds: describeDBInstances(config:{
+                  region: "ap-south-1"
+                }) {
+                 ...DbInstanceData
+                }
+                ap_northeast_2_rds: describeDBInstances(config:{
+                  region: "ap-northeast-2"
+                }) {
+                 ...DbInstanceData
+                }
+                ap_southeast_1_rds: describeDBInstances(config:{
+                  region: "ap-southeast-1"
+                }) {
+                  ...DbInstanceData
+                }
+                ap_southeast_2_rds: describeDBInstances(config:{
+                  region: "ap-southeast-2"
+                }) {
+                 ...DbInstanceData
+                }
+                ap_northeast_1_rds: describeDBInstances(config:{
+                  region: "ap-northeast-1"
+                }) {
+                 ...DbInstanceData
+                }
+                ca_central_1_rds: describeDBInstances(config:{
+                  region: "ca-central-1"
+                }) {
+                 ...DbInstanceData
+                }
+                eu_central_1_rds: describeDBInstances(config:{
+                  region: "eu-central-1"
+                }) {
+               ...DbInstanceData
+                }
+                eu_west_1_rds: describeDBInstances(config:{
+                  region: "eu-west-1"
+                }) {
+                  ...DbInstanceData
+                }
+                eu_west_2_rds: describeDBInstances(config:{
+                  region: "eu-west-2"
+                }) {
+                 ...DbInstanceData
+                }
+                eu_west_3_rds: describeDBInstances(config:{
+                  region: "eu-west-3"
+                }) {
+                ...DbInstanceData
+                }
+                eu_north_1_rds: describeDBInstances(config:{
+                  region: "eu-north-1"
+                }) {
+                ...DbInstanceData
+                }
+                sa_east_1_rds: describeDBInstances(config:{
+                  region: "sa-east-1"
+                }) {
+                ...DbInstanceData
+                }
+              } 
+               }
+             }
+            fragment DescribeInstanceData on AwsEC2DescribeInstancesOutput {
+            
+                Reservations {
+                  Instances {
+                    VpcId
+                    Placement {
+                      AvailabilityZone
+                      DbiResourceId
+                      VpcSecurityGroups {
+                        VpcSecurityGroupId
+                      }
+                    }
+                  }
+                }            
+            }  
+            
+            
+            fragment DbInstanceData on AwsRDSDescribeDBInstancesOutput {
+              DBInstances {
+                DBSubnetGroup{
+                  VpcId
+                }
+                AvailabilityZone
+                DbiResourceId
+                VpcSecurityGroups {
+                  VpcSecurityGroupId
+                }
+                DBInstanceStatus
+              }
             }
-            else if( regionArray[3] === "rds"){
-              allRegionsPromisesArray.push(new Promise( (resolve, reject )=> {
-                graphData.compileRDSData(aws[regions].describeDBInstances, regionString)
-                resolve();
-              }));
-    
-            }
-          }
-          Promise.all(allRegionsPromisesArray).then( () => {
-            console.log(allRegionsPromisesArray);
-            // graphData.createEdges();
-    
-            // const edgeTable = graphData.getEdgesData();
-            const edgeTable = [];
-          console.log('Heres the graph data for regions: ', edgeTable);
-          const regionState = graphData.getRegionData();
-          dispatch(getAWSInstancesFinished());
-          dispatch({
-            type: actionTypes.GET_AWS_INSTANCES,
-            payload: {
-              regionState,
-              edgeTable,
-              currentRegion: 'all',
-            },
-          });
-          })
-        })
+          
+        
+        `
       }
-    }
+    }).then((result) => {
+      console.log('This is the result: ', result);
+      const aws = result.data.data.aws;
+      let graphData = new compileGraphData();
+      let allRegionsPromisesArray = []
+      // split the objects into two new constants
+      // this is great because we can essentially expand on the many different this that we can model using the cyto library
+      const awsEC2 = aws.ec2;
+      const awsRDS = aws.rds;
+      
+      // recreated this with two for loops, since we have two new objects
+      for (let regions in awsEC2) {
+        const regionArray = regions.split("_")
+        const regionString = regionArray[0] + "-" + regionArray[1] + "-" + regionArray[2];
+        // inside this Promise maker, changed the obj(awsEC2), and removed the method it's looking for (.describeInstances)
+        // this is because I restructored the object we received, you don't need to look for the describeInstance, awsECs[regions] is the describeInstance
+          allRegionsPromisesArray.push(new Promise( (resolve, reject )=> {
+            graphData.compileEC2Data(awsEC2[regions], regionString)
+            resolve();
+          }));  
+      }  
+
+      for (let regions in awsRDS) {
+        const regionArray = regions.split("_")
+        const regionString = regionArray[0] + "-" + regionArray[1] + "-" + regionArray[2]; 
+
+        // ********ditto from line 441 
+        allRegionsPromisesArray.push(new Promise( (resolve, reject )=> {
+          graphData.compileRDSData(awsRDS[regions], regionString)
+          resolve();
+        }));
+      }
+      
+      Promise.all(allRegionsPromisesArray).then( () => {
+
+        // graphData.createEdges();
+        // const edgeTable = graphData.getEdgesData();
+        const edgeTable = [];
+      console.log('Heres the graph data for regions: ', edgeTable);
+      const regionState = graphData.getRegionData();
+      dispatch(getAWSInstancesFinished());
+      dispatch({
+        type: actionTypes.GET_AWS_INSTANCES,
+        payload: {
+          regionState,
+          edgeTable,
+          currentRegion: 'all',
+        },
+      });
+      })
+    })
+  }
+}
