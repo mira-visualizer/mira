@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import graphReducer from './graphReducer';
+import loginReducer from './loginReducer';
+
 
 // import all reducers here
 
