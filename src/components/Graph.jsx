@@ -21,6 +21,7 @@ class Graph extends Component{
       <div id="graphContainer">
           <div id="cytoscape">
           {fetching}
+            
             <Cyto regionData={this.props.regionData} getNodeDetails={this.props.getNodeDetails} fetchingFlag={this.props.fetchingFlag}
             edgeTable = {this.props.edgeTable} />
           </div>

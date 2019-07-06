@@ -1,3 +1,4 @@
+//wrapper container for the entire react
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
 // import store from "../store";
@@ -7,6 +8,7 @@ import * as actions from "../actions/actions.js";
 import { connect } from 'react-redux';
 const {ipcRenderer} = require('electron');
 
+// mainprocess.test() // was testing for credentials
 const mapStateToProps = store => ({
   regionData: store.graph.regionData,
   activeNode: store.graph.activeNode,
@@ -21,15 +23,18 @@ const mapStateToProps = store => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  //get data on one single region
     getAWSInstances: (instances) => {
         dispatch(actions.getAWSInstances(instances));
     },
+    //show details on specific nodes on click
     getNodeDetails: (data) => {
       dispatch(actions.getNodeDetails(data));
     },
     getAllRegions: (publicKey, privateKey) => {
       dispatch(actions.getAllRegions(publicKey,privateKey));
     },
+    //get credentials from folder on computer
     getAWSKeys: (keys) => {
       dispatch(actions.getAWSKeys(keys));
     }
@@ -38,9 +43,11 @@ const mapDispatchToProps = dispatch => ({
 class App extends Component{
 
   componentDidMount() {
-    let reply = ipcRenderer.sendSync('getCredentials');
-    this.props.getAWSKeys(reply);
-  }
+    //emits event to the back-end
+    let reply = ipcRenderer.sendSync('getCredentials'); // render process sends info to electron via ipcRendered
+    this.props.getAWSKeys(reply); // getAWSkeys is takes payload from action which is login and password
+  // add login reducer just for login operations
+}
 
 
   render(){

@@ -57,6 +57,7 @@ class Menu extends Component {
     };
     return (
       <div id="Menu">
+        {/* select component for html in react jsx */}
         <Select
           id='select-menu' 
           value={this.state.selectedOption}
