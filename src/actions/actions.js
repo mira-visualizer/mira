@@ -7,6 +7,16 @@
     const AWS = require('aws-sdk');
     
     const params = {};
+
+    export const logIn = (keys) => ({
+      type: actionTypes.LOG_IN,
+      payload: keys
+    })
+
+    export const logOut = (resp) => ({
+      type: actionTypes.LOG_OUT,
+      payload: resp
+    })
     
     export const getAWSKeys = (keys) => ({
       type: actionTypes.GET_AWS_KEYS,

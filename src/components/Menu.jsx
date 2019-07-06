@@ -65,6 +65,7 @@ class Menu extends Component {
           options={options}
           />
        <button id="refresh" onClick={refresh}>Refresh</button>
+       <button id="logout" >Log Out</button>
       </div>
     );
   }

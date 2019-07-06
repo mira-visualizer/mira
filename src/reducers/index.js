@@ -6,6 +6,7 @@ import graphReducer from './graphReducer';
 // combine reducers
 const reducers = combineReducers({
   graph: graphReducer,
+  login: loginReducer
   // fill in more later if we have more reducers
 });
 

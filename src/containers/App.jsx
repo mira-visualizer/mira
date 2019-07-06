@@ -18,8 +18,8 @@ const mapStateToProps = store => ({
   // sgRelationships: store.graph.sgRelationships,
   fetchingFlag: store.graph.fetching,
   finishedFlag: store.graph.fetched,
-  publicKey: store.graph.awsPublicKey,
-  privateKey: store.graph.awsPrivateKey
+  publicKey: store.login.awsPublicKey,
+  privateKey: store.login.awsPrivateKey
 })
 
 const mapDispatchToProps = dispatch => ({
