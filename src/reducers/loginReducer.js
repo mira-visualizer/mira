@@ -1,7 +1,7 @@
 import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
-    login: false,
+    loginKey: false,
     awsPublicKey: '',
     awsPrivateKey: '',
 }
@@ -21,14 +21,13 @@ const loginReducer = (state = initialState, action) => {
         case actionTypes.LOG_IN: {
             return {
                 ...state,
-                login: true,
-                awsPublicKey: action.payload[0],
-                awsPrivateKey: action.payload[1]
+                login: true
             }
         }
         case actionTypes.LOG_OUT: {
             return {
-
+                ...state,
+                loginKey : false,
             }
         }
         default: return state;

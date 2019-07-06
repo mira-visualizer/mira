@@ -8,14 +8,13 @@
     
     const params = {};
 
-    export const logIn = (keys) => ({
+    export const logIn = (resp) => ({
       type: actionTypes.LOG_IN,
-      payload: keys
+      payload: resp
     })
 
     export const logOut = (resp) => ({
       type: actionTypes.LOG_OUT,
-      payload: resp
     })
     
     export const getAWSKeys = (keys) => ({

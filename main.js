@@ -1,10 +1,12 @@
 //this file is the main process (everything that deals with node) of electron
-const { app, BrowserWindow, ipcMain} = require('electron');
+const { app, BrowserWindow, ipcMain, dialog} = require('electron');
 const path = require('path');
-
 const fs = require('fs');
 
-// Login part
+ //Install with npm install rimraf, or just drop rimraf.js somewhere.
+const rimraf = require("rimraf");
+
+// Get credentials
 ipcMain.on('getCredentials', (event, arg) => {
   //finds the folder with the credentials currently hardcoded.
   const homedir = require('os').homedir() +'/.aws/credentials';
@@ -12,6 +14,23 @@ ipcMain.on('getCredentials', (event, arg) => {
   file = file.match(/\=(.*)/g);
   file = [file[0].slice(2),file[1].slice(2)];
   event.returnValue = file;
+})
+
+//login
+ipcMain.on('logIn', (event, arg) => {
+  //create folder in root
+  const homedir = require('os').homedir();
+  if (!fs.existsSync(homedir + '/.aws')) fs.mkdir(homedir + '/.aws');
+  let content = `[default] 
+  aws_access_key_id = ${arg[0]} 
+  aws_secret_access_key = ${arg[1]}`;
+  fs.writeFile(homedir + '/.aws/credentials',content);
+})
+
+// logout-Delete credentials file and folder
+ipcMain.on('logOut', (event, arg ) => {
+  const homedir = require('os').homedir() + '/.aws/credentials';
+  rimraf.sync(homedir);
 })
 
 // main process for activate electron app
@@ -47,3 +66,4 @@ app.on('activate', () => {
     initializeWindow();
   }
 });
+

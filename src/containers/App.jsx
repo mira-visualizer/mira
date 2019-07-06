@@ -18,7 +18,8 @@ const mapStateToProps = store => ({
   fetchingFlag: store.graph.fetching,
   finishedFlag: store.graph.fetched,
   publicKey: store.login.awsPublicKey,
-  privateKey: store.login.awsPrivateKey
+  privateKey: store.login.awsPrivateKey,
+  loginKey: store.login.loginKey
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -30,27 +31,31 @@ const mapDispatchToProps = dispatch => ({
     getNodeDetails: (data) => {
       dispatch(actions.getNodeDetails(data));
     },
+
     getAllRegions: (publicKey, privateKey) => {
       dispatch(actions.getAllRegions(publicKey,privateKey));
     },
     //get credentials from folder on computer
     getAWSKeys: (keys) => {
       dispatch(actions.getAWSKeys(keys));
+    },
+    //login state 
+    logIn: () => {
+      dispatch(actions.logIn());
     }
 })
 
 class App extends Component{
 
   render(){
+    let display = [];
+    display.push(<Menu publicKey={this.props.publicKey} privateKey={this.props.privateKey} getAWSInstances={this.props.getAWSInstances} currentRegion={this.props.currentRegion} getAllRegions={this.props.getAllRegions} />);
+    display.push(<MainContainer getAWSKeys={this.props.getAWSKeys} getAWSInstances={this.props.getAWSInstances} regionData={this.props.regionData} 
+      getNodeDetails={this.props.getNodeDetails} activeNode={this.props.activeNode} fetchingFlag={this.props.fetchingFlag} finishedFlag={this.props.finishedFlag}
+      edgeTable= {this.props.edgeTable}/>);
     return(
       <div id="app">
-        <Menu publicKey={this.props.publicKey} privateKey={this.props.privateKey} getAWSInstances={this.props.getAWSInstances} currentRegion={this.props.currentRegion} getAllRegions={this.props.getAllRegions} />
-        <MainContainer getAWSKeys={this.props.getAWSKeys} getAWSInstances={this.props.getAWSInstances} regionData={this.props.regionData} 
-        getNodeDetails={this.props.getNodeDetails} activeNode={this.props.activeNode} fetchingFlag={this.props.fetchingFlag} finishedFlag={this.props.finishedFlag}
-        edgeTable= {this.props.edgeTable}/>
-{/* 
-        sgRelationships={this.props.sgRelationships}
-        sgNodeCorrelations={this.props.sgNodeCorrelations}/> */}
+        {loginKey ? <Login logIn={this.props.logIn}/> : {display}}
       </div>
     )
   }

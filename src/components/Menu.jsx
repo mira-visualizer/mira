@@ -3,6 +3,10 @@ import axios from 'axios';
 import { getAWSInstances } from '../actions/actions';
 import Select from 'react-select';
 
+const mapDispatchToProps = dispatch => ({
+  logOut: () => { dispatch(actions.logOut())
+  }
+}) 
 
 class Menu extends Component {
   constructor(props){
@@ -56,6 +60,15 @@ class Menu extends Component {
         else this.props.getAWSInstances(this.props.currentRegion);
       }
     };
+     // Log out--  notifies main.js about change and changes action 
+    const handleLogOut = () => {
+       //emits event to the back-end
+       let reply = ipcRenderer.sendSync('logOut'); // render process sends info to electron via ipcRendered
+       this.props.getAWSKeys(reply); // getAWSkeys is takes payload from action which is login and password
+        // add login reducer just for login operations
+        this.props.logOut()
+    }
+
     return (
       <div id="Menu">
         {/* select component for html in react jsx */}
@@ -66,10 +79,11 @@ class Menu extends Component {
           options={options}
           />
        <button id="refresh" onClick={refresh}>Refresh</button>
-       <button id="logout">Log Out</button>
+       <button id="logOut" onClick={handleLogOut}>Log Out</button>
       </div>
     );
   }
 }
 
-export default Menu;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
