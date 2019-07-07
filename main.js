@@ -1,5 +1,5 @@
 //this file is the main process (everything that deals with node) of electron
-const { app, BrowserWindow, ipcMain, dialog} = require('electron');
+const { app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -19,17 +19,18 @@ ipcMain.on('getCredentials', (event, arg) => {
 //login
 ipcMain.on('logIn', (event, arg) => {
   //create folder in root
+  console.log(arg);
   const homedir = require('os').homedir();
-  if (!fs.existsSync(homedir + '/.aws')) fs.mkdir(homedir + '/.aws');
+  if (!fs.existsSync(homedir + '/.aws')) fs.mkdirSync(homedir + '/.aws');
   let content = `[default] 
   aws_access_key_id = ${arg[0]} 
   aws_secret_access_key = ${arg[1]}`;
-  fs.writeFile(homedir + '/.aws/credentials',content);
+  fs.writeFileSync(homedir + '/.aws/credentials',content);
 })
 
 // logout-Delete credentials file and folder
 ipcMain.on('logOut', (event, arg ) => {
-  const homedir = require('os').homedir() + '/.aws/credentials';
+  const homedir = require('os').homedir() + '/.aws';
   rimraf.sync(homedir);
 })
 

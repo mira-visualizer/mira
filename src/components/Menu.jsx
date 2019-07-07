@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { getAWSInstances } from '../actions/actions';
 import Select from 'react-select';
+import { connect } from 'react-redux';
+const {ipcRenderer} = require('electron');
+
 
 const mapDispatchToProps = dispatch => ({
   logOut: () => { dispatch(actions.logOut())
@@ -86,4 +89,4 @@ class Menu extends Component {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Menu);
+export default connect(mapDispatchToProps)(Menu);

@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 // import store from "../store";
 import MainContainer from "./mainContainer";
 import Menu from "../components/Menu.jsx"
+import Login from "../components/Login.jsx"
 import * as actions from "../actions/actions.js";
 import { connect } from 'react-redux';
 
@@ -55,7 +56,7 @@ class App extends Component{
       edgeTable= {this.props.edgeTable}/>);
     return(
       <div id="app">
-        {loginKey ? <Login logIn={this.props.logIn}/> : {display}}
+        {this.props.loginKey ? display : <Login loginKey={this.props.loginKey} logIn={this.props.logIn}/> }
       </div>
     )
   }

@@ -3,7 +3,6 @@ import Graph from "../components/Graph";
 import Side_Panel from "../components/Side_Panel";
 const {ipcRenderer} = require('electron');
 
-
 class MainContainer extends Component{
   //SIDE PANEL RENDERS CONDITIONALLY
   componentDidMount() {

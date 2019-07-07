@@ -21,7 +21,7 @@ const loginReducer = (state = initialState, action) => {
         case actionTypes.LOG_IN: {
             return {
                 ...state,
-                login: true
+                loginKey: true
             }
         }
         case actionTypes.LOG_OUT: {

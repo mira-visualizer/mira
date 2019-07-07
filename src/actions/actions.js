@@ -8,9 +8,8 @@
     
     const params = {};
 
-    export const logIn = (resp) => ({
+    export const logIn = () => ({
       type: actionTypes.LOG_IN,
-      payload: resp
     })
 
     export const logOut = (resp) => ({
