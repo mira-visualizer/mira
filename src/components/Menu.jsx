@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { getAWSInstances } from '../actions/actions';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 const {ipcRenderer} = require('electron');
 import * as actions from "../actions/actions.js";
 
 const mapDispatchToProps = dispatch => ({
-  logOut: () => { dispatch(actions.logOut())
+  logOut: () => {
+     dispatch(actions.logOut())
   }
 }) 
 
@@ -67,7 +66,7 @@ class Menu extends Component {
     const handleLogOut = () => {
        //emits event to the back-end
        ipcRenderer.sendSync('logOut'); // render process sends info to electron via ipcRendered
-        this.props.logOut()
+       this.props.logOut()
     }
 
     return (
@@ -87,4 +86,4 @@ class Menu extends Component {
 }
 
 
-export default connect(mapDispatchToProps)(Menu);
+export default connect(null,mapDispatchToProps)(Menu);

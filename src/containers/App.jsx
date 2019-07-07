@@ -1,6 +1,5 @@
 //wrapper container for the entire react
 import React, {Component} from "react";
-import ReactDOM from "react-dom";
 // import store from "../store";
 import MainContainer from "./mainContainer";
 import Menu from "../components/Menu.jsx"
