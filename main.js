@@ -25,7 +25,7 @@ ipcMain.on('logIn', (event, arg) => {
   if (!fs.existsSync(homedir + '/.aws')) fs.mkdirSync(homedir + '/.aws');
   //prepare content with keys
   let content = `[default] 
-  aws_access_key_id = ${arg[0]} 
+  aws_access_key_id = ${arg[0]}
   aws_secret_access_key = ${arg[1]}`;
   // create and write on credentials file
   fs.writeFileSync(homedir + '/.aws/credentials',content);
