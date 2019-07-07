@@ -12,7 +12,7 @@
       type: actionTypes.LOG_IN,
     })
 
-    export const logOut = (resp) => ({
+    export const logOut = () => ({
       type: actionTypes.LOG_OUT,
     })
     

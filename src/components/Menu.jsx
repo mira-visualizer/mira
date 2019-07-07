@@ -4,7 +4,7 @@ import { getAWSInstances } from '../actions/actions';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 const {ipcRenderer} = require('electron');
-
+import * as actions from "../actions/actions.js";
 
 const mapDispatchToProps = dispatch => ({
   logOut: () => { dispatch(actions.logOut())
@@ -66,9 +66,7 @@ class Menu extends Component {
      // Log out--  notifies main.js about change and changes action 
     const handleLogOut = () => {
        //emits event to the back-end
-       let reply = ipcRenderer.sendSync('logOut'); // render process sends info to electron via ipcRendered
-       this.props.getAWSKeys(reply); // getAWSkeys is takes payload from action which is login and password
-        // add login reducer just for login operations
+       ipcRenderer.sendSync('logOut'); // render process sends info to electron via ipcRendered
         this.props.logOut()
     }
 

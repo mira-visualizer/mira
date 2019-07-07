@@ -19,19 +19,24 @@ ipcMain.on('getCredentials', (event, arg) => {
 //login
 ipcMain.on('logIn', (event, arg) => {
   //create folder in root
-  console.log(arg);
+  //finds root directory
   const homedir = require('os').homedir();
+  //creates .aws folder
   if (!fs.existsSync(homedir + '/.aws')) fs.mkdirSync(homedir + '/.aws');
+  //prepare content with keys
   let content = `[default] 
   aws_access_key_id = ${arg[0]} 
   aws_secret_access_key = ${arg[1]}`;
+  // create and write on credentials file
   fs.writeFileSync(homedir + '/.aws/credentials',content);
+  event.returnValue = 'done';
 })
 
 // logout-Delete credentials file and folder
 ipcMain.on('logOut', (event, arg ) => {
   const homedir = require('os').homedir() + '/.aws';
   rimraf.sync(homedir);
+  event.returnValue = 'done';
 })
 
 // main process for activate electron app

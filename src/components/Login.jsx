@@ -22,7 +22,6 @@ class Login extends Component{
     }
     handleSubmit(publicKey, secretKey){
         ipcRenderer.sendSync('logIn', [publicKey, secretKey]);
-        console.log('is it here?');
         this.props.logIn();
         return this.setState(state => ({
             publicKey:'',
