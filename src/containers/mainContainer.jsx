@@ -1,10 +1,16 @@
 import React, {Component} from 'react';
 import Graph from "../components/Graph";
 import Side_Panel from "../components/Side_Panel";
-
+const {ipcRenderer} = require('electron');
 
 class MainContainer extends Component{
   //SIDE PANEL RENDERS CONDITIONALLY
+  componentDidMount() {
+    //emits event to the back-end
+    let reply = ipcRenderer.sendSync('getCredentials'); // render process sends info to electron via ipcRendered
+    this.props.getAWSKeys(reply); // getAWSkeys is takes payload from action which is login and password
+  // add login reducer just for login operations
+}
   render() {
     return (
         <div id="mainContainer">
