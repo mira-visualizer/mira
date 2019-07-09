@@ -36,7 +36,7 @@ class compileGraphData {
     AWS.config.update({
       region,
     });
-    this.ec3  = new AWS.EC2({});
+    this.ec2  = new AWS.EC2({});
       const innerPromiseArray =[];
 
         for(let i = 0; i < data.DBInstances.length; i ++){
