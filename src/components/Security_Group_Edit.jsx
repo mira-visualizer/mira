@@ -81,9 +81,11 @@ class Security_Group_Edit extends Component{
      };
 
      if(this.checkSource(this.source.value)){
+       //checks if it is an IP address, saves it to CidrIp
        params.IpPermissions[0].IpRanges = [{CidrIp:this.source.value, Description:this.description.value}]
      }
      else{
+       //if not IP then it is a security group id (sg-fdgriwerhcwke)
         params.IpPermissions[0].UserIdGroupPairs = [{GroupId:this.source.value, Description:this.description.value}]
 
      }
@@ -129,7 +131,6 @@ class Security_Group_Edit extends Component{
   }
 
   render(){
-
   const AutofillData = [
     {
       type: 'Custom TCP Rule',
