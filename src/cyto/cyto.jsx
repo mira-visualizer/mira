@@ -1,18 +1,18 @@
-import React,{PureComponent} from 'react';
-import cytoscape from 'cytoscape';
-import './cyto.scss';
+import React, { PureComponent } from "react";
+import cytoscape from "cytoscape";
+import "./cyto.scss";
 // create a node for whatever we're trying to render; theyre not react just js files
-import EC2 from './EC2'
-import VPC from './VPC'
-import RDS from './RDS'
-import Region from './Region'
-import AvailabilityZone from './AvailabilityZone'
+import EC2 from "./EC2";
+import VPC from "./VPC";
+import RDS from "./RDS";
+import Region from "./Region";
+import AvailabilityZone from "./AvailabilityZone";
 // gives look/feel; type of graph
-import cola from 'cytoscape-cola';
+import cola from "cytoscape-cola";
 
-cytoscape.use( cola );
-class Cyto extends PureComponent{
-  constructor(props){
+cytoscape.use(cola);
+class Cyto extends PureComponent {
+  constructor(props) {
     super(props);
     this.renderElement = this.renderElement.bind(this);
     this.makeEdges = this.makeEdges.bind(this);
@@ -21,142 +21,172 @@ class Cyto extends PureComponent{
     // alternatively we could find a way to access specific data per node from state
     this.state = {
       regions: new Set(),
-      nodes:{},
+      nodes: {}
     };
   }
   // function call to render a cytoscape object (entire graph)
-  renderElement(){
+  renderElement() {
     let getNodeFunction = this.props.getNodeDetails;
     let getStateNodes = this.state.nodes;
     // creates new cytoscape object and sets format for graph
     this.cy = cytoscape({
-      container: document.getElementById('cy'),
+      container: document.getElementById("cy"),
       boxSelectionEnabled: false,
       autounselectify: true,
       // styling format for each element of the object (nodes, edges, etc.)
-      style: cytoscape.stylesheet()
-        .selector('node')
-          .css({
-            'height': 80,
-            'width': 80,
-            // 'background-fit': 'cover',
-            // 'background-color': 'white',
-            'border-color': 'white',
-            'border-width': 2,
-            'border-opacity': 0.5,
-            'text-halign': 'center',
-            'text-valign': 'top',
-            'font-size': 6,
-            'color': 'white',
-            'label': 'data(label)'
-          })
-        .selector(':parent')
-          .css({
-            'font-weight': 'bold',
-            // 'background-color': 'white',
-            'background-opacity': 0,
-            'content': 'data(label)',
-            'text-valign': 'top',
-          })
-          .selector('edge')
-          .css({
-            'curve-style': 'bezier',
-            'width': 6,
-            'target-arrow-shape': 'triangle',
-            'line-color': 'white',
-            'target-arrow-color': 'white',
-            'opacity': 0.3
-          })
-          .selector('.EC2')
-          .css({
-            'background-image': 'https://cdn.freebiesupply.com/logos/large/2x/aws-ec2-logo-png-transparent.png',
-            'background-width-relative-to': 'inner',
-            'background-height-relative-to': 'inner',
-            'background-width': '50px',
-            'text-valign': 'bottom',
-            'background-opacity': 0,
-            'text-margin-y':5,
-            'background-height': '50px'
-          })
-          .selector('.RDS')
-          .css({
-            'background-opacity': 0,
-            'background-image': 'https://cloudmonix.com/wp-content/uploads/2018/03/AWS_Simple_Icons_Database_AmazonRDS.svg_-20160325070440.png',
-            'background-width-relative-to': 'inner',
-            'background-height-relative-to': 'inner',
-            'text-valign': 'bottom',
-            'background-width': '50px',
-            'text-margin-y':5,
-            'background-height': '50px'
-          })
-          .selector('.stopped')
-          .css({
-            'border-color': '#f77171',
-          })
-          .selector('.running')
-          .css({
-            'border-color': '#8bf771',
-          })
-          .selector('.Region')
-          .css({
-            'border-style': 'dotted'
-          })
-
-        });
-        /**
-         *  VPCs just pass in the id
-         *  Availability Zone pass in the ID and the VPC's ID
-         *  EC2( data, parent, source)
-         *  S3 ( data, parent, source )
-         */
-         //check to see if you can access parent of the current node to pass into function
-      this.cy.on('tap', 'node', function (evt){
-        getNodeFunction(getStateNodes[this.id()] );
-      })
+      style: cytoscape
+        .stylesheet()
+        .selector("node")
+        .css({
+          height: 80,
+          width: 80,
+          // 'background-fit': 'cover',
+          // 'background-color': 'white',
+          "border-color": "white",
+          "border-width": 2,
+          "border-opacity": 0.5,
+          "text-halign": "center",
+          "text-valign": "top",
+          "font-size": 6,
+          color: "white",
+          label: "data(label)"
+        })
+        .selector(":parent")
+        .css({
+          "font-weight": "bold",
+          // 'background-color': 'white',
+          "background-opacity": 0,
+          content: "data(label)",
+          "text-valign": "top"
+        })
+        .selector("edge")
+        .css({
+          "curve-style": "bezier",
+          width: 6,
+          "target-arrow-shape": "triangle",
+          "line-color": "white",
+          "target-arrow-color": "white",
+          opacity: 0.3
+        })
+        .selector(".EC2")
+        .css({
+          "background-image":
+            "https://cdn.freebiesupply.com/logos/large/2x/aws-ec2-logo-png-transparent.png",
+          "background-width-relative-to": "inner",
+          "background-height-relative-to": "inner",
+          "background-width": "50px",
+          "text-valign": "bottom",
+          "background-opacity": 0,
+          "text-margin-y": 5,
+          "background-height": "50px"
+        })
+        .selector(".RDS")
+        .css({
+          "background-opacity": 0,
+          "background-image":
+            "https://cloudmonix.com/wp-content/uploads/2018/03/AWS_Simple_Icons_Database_AmazonRDS.svg_-20160325070440.png",
+          "background-width-relative-to": "inner",
+          "background-height-relative-to": "inner",
+          "text-valign": "bottom",
+          "background-width": "50px",
+          "text-margin-y": 5,
+          "background-height": "50px"
+        })
+        .selector(".stopped")
+        .css({
+          "border-color": "#f77171"
+        })
+        .selector(".running")
+        .css({
+          "border-color": "#8bf771"
+        })
+        .selector(".Region")
+        .css({
+          "border-style": "dotted"
+        })
+    });
+    console.log("SIGH", cy);
+    /**
+     *  VPCs just pass in the id
+     *  Availability Zone pass in the ID and the VPC's ID
+     *  EC2( data, parent, source)
+     *  S3 ( data, parent, source )
+     */
+    //check to see if you can access parent of the current node to pass into function
+    this.cy.on("tap", "node", function(evt) {
+      getNodeFunction(getStateNodes[this.id()]);
+    });
   }
-      // invokes the function to create object
-  componentDidMount(){
+  // invokes the function to create object
+  componentDidMount() {
     this.renderElement();
   }
 
-  makeEdges(cy){
+  makeEdges(cy) {
     const outboundIds = Object.keys(this.props.edgeTable);
-    for(let i = 0; i < outboundIds.length; i++ ){
+    for (let i = 0; i < outboundIds.length; i++) {
       const inboundIdsSet = this.props.edgeTable[outboundIds[i]];
-      inboundIdsSet.forEach( function(val1, val2, set){
-        cy.add({ group: 'edges', data: { id: outboundIds[i]+val1, source: outboundIds[i], target: val1}});
+      inboundIdsSet.forEach(function(val1) {
+        cy.add({
+          group: "edges",
+          data: {
+            id: outboundIds[i] + val1,
+            source: outboundIds[i],
+            target: val1
+          }
+        });
       });
+      console.log("IN BOUND", inboundIdsSet);
     }
   }
-  
-  render(){
+
+  render() {
     // clears old graph when new graph is invoked
-    if(this.cy ) {
-      this.cy.$('node').remove();
+    if (this.cy) {
+      this.cy.$("node").remove();
       this.state.regions.clear();
     }
     // iterate through everything in state to gather VPC, availability zone, EC2 and RDS instances and creating nodes for each
-    for(let vpc in this.props.regionData){
-
+    for (let vpc in this.props.regionData) {
       let vpcObj = this.props.regionData[vpc];
-      if(vpcObj.hasOwnProperty("region") &&!this.state.regions.has(vpcObj.region)){
+      if (
+        vpcObj.hasOwnProperty("region") &&
+        !this.state.regions.has(vpcObj.region)
+      ) {
         this.cy.add(new Region(vpcObj.region).getRegionObject());
         this.state.regions.add(vpcObj.region);
-        
       }
-      this.cy.add(new VPC(vpc,vpcObj.region).getVPCObject());
+      this.cy.add(new VPC(vpc, vpcObj.region).getVPCObject());
 
-      for(let az in vpcObj){
-        if(az !== "region")this.cy.add(new AvailabilityZone(az,vpcObj.region+"-"+vpc).getAvailabilityZoneObject());
+      for (let az in vpcObj) {
+        if (az !== "region")
+          this.cy.add(
+            new AvailabilityZone(
+              az,
+              vpcObj.region + "-" + vpc
+            ).getAvailabilityZoneObject()
+          );
         let ec2Instances = vpcObj[az].EC2;
-        for(let ec2s in ec2Instances){
-          this.cy.add(new EC2(ec2Instances[ec2s], vpcObj.region+"-"+vpc+"-"+az, null).getEC2Object());
-          this.state.nodes[ec2s] = [ec2s,"EC2",az,vpc];
+        for (let ec2s in ec2Instances) {
+          this.cy.add(
+            new EC2(
+              ec2Instances[ec2s],
+              vpcObj.region + "-" + vpc + "-" + az,
+              null
+            ).getEC2Object()
+          );
+          this.state.nodes[ec2s] = [ec2s, "EC2", az, vpc];
         }
         let rdsInstances = vpcObj[az].RDS;
         for (let rds in rdsInstances) {
-          this.cy.add(new RDS(rdsInstances[rds], vpcObj.region+"-"+vpc+"-"+az, null).getRDSObject());
-          this.state.nodes[rds] = [rds,"RDS",az,vpc];
+          this.cy.add(
+            new RDS(
+              rdsInstances[rds],
+              vpcObj.region + "-" + vpc + "-" + az,
+              null
+            ).getRDSObject()
+          );
+          this.state.nodes[rds] = [rds, "RDS", az, vpc];
         }
         //make edges for nodes
       }
@@ -164,15 +194,21 @@ class Cyto extends PureComponent{
     this.makeEdges(this.cy);
 
     // ensures that the above collected information gets formatted in the cola layout, then run it
-    if(this.cy){
-      this.cy.layout({name: 'cola', flow: { axis: 'y', minSeparation: 40}, avoidOverlap: true}).run();
+    if (this.cy) {
+      this.cy
+        .layout({
+          name: "cola",
+          flow: { axis: "y", minSeparation: 40 },
+          avoidOverlap: true
+        })
+        .run();
     }
-    return(
-        <div className="node_selected">
-            <div id="cy"></div>
-        </div>
-    )
-  }        
-};
+    return (
+      <div className="node_selected">
+        <div id="cy" />
+      </div>
+    );
+  }
+}
 
 export default Cyto;
