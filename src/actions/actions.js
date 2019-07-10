@@ -7,6 +7,14 @@
     const AWS = require('aws-sdk');
     
     const params = {};
+
+    export const logIn = () => ({
+      type: actionTypes.LOG_IN,
+    })
+
+    export const logOut = () => ({
+      type: actionTypes.LOG_OUT,
+    })
     
     export const getAWSKeys = (keys) => ({
       type: actionTypes.GET_AWS_KEYS,
@@ -220,6 +228,8 @@
 
 
 export const getAllRegions = (publicKey, privateKey) => {
+  console.log('public', publicKey);
+  console.log('private', privateKey);
   return(dispatch) => {
     dispatch(getAWSInstancesStart());
     axios({
@@ -427,6 +437,7 @@ export const getAllRegions = (publicKey, privateKey) => {
                 AvailabilityZone
                 DbiResourceId
                 VpcSecurityGroups {
+                  Status
                   VpcSecurityGroupId
                 }
                 DBInstanceStatus
@@ -445,7 +456,7 @@ export const getAllRegions = (publicKey, privateKey) => {
       // this is great because we can essentially expand on the many different this that we can model using the cyto library
       const awsEC2 = aws.ec2;
       const awsRDS = aws.rds;
-      
+      console.log(awsEC2, awsRDS);
       // recreated this with two for loops, since we have two new objects
       for (let regions in awsEC2) {
         const regionArray = regions.split("_")

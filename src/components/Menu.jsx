@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { getAWSInstances } from '../actions/actions';
 import Select from 'react-select';
+import { connect } from 'react-redux';
+const {ipcRenderer} = require('electron');
+import * as actions from "../actions/actions.js";
+
+const mapDispatchToProps = dispatch => ({
+  logOut: () => {
+     dispatch(actions.logOut())
+  }
+}) 
 
 class Menu extends Component {
   constructor(props){
@@ -55,6 +62,13 @@ class Menu extends Component {
         else this.props.getAWSInstances(this.props.currentRegion);
       }
     };
+     // Log out--  notifies main.js about change and changes action 
+    const handleLogOut = () => {
+       //emits event to the back-end
+       ipcRenderer.sendSync('logOut'); // render process sends info to electron via ipcRendered
+       this.props.logOut()
+    }
+
     return (
       <div id="Menu">
         {/* select component for html in react jsx */}
@@ -65,9 +79,11 @@ class Menu extends Component {
           options={options}
           />
        <button id="refresh" onClick={refresh}>Refresh</button>
+       <button id="logOut" onClick={handleLogOut}>Log Out</button>
       </div>
     );
   }
 }
 
-export default Menu;
+
+export default connect(null,mapDispatchToProps)(Menu);
