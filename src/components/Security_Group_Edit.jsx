@@ -25,7 +25,7 @@ class Security_Group_Edit extends Component{
     const {sgData} = this.props;
     const groupIds = [];
     for(let i = 0; i < sgData.length; i++){
-      groupIds.push(<option id="GroupId" value={sgData[i].GroupId} ref={(input) => this.GroupId = input}>{sgData[i].GroupId}</option>);
+      groupIds.push(<input id="GroupId" defaultValue={sgData[i].GroupId} ref={(input) => this.GroupId = input}/>);
     }
     return groupIds;
   }
@@ -313,9 +313,7 @@ class Security_Group_Edit extends Component{
         <tr>
           <th>
           {/* <input id="Source" type="text" defaultValue={this.getSgTotal()} ref={(input) => this.selectInbound = input} /> */}
-            <select>
               {this.getSgTotal()}
-            </select>
           </th>
           <th><h2>{'\<-----'}</h2></th>
           <th></th>
