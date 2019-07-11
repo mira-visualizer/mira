@@ -152,18 +152,19 @@ class Security_Group_Edit extends Component{
       editSGPromisesOut()
       .then((result) => {
         this.props.onRequestClose()
-        console.log('Got the result: ' + result);
+        // console.log('Got the result: ' + result);
       })
       .catch(function(err) {
         alert(err);
       });
     }
     else {
+      // console.log('its here');
       editSGPromisesIn()
      .then(()=>{editSGPromisesOut()})
      .then( (result) => {
       this.props.onRequestClose()
-      console.log('Got the result: ' + result);
+      // console.log('Got the result: ' + result);
     })
     .catch(function(err) {
       alert(err);
