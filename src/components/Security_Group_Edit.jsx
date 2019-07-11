@@ -89,13 +89,28 @@ class Security_Group_Edit extends Component{
        }
       ]
      };
-     if(this.checkSource(this.source.value)){
-       //need to check this case of a IP!!!!!!! or anywhere, still not ready
-       //checks if it is an IP address, saves it to CidrIp
-       paramsIn.IpPermissions[0].IpRanges = [{CidrIp:this.source.value, Description:this.description.value}]
-       paramsOut.IpPermissions[0].IpRanges = [{CidrIp:this.GroupId.value, Description:this.description.value}]
 
+     if(this.checkSource(this.source.value)){
+      paramsIn.IpPermissions[0].IpRanges = [{CidrIp:this.source.value, Description:this.description.value}];
+      this.setState({
+              inbound: true,
+              outbound: false
+      })
      }
+     else if(this.checkSource(this.GroupId.value)){
+      paramsIn.IpPermissions[0].IpRanges = [{CidrIp:this.GroupId.value, Description:this.description.value}];
+      this.setState({
+              inbound: false,
+              outbound: true
+      })
+     }
+    //  if(this.checkSource(this.source.value)){
+    //    //need to check this case of a IP!!!!!!! or anywhere, still not ready
+    //    //checks if it is an IP address, saves it to CidrIp
+    //    paramsIn.IpPermissions[0].IpRanges = [{CidrIp:this.source.value, Description:this.description.value}]
+    //    paramsOut.IpPermissions[0].IpRanges = [{CidrIp:this.GroupId.value, Description:this.description.value}]
+
+    //  }
      else{
        //if not IP then it is a security group id (sg-fdgriwerhcwke)
         paramsIn.IpPermissions[0].UserIdGroupPairs = [{GroupId:this.source.value, Description:this.description.value}]
@@ -123,7 +138,28 @@ class Security_Group_Edit extends Component{
       });
     };   
 
-     editSGPromisesIn()
+    if(this.state.inbound){
+      editSGPromisesIn()
+      .then( (result) => {
+        this.props.onRequestClose()
+        console.log('Got the result: ' + result);
+      })
+      .catch(function(err) {
+        alert(err);
+      });
+    }
+    else if(this.state.outbound){
+      editSGPromisesOut()
+      .then((result) => {
+        this.props.onRequestClose()
+        console.log('Got the result: ' + result);
+      })
+      .catch(function(err) {
+        alert(err);
+      });
+    }
+    else {
+      editSGPromisesIn()
      .then(()=>{editSGPromisesOut()})
      .then( (result) => {
       this.props.onRequestClose()
@@ -132,6 +168,7 @@ class Security_Group_Edit extends Component{
     .catch(function(err) {
       alert(err);
     });
+  }
 
     //  .then(this.props.onRequestClose() , reason => {
     //    alert(reason);
