@@ -20,7 +20,7 @@
     "@babel/preset-env": "^7.3.0",
     "@babel/preset-react": "^7.0.0",
     "ajv": "^6.8.1",
-    "aws-sdk": "^2.400.0",
+    "aws-sdk": "^2.814.0",
     "axios": "^0.18.0",
     "babel-loader": "^8.0.0",
     "css-loader": "^2.1.0",
